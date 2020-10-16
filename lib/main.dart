@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:nepali_vivah/Common/Appbar.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/contactinfo.dart';
 import 'package:nepali_vivah/login_registration/lifestyle.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget{
         fontFamily: 'Philosopher',
 
       ),
-      home: ContactInfo(),
+      home: Registration(),
       debugShowCheckedModeBanner: false,
     );
   }

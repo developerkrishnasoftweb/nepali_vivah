@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/lifestyle.dart';
@@ -23,41 +24,7 @@ class _PersonalDetail extends State<PersonalDetail> {
             overflow: Overflow.visible,
             alignment: Alignment.center,
             children: <Widget>[
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  width: size.width,
-                  height: 60,
-                  color: MyColors.pinkvariaance,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          string.registrationTitleTop,
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: MyColors.whiteColor,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: size.width * 0.1),
-                        child: Text(
-                          string.registrationTitleBottom,
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: MyColors.whiteColor,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              Appbar_Top(),
               Positioned(
                 top: 60,
                 bottom: 0,

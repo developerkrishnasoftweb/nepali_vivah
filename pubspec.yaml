@@ -37,6 +37,7 @@ dev_dependencies:
   intl: ^0.16.1
   flutter_swiper:
   font_awesome_flutter: ^8.10.0
+  dio:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

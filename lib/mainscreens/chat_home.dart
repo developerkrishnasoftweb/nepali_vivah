@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/mainscreens/chat.dart';
@@ -170,47 +171,7 @@ class _ChatHome extends State<ChatHome> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Dcolor.appPrimaryColor,
-        unselectedItemColor: Dcolor.appGrayColor,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: _index,
-        onTap: (index) {
-          setState(() {
-            _index = index;
-            switch (_index) {
-              case 0:
-                Navigator.pop(context);
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
-                break;
-            }
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text("Home"),
-          ),
-        ],
-      ),
+      bottomNavigationBar: Bottom_bar()
     );
   }
 }

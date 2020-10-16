@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/mainscreens/Screen2.dart';
@@ -18,9 +19,30 @@ class _Screen1State extends State<Screen1> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          Strings.title,
-          style: TextStyle(color: MyColors.whiteColor),
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Text(
+                string.titletop,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: size.width * 0.1),
+              child: Text(
+                string.titlebottom,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          ],
         ),
         automaticallyImplyLeading: false,
         backgroundColor: MyColors.pinkvariaance,
@@ -647,45 +669,7 @@ class _Screen1State extends State<Screen1> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        selectedItemColor: MyColors.pinkvariaance,
-        unselectedItemColor: MyColors.grayText,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        onTap: (index) {
-          setState(() {
-            _index = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              title: Text("home")),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-              ),
-              title: Text("serch")),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.chat_bubble,
-              ),
-              title: Text("chat")),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.notifications,
-              ),
-              title: Text("alert")),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.menu,
-              ),
-              title: Text("Menu")),
-        ],
-      ),
+      bottomNavigationBar: Bottom_bar()
     );
   }
 }

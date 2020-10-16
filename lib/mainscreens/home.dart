@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:nepali_vivah/mainscreens/Screen1.dart';
@@ -322,54 +323,7 @@ class _Home extends State<Home>{
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: MyColors.pinkvariaance,
-        unselectedItemColor: Dcolor.appGrayColor,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: _index,
-        onTap: (index){
-          setState(() {
-            _index = index;
-            switch(_index){
-              case 1:
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
-                break;
-              case 2:
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ChatHome()));
-                break;
-              case 4:
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
-                break;
-            }
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text(""),
-          ),
-        ],
-      ),
+      bottomNavigationBar: Bottom_bar()
     );
   }
 }

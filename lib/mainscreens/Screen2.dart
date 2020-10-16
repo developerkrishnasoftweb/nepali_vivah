@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -543,35 +544,7 @@ class _Screen2State extends State<Screen2> {
             )
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _index,
-          selectedItemColor: MyColors.pinkColor,
-          unselectedItemColor: MyColors.grayText,
-          showUnselectedLabels: false,
-          showSelectedLabels: true,
-          onTap: (index) {
-            setState(() {
-              _index = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  size: 40,
-                ),
-                title: Text("home")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.search, size: 40), title: Text("serch")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.chat_bubble, size: 40), title: Text("chat")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications, size: 40),
-                title: Text("alert")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.menu, size: 40), title: Text("more")),
-          ],
-        ),
+        bottomNavigationBar: Bottom_bar(),
       ),
     );
   }

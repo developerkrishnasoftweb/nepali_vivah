@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
+import '../Api_File/services.dart';
 class Registration extends StatefulWidget{
   @override
   _Registration createState() => _Registration();
@@ -543,8 +546,15 @@ class _Registration extends State<Registration>{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       FlatButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDetail()));
+                        onPressed: () async {
+                          String id = "23";
+                          FormData formData = FormData.fromMap({
+                            "member_id" : id
+                          });
+                          await Services.userSignIn(formData).then((value) {
+                            print(value.response);
+                          });
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDetail()));
                         },
                         child: Text(string.registrationButton,
                           style: TextStyle(
