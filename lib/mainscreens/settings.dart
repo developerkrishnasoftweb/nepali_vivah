@@ -13,6 +13,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   var _index = 0;
+
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -74,12 +75,10 @@ class _SettingsState extends State<Settings> {
                         width: MediaQuery.of(context).size.width,
                         alignment: Alignment(0.0, 0.0),
                         child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             CircleAvatar(
                               backgroundImage:
-                              AssetImage('assets/images/John.jpg'),
+                                  AssetImage('assets/images/John.jpg'),
                               radius: 50.0,
                             ),
                             SizedBox(
@@ -94,10 +93,13 @@ class _SettingsState extends State<Settings> {
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.only(top: 88),
                               child: AppBar(
-                                title: Text(string.settingstabtitle1,style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600),),
+                                title: Text(
+                                  string.settingstabtitle1,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                                ),
                                 elevation: 0.0,
                                 backgroundColor: MyColors.pinkColor,
                                 automaticallyImplyLeading: false,
@@ -110,323 +112,240 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10,top: 10,bottom: 10),
+                  margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Account settings",
                     style: TextStyle(
                         color: Colors.grey,
-                        fontWeight: FontWeight.bold,fontSize: 16),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                   ),
-                  //alignment: Alignment(-0.8, 0.0),
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10,top: 10,bottom: 1),
+                  margin: EdgeInsets.only(left: 10, top: 10, bottom: 1),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Subscription details",
                     style: TextStyle(
                         color: Colors.grey,
-                        fontWeight: FontWeight.bold,fontSize: 16),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                   ),
-
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 10,),
+                  margin: EdgeInsets.only(
+                    top: 10,
+                  ),
                   child: AppBar(
-                    title: Text(string.settingstabtitle2,style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),),
+                    title: Text(
+                      string.settingstabtitle2,
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
                     elevation: 0.0,
                     backgroundColor: MyColors.pinkvariaance,
                     automaticallyImplyLeading: false,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 10,left: 10,top: 10),
+                  margin: EdgeInsets.only(bottom: 10, left: 10, top: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Album",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Intrested in you",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "You interested in",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Photos",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Partner Profile",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 5,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 5, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "My Profile",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 10,bottom: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10),
                   child: AppBar(
-                    title: Text(string.settingstabtitle3,style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),),
+                    title: Text(
+                      string.settingstabtitle3,
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
                     elevation: 0.0,
                     backgroundColor: MyColors.pinkvariaance,
                     automaticallyImplyLeading: false,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 10,left: 10),
+                  margin: EdgeInsets.only(bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "About us",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Careers",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Support",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Terms",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Privacy Policy",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                  width: size.width,
-                  height: 1,
-                  color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Payment locations",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 10,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Become a payment center",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
-
                 ),
+                Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                    width: size.width,
-                    height: 1,
-                    color: Colors.grey
-
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 20,left: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 20, left: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
                     "Logout",
                     style: TextStyle(
-                        color:Colors.grey,
+                        color: Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold),
                   ),
@@ -441,32 +360,27 @@ class _SettingsState extends State<Settings> {
         unselectedItemColor: MyColors.grayText,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-
         currentIndex: 4,
-        onTap: (index){
+        onTap: (index) {
           setState(() {
             _index = index;
-            switch(_index){
+            switch (_index) {
               case 0:
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Profile()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile()));
                 break;
               case 1:
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Splash()));
-                  break;
+                    context, MaterialPageRoute(builder: (context) => Splash()));
+                break;
             }
           });
         },
         items: [
           BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.home,),
+            icon: FaIcon(
+              FontAwesomeIcons.home,
+            ),
             title: Text("Home"),
           ),
           BottomNavigationBarItem(

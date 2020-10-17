@@ -11,12 +11,10 @@ class Bottom_bar extends StatefulWidget {
 }
 
 class _Bottom_barState extends State<Bottom_bar> {
-
   var _index = 0;
 
   @override
   Widget build(BuildContext context) {
-
     return BottomNavigationBar(
       selectedItemColor: MyColors.pinkvariaance,
       unselectedItemColor: MyColors.grayText,
@@ -29,15 +27,18 @@ class _Bottom_barState extends State<Bottom_bar> {
           switch (_index) {
             case 1:
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Profile()));
               break;
             case 2:
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ChatHome()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => ChatHome()));
               break;
             case 4:
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Settings()));
               break;
           }
         });

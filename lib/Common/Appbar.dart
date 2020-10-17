@@ -27,22 +27,22 @@ class _Appbar_TopState extends State<Appbar_Top> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    child: Text(string.registrationTitleTop,
+                    child: Text(
+                      string.registrationTitleTop,
                       style: TextStyle(
                           fontSize: 18,
                           color: MyColors.whiteColor,
-                          fontWeight: FontWeight.w600
-                      ),
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(left: size.width * 0.1),
-                    child: Text(string.registrationTitleBottom,
+                    child: Text(
+                      string.registrationTitleBottom,
                       style: TextStyle(
                           fontSize: 18,
                           color: MyColors.whiteColor,
-                          fontWeight: FontWeight.w600
-                      ),
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],

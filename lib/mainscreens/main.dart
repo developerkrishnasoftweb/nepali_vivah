@@ -384,7 +384,6 @@ class _ProfileState extends State<Profile> {
                     itemCount: 1,
                     itemBuilder: (BuildContext context, int index) {
                       return Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Text(
                             "I am in India.",
@@ -425,7 +424,6 @@ class _ProfileState extends State<Profile> {
                     itemCount: 5,
                     itemBuilder: (BuildContext context, int index) {
                       return Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Container(
                             height: 150,
@@ -1703,7 +1701,6 @@ class _ProfileState extends State<Profile> {
                         width: size.width,
                         child: ListTile(
                           onTap: () {},
-                          // trailing: Text("now Earns RS.2.40.000 per year"),
                           title: Row(
                             children: [
                               Container(

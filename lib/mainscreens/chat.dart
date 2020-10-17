@@ -5,17 +5,21 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-class chat extends StatefulWidget{
+
+class chat extends StatefulWidget {
   @override
   _chatState createState() => _chatState();
 }
-class _chatState extends State<chat>{
+
+class _chatState extends State<chat> {
   @override
   final key = GlobalKey();
   List<Widget> list = List();
   TextEditingController msg = TextEditingController();
   Icon sendIcon = Icon(Icons.mic);
+
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -29,22 +33,22 @@ class _chatState extends State<chat>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                child: Text(string.registrationTitleTop,
+                child: Text(
+                  string.registrationTitleTop,
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
-                      fontWeight: FontWeight.w600
-                  ),
+                      fontWeight: FontWeight.w600),
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(left: size.width * 0.1),
-                child: Text(string.registrationTitleBottom,
+                child: Text(
+                  string.registrationTitleBottom,
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
-                      fontWeight: FontWeight.w600
-                  ),
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ],
@@ -69,14 +73,15 @@ class _chatState extends State<chat>{
                       width: size.width,
                       alignment: Alignment(0.0, 1.0),
                       child: Container(
-                        padding: EdgeInsets.only(top: 4, bottom: 4, left: 7, right: 7),
+                        padding: EdgeInsets.only(
+                            top: 4, bottom: 4, left: 7, right: 7),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3)
-                        ),
-                        child: Text(DateFormat('yyyy-MM-dd').format(DateTime.now()).toString(),
-                          style: TextStyle(
-                              fontSize: 14
-                          ),
+                            borderRadius: BorderRadius.circular(3)),
+                        child: Text(
+                          DateFormat('yyyy-MM-dd')
+                              .format(DateTime.now())
+                              .toString(),
+                          style: TextStyle(fontSize: 14),
                         ),
                       ),
                     ),
@@ -89,27 +94,32 @@ class _chatState extends State<chat>{
                       children: <Widget>[
                         GestureDetector(
                           child: Container(
-                              padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                              margin: EdgeInsets.only(bottom: 5, right: size.width * 0.15),
+                              padding: EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 20, right: 20),
+                              margin: EdgeInsets.only(
+                                  bottom: 5, right: size.width * 0.15),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15), bottomRight: Radius.circular(15), bottomLeft: Radius.circular(2)),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15),
+                                    bottomLeft: Radius.circular(2)),
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  Text("Hello,\n"
-                                      "How are you",
-                                    style: TextStyle(
-                                        fontSize: 16
-                                    ),
+                                  Text(
+                                    "Hello,\n"
+                                    "How are you",
+                                    style: TextStyle(fontSize: 16),
                                   ),
                                 ],
-                              )
-                          ),
+                              )),
                         ),
-                        Text(DateFormat('h:mm a').format(DateTime.now()).toString(),
-                          style: TextStyle(
-                              fontSize: 13
-                          ),
+                        Text(
+                          DateFormat('h:mm a')
+                              .format(DateTime.now())
+                              .toString(),
+                          style: TextStyle(fontSize: 13),
                         )
                       ],
                     ),
@@ -122,28 +132,33 @@ class _chatState extends State<chat>{
                       children: <Widget>[
                         GestureDetector(
                           child: Container(
-                              padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                              margin: EdgeInsets.only(bottom: 5, left: size.width * 0.15),
+                              padding: EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 20, right: 20),
+                              margin: EdgeInsets.only(
+                                  bottom: 5, left: size.width * 0.15),
                               decoration: BoxDecoration(
                                 color: Dcolor.appGrayColor,
-                                borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15), bottomLeft: Radius.circular(15), bottomRight: Radius.circular(2)),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(2)),
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  Text("fine",
+                                  Text(
+                                    "fine",
                                     style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white
-                                    ),
+                                        fontSize: 16, color: Colors.white),
                                   ),
                                 ],
-                              )
-                          ),
+                              )),
                         ),
-                        Text(DateFormat('h:mm a').format(DateTime.now()).toString(),
-                          style: TextStyle(
-                              fontSize: 13
-                          ),
+                        Text(
+                          DateFormat('h:mm a')
+                              .format(DateTime.now())
+                              .toString(),
+                          style: TextStyle(fontSize: 13),
                         )
                       ],
                     ),
@@ -156,29 +171,34 @@ class _chatState extends State<chat>{
                       children: <Widget>[
                         GestureDetector(
                           child: Container(
-                              padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                              margin: EdgeInsets.only(bottom: 5, left: size.width * 0.15),
+                              padding: EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 20, right: 20),
+                              margin: EdgeInsets.only(
+                                  bottom: 5, left: size.width * 0.15),
                               decoration: BoxDecoration(
                                 color: Dcolor.appGrayColor,
-                                borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15), bottomLeft: Radius.circular(15), bottomRight: Radius.circular(2)),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(2)),
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  Text("What about you\n"
-                                      ":)",
+                                  Text(
+                                    "What about you\n"
+                                    ":)",
                                     style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white
-                                    ),
+                                        fontSize: 16, color: Colors.white),
                                   ),
                                 ],
-                              )
-                          ),
+                              )),
                         ),
-                        Text(DateFormat('h:mm a').format(DateTime.now()).toString(),
-                          style: TextStyle(
-                              fontSize: 13
-                          ),
+                        Text(
+                          DateFormat('h:mm a')
+                              .format(DateTime.now())
+                              .toString(),
+                          style: TextStyle(fontSize: 13),
                         )
                       ],
                     ),
@@ -187,9 +207,6 @@ class _chatState extends State<chat>{
               ),
             ),
           ),
-          /*
-          * text area
-          * */
           Positioned(
             bottom: 0,
             right: 10,
@@ -214,8 +231,8 @@ class _chatState extends State<chat>{
                           child: IconButton(
                             icon: Icon(Icons.insert_emoticon),
                             color: MyColors.pinkvariaance,
-                             splashColor: Colors.transparent,
-                            onPressed: (){},
+                            splashColor: Colors.transparent,
+                            onPressed: () {},
                           ),
                         ),
                         Container(
@@ -230,9 +247,11 @@ class _chatState extends State<chat>{
                             cursorColor: MyColors.pinkvariaance,
                             autofocus: false,
                             cursorRadius: Radius.circular(5),
-                            onChanged: (value){
+                            onChanged: (value) {
                               setState(() {
-                                (value.length > 0) ? sendIcon = Icon(Icons.send) : sendIcon = Icon(Icons.mic);
+                                (value.length > 0)
+                                    ? sendIcon = Icon(Icons.send)
+                                    : sendIcon = Icon(Icons.mic);
                               });
                             },
                           ),
@@ -243,7 +262,7 @@ class _chatState extends State<chat>{
                             icon: Icon(Icons.attach_file),
                             color: MyColors.pinkvariaance,
                             splashColor: Colors.transparent,
-                            onPressed: (){},
+                            onPressed: () {},
                           ),
                         )
                       ],
@@ -262,7 +281,7 @@ class _chatState extends State<chat>{
                       color: MyColors.pinkvariaance,
                       splashColor: Colors.transparent,
                       iconSize: 20,
-                      onPressed: (){
+                      onPressed: () {
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => profile()));
                         setState(() {
                           msg.clear();

@@ -73,105 +73,103 @@ class _ChatHome extends State<ChatHome> {
             scrollable: true,
             contentPadding: EdgeInsets.all(0.0),
             insetPadding: EdgeInsets.all(0),
-            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
           );
         },
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Dcolor.appPrimaryColor,
-        title: Container(
-          width: size.width,
-          height: 60,
-          color: Dcolor.appPrimaryColor,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child: Text(
-                  string.registrationTitleTop,
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: MyColors.whiteColor,
-                      fontWeight: FontWeight.w600),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Dcolor.appPrimaryColor,
+          title: Container(
+            width: size.width,
+            height: 60,
+            color: Dcolor.appPrimaryColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  child: Text(
+                    string.registrationTitleTop,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: MyColors.whiteColor,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: size.width * 0.1),
-                child: Text(
-                  string.registrationTitleBottom,
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: MyColors.whiteColor,
-                      fontWeight: FontWeight.w600),
+                Container(
+                  padding: EdgeInsets.only(left: size.width * 0.1),
+                  child: Text(
+                    string.registrationTitleBottom,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: MyColors.whiteColor,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      body: Container(
-        height: size.height,
-        width: size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: size.height * 0.83,
-                child: ListView.builder(
-                    itemCount: 15,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 75,
-                        width: size.width,
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => chat()));
-                          },
-                          title: Text(
-                            "Nikhil Monga",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                          subtitle:
-                              Text("Hello", style: TextStyle(fontSize: 15.0)),
-                          trailing: Text(
-                            "21 hr ago",
-                            style: TextStyle(
-                                color: Colors.black54, fontSize: 15.0),
-                          ),
-                          leading: GestureDetector(
+        body: Container(
+          height: size.height,
+          width: size.width,
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: size.height * 0.83,
+                  child: ListView.builder(
+                      itemCount: 15,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 75,
+                          width: size.width,
+                          child: ListTile(
                             onTap: () {
-                              _showMyDialog();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => chat()));
                             },
-                            child: Container(
-                              height: 55,
-                              width: 55,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/user_image.jpg"),
-                                    fit: BoxFit.fill,
-                                    alignment: Alignment.center),
-                                borderRadius: BorderRadius.circular(50),
+                            title: Text(
+                              "Nikhil Monga",
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                            subtitle:
+                                Text("Hello", style: TextStyle(fontSize: 15.0)),
+                            trailing: Text(
+                              "21 hr ago",
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 15.0),
+                            ),
+                            leading: GestureDetector(
+                              onTap: () {
+                                _showMyDialog();
+                              },
+                              child: Container(
+                                height: 55,
+                                width: 55,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/user_image.jpg"),
+                                      fit: BoxFit.fill,
+                                      alignment: Alignment.center),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
-              ),
-            ],
+                        );
+                      }),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: Bottom_bar()
-    );
+        bottomNavigationBar: Bottom_bar());
   }
 }

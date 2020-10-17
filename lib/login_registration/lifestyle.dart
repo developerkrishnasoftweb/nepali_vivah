@@ -4,11 +4,13 @@ import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/professionalinfo.dart';
-class Lifestyle extends StatefulWidget{
+
+class Lifestyle extends StatefulWidget {
   @override
   _Lifestyle createState() => _Lifestyle();
 }
-class _Lifestyle extends State<Lifestyle>{
+
+class _Lifestyle extends State<Lifestyle> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,7 +24,7 @@ class _Lifestyle extends State<Lifestyle>{
             overflow: Overflow.visible,
             alignment: Alignment.center,
             children: <Widget>[
-             Appbar_Top(),
+              Appbar_Top(),
               Positioned(
                 top: 60,
                 bottom: 0,
@@ -37,32 +39,39 @@ class _Lifestyle extends State<Lifestyle>{
                           padding: EdgeInsets.only(top: 10, bottom: 20),
                           alignment: Alignment(0.0, 0.0),
                           width: size.width,
-                          child: Text("My Lifestyle",
+                          child: Text(
+                            "My Lifestyle",
                             style: TextStyle(
-                                color: MyColors.blackText,
-                                fontSize: 20
-                            ),
+                                color: MyColors.blackText, fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         Container(
                           width: size.width * 0.9,
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 10),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("Aaditya Pankaj",
+                              Text(
+                                "Aaditya Pankaj",
                                 style: TextStyle(
                                     color: MyColors.pinkvariaance,
-                                  fontSize: 20
+                                    fontSize: 20),
+                              ),
+                              Text(
+                                "(Tell us about yourself so that we can find the most suitable match for you.)",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: MyColors.blackText,
                                 ),
                               ),
-                              Text("(Tell us about yourself so that we can find the most suitable match for you.)",style: TextStyle(fontSize: 18,color: MyColors.blackText,),),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 10),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 10),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -77,15 +86,18 @@ class _Lifestyle extends State<Lifestyle>{
                                         color: MyColors.grayText,
                                         fontSize: 17,
                                       ),
-                                      suffixIcon: Icon(Icons.keyboard_arrow_down,size: 25,)
-                                  ),
+                                      suffixIcon: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 25,
+                                      )),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05,bottom: 10),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 10),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,15 +112,18 @@ class _Lifestyle extends State<Lifestyle>{
                                         color: MyColors.grayText,
                                         fontSize: 17,
                                       ),
-                                      suffixIcon: Icon(Icons.keyboard_arrow_down,size: 25,)
-                                  ),
+                                      suffixIcon: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 25,
+                                      )),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 20),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -123,15 +138,18 @@ class _Lifestyle extends State<Lifestyle>{
                                         color: MyColors.grayText,
                                         fontSize: 17,
                                       ),
-                                      suffixIcon: Icon(Icons.keyboard_arrow_down,size: 25,)
-                                  ),
+                                      suffixIcon: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 25,
+                                      )),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 20),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -140,14 +158,18 @@ class _Lifestyle extends State<Lifestyle>{
                                 height: 50,
                                 width: size.width * 0.85,
                                 child: FlatButton(
-                                  onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfessionalInfo()));
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfessionalInfo()));
                                   },
-                                  child: Text("Continue",
+                                  child: Text(
+                                    "Continue",
                                     style: TextStyle(
                                         color: MyColors.whiteColor,
-                                        fontSize: 17
-                                    ),
+                                        fontSize: 17),
                                   ),
                                   color: MyColors.pinkvariaance,
                                 ),

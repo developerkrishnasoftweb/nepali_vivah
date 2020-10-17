@@ -24,7 +24,7 @@ class _UploadPhoto extends State<UploadPhoto> {
             overflow: Overflow.visible,
             alignment: Alignment.center,
             children: <Widget>[
-             Appbar_Top(),
+              Appbar_Top(),
               Positioned(
                 top: 60,
                 bottom: 0,
@@ -62,7 +62,8 @@ class _UploadPhoto extends State<UploadPhoto> {
                                   width: size.width * 0.85,
                                   child: Text(
                                     "(Please upload your beautiful photos  now Remember, no one wants to show an interest in your profile if you don't have photos.)",
-                                    style: TextStyle(fontSize: 15,color: MyColors.grayText),
+                                    style: TextStyle(
+                                        fontSize: 15, color: MyColors.grayText),
                                   )),
                             ],
                           ),
@@ -92,7 +93,8 @@ class _UploadPhoto extends State<UploadPhoto> {
                                   child: Text(
                                     "Upload photo",
                                     style: TextStyle(
-                                        color: MyColors.whiteColor, fontSize: 20),
+                                        color: MyColors.whiteColor,
+                                        fontSize: 20),
                                   ),
                                 ),
                               )
@@ -112,12 +114,14 @@ class _UploadPhoto extends State<UploadPhoto> {
                                 alignment: Alignment(-1.0, 0.0),
                                 child: Text(
                                   "Upload Additional Photos(click on photo)",
-                                  style: TextStyle(fontSize: 17,color: MyColors.grayText),
+                                  style: TextStyle(
+                                      fontSize: 17, color: MyColors.grayText),
                                 ),
                               ),
                               Container(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Container(
                                       width: size.width * 0.3,
@@ -169,7 +173,8 @@ class _UploadPhoto extends State<UploadPhoto> {
                                   child: Text(
                                     "Skip",
                                     style: TextStyle(
-                                        color: MyColors.whiteColor, fontSize: 20),
+                                        color: MyColors.whiteColor,
+                                        fontSize: 20),
                                   ),
                                 ),
                               )

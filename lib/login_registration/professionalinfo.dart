@@ -4,11 +4,13 @@ import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/contactinfo.dart';
-class ProfessionalInfo extends StatefulWidget{
+
+class ProfessionalInfo extends StatefulWidget {
   @override
   _ProfessionalInfo createState() => _ProfessionalInfo();
 }
-class _ProfessionalInfo extends State<ProfessionalInfo>{
+
+class _ProfessionalInfo extends State<ProfessionalInfo> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,31 +39,38 @@ class _ProfessionalInfo extends State<ProfessionalInfo>{
                           padding: EdgeInsets.only(top: 10, bottom: 20),
                           alignment: Alignment(0.0, 0.0),
                           width: size.width,
-                          child: Text("Professional Information",
-                            style: TextStyle(
-                                fontSize: 20
-                            ),
+                          child: Text(
+                            "Professional Information",
+                            style: TextStyle(fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         Container(
                           width: size.width * 0.9,
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 20,),
+                          margin: EdgeInsets.only(
+                            left: 0.05,
+                            right: 0.05,
+                            bottom: 20,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("Aaditya Pankaj",
+                              Text(
+                                "Aaditya Pankaj",
                                 style: TextStyle(
                                     color: Dcolor.appPrimaryColor,
-                                    fontSize: 20
-                                ),
+                                    fontSize: 20),
                               ),
-                              Text("(Tell us about yourself so that we can find the most suitable match for you.)",style: TextStyle(fontSize: 17),),
+                              Text(
+                                "(Tell us about yourself so that we can find the most suitable match for you.)",
+                                style: TextStyle(fontSize: 17),
+                              ),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 20),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,20 +80,22 @@ class _ProfessionalInfo extends State<ProfessionalInfo>{
                                 width: size.width * 0.85,
                                 child: TextField(
                                   decoration: InputDecoration(
-                                      hintText: "What's your highest education ?",
+                                      hintText:
+                                          "What's your highest education ?",
                                       hintStyle: TextStyle(
                                         color: MyColors.grayText,
                                         fontSize: 17,
                                       ),
-                                      suffixIcon: Icon(Icons.keyboard_arrow_down)
-                                  ),
+                                      suffixIcon:
+                                          Icon(Icons.keyboard_arrow_down)),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 20),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -99,15 +110,16 @@ class _ProfessionalInfo extends State<ProfessionalInfo>{
                                         color: MyColors.grayText,
                                         fontSize: 17,
                                       ),
-                                      suffixIcon: Icon(Icons.keyboard_arrow_down)
-                                  ),
+                                      suffixIcon:
+                                          Icon(Icons.keyboard_arrow_down)),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05,bottom: 20 ),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -117,20 +129,22 @@ class _ProfessionalInfo extends State<ProfessionalInfo>{
                                 width: size.width * 0.85,
                                 child: TextField(
                                   decoration: InputDecoration(
-                                      hintText: "How much your salary per year?(enter in digit only)",
+                                      hintText:
+                                          "How much your salary per year?(enter in digit only)",
                                       hintStyle: TextStyle(
                                         color: MyColors.grayText,
                                         fontSize: 17,
                                       ),
-                                      suffixIcon: Icon(Icons.keyboard_arrow_down)
-                                  ),
+                                      suffixIcon:
+                                          Icon(Icons.keyboard_arrow_down)),
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05,bottom: 20),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -140,12 +154,12 @@ class _ProfessionalInfo extends State<ProfessionalInfo>{
                                 width: size.width * 0.85,
                                 child: TextField(
                                   decoration: InputDecoration(
-                                      hintText: "Describe a little bit about you and your family.",
-                                      hintStyle: TextStyle(
-                                        color: MyColors.grayText,
-                                        fontSize: 15,
-                                      ),
-
+                                    hintText:
+                                        "Describe a little bit about you and your family.",
+                                    hintStyle: TextStyle(
+                                      color: MyColors.grayText,
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -153,7 +167,8 @@ class _ProfessionalInfo extends State<ProfessionalInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05,top: 30),
+                          margin:
+                              EdgeInsets.only(left: 0.05, right: 0.05, top: 30),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -162,14 +177,18 @@ class _ProfessionalInfo extends State<ProfessionalInfo>{
                                 height: 50,
                                 width: size.width * 0.85,
                                 child: FlatButton(
-                                  onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ContactInfo()));
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ContactInfo()));
                                   },
-                                  child: Text("Continue",
+                                  child: Text(
+                                    "Continue",
                                     style: TextStyle(
                                         color: MyColors.whiteColor,
-                                        fontSize: 17
-                                    ),
+                                        fontSize: 17),
                                   ),
                                   color: MyColors.pinkvariaance,
                                 ),

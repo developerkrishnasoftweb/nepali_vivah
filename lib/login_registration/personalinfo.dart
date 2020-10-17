@@ -41,7 +41,10 @@ class _PersonalDetail extends State<PersonalDetail> {
                           width: size.width,
                           child: Text(
                             "Tell us who you are",
-                            style: TextStyle(fontSize: 20,color: MyColors.blackText,),
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: MyColors.blackText,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -147,7 +150,8 @@ class _PersonalDetail extends State<PersonalDetail> {
                                   child: Text(
                                     "Continue",
                                     style: TextStyle(
-                                        color: MyColors.whiteColor, fontSize: 17),
+                                        color: MyColors.whiteColor,
+                                        fontSize: 17),
                                   ),
                                   color: MyColors.pinkvariaance,
                                 ),
