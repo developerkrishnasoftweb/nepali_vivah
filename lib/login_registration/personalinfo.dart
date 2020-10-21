@@ -11,8 +11,8 @@ import 'package:nepali_vivah/login_registration/lifestyle.dart';
 
 class PersonalDetail extends StatefulWidget {
 
-  final String maritalstatus,gender,m_month,m_year,message;
-  PersonalDetail({this.maritalstatus,this.gender,this.m_month,this.m_year,this.message});
+  final String maritalstatus,gender,m_month,m_year,town;
+  PersonalDetail({this.maritalstatus,this.gender,this.m_month,this.m_year,this.town});
 
   @override
   _PersonalDetail createState() => _PersonalDetail();
@@ -29,7 +29,7 @@ class _PersonalDetail extends State<PersonalDetail> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.maritalstatus+" "+widget.gender+" "+widget.m_month+widget.m_year+" "+widget.message);
+    print(widget.maritalstatus+" "+widget.gender+" "+widget.m_month+widget.m_year+" "+widget.town);
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -140,7 +140,7 @@ class _PersonalDetail extends State<PersonalDetail> {
                                                 picker != selectedDate)
                                               setState(() {
                                                 selectedDate = picker;
-                                                date.text = DateFormat.yMd()
+                                                date.text = DateFormat("yyyy-MM-dd")
                                                     .format(selectedDate);
                                               });
                                           },
@@ -244,24 +244,23 @@ class _PersonalDetail extends State<PersonalDetail> {
           timeInSecForIosWeb: 1,
           fontSize: 16.0);
     } else {
-      _UserRegistation();
+        _userRegistration();
     }
   }
 
-  _UserRegistation() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ContactInfo(
-              fname: firstname.text,
-              lname: lastname.text,
-              dob: date.text,
-              dob_place: bornplace.text,
-              maritalstatus: widget.maritalstatus,
-              gender: widget.gender,
-              m_month: widget.m_month,
-              m_year: widget.m_year,
-              message: widget.message,
-            )));
+  _userRegistration() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ContactInfo(
+      maritalstatus: widget.maritalstatus,
+      gender: widget.gender,
+      m_month: widget.m_month,
+      m_year: widget.m_year,
+      town: widget.town,
+      firstname: firstname.text,
+      laastname: lastname.text ,
+      dob: date.text,
+      dob_place: bornplace.text,
+    )));
   }
+
+
 }

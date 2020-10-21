@@ -1,16 +1,51 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/username.dart';
 
 class UploadPhoto extends StatefulWidget {
+  final String maritalstatus,
+      gender,
+      m_month,
+      m_year,
+      town,
+      firstname,
+      laastname,
+      dob,
+      dob_place,
+      mobileno,
+      email,
+      password;
+
+  UploadPhoto(
+      {this.maritalstatus,
+      this.gender,
+      this.m_month,
+      this.m_year,
+      this.town,
+      this.firstname,
+      this.laastname,
+      this.dob,
+      this.dob_place,
+      this.mobileno,
+      this.email,
+      this.password});
+
   @override
   _UploadPhoto createState() => _UploadPhoto();
 }
 
 class _UploadPhoto extends State<UploadPhoto> {
+  var proImage, adhaImage;
+  File _profile;
+  File _Aadhar;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,7 +59,7 @@ class _UploadPhoto extends State<UploadPhoto> {
             overflow: Overflow.visible,
             alignment: Alignment.center,
             children: <Widget>[
-             Appbar_Top(),
+              Appbar_Top(),
               Positioned(
                 top: 60,
                 bottom: 0,
@@ -62,7 +97,8 @@ class _UploadPhoto extends State<UploadPhoto> {
                                   width: size.width * 0.85,
                                   child: Text(
                                     "(Please upload your beautiful photos  now Remember, no one wants to show an interest in your profile if you don't have photos.)",
-                                    style: TextStyle(fontSize: 15,color: MyColors.grayText),
+                                    style: TextStyle(
+                                        fontSize: 15, color: MyColors.grayText),
                                   )),
                             ],
                           ),
@@ -75,101 +111,80 @@ class _UploadPhoto extends State<UploadPhoto> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Container(
-                                width: size.width * 0.85,
-                                padding: EdgeInsets.only(top: 20, bottom: 20),
-                                child: Image(
-                                  height: size.height * 0.18,
-                                  image: AssetImage("assets/images/user.png"),
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                              Container(
-                                width: size.width * 0.9,
-                                height: 50,
-                                child: FlatButton(
-                                  onPressed: () {},
-                                  color: MyColors.pinkvariaance,
-                                  child: Text(
-                                    "Upload photo",
-                                    style: TextStyle(
-                                        color: MyColors.whiteColor, fontSize: 20),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 0.05, right: 0.05, bottom: 30),
-                          width: size.width * 0.9,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
+                                  width: size.width * 0.85,
+                                  padding: EdgeInsets.only(top: 20, bottom: 20),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      proImage = await ImagePicker.pickImage(
+                                          source: ImageSource.gallery,maxHeight: 250,maxWidth: 250);
+                                      setState(() {
+                                        _profile = proImage;
+                                      });
+                                    },
+                                    child: _profile == null
+                                        ? Image(
+                                            height: size.height * 0.13,
+                                            image: AssetImage(
+                                                "assets/images/user.png"),
+                                            fit: BoxFit.fitHeight,
+                                          )
+                                        : Image.file(_profile),
+                                  )),
                               Container(
                                 width: size.width * 0.9,
                                 height: 40,
-                                alignment: Alignment(-1.0, 0.0),
                                 child: Text(
-                                  "Upload Additional Photos(click on photo)",
-                                  style: TextStyle(fontSize: 17,color: MyColors.grayText),
+                                  "Profile Pic",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 17, color: MyColors.grayText),
                                 ),
                               ),
                               Container(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Container(
-                                      width: size.width * 0.3,
-                                      padding:
-                                          EdgeInsets.only(top: 20, bottom: 20),
-                                      child: Image(
-                                        height: size.height * 0.1,
-                                        image: AssetImage(
-                                            "assets/images/user.png"),
-                                        fit: BoxFit.fitHeight,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: size.width * 0.3,
-                                      padding:
-                                          EdgeInsets.only(top: 20, bottom: 20),
-                                      child: Image(
-                                        height: size.height * 0.1,
-                                        image: AssetImage(
-                                            "assets/images/user.png"),
-                                        fit: BoxFit.fitHeight,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: size.width * 0.3,
-                                      padding:
-                                          EdgeInsets.only(top: 20, bottom: 20),
-                                      child: Image(
-                                        height: size.height * 0.1,
-                                        image: AssetImage(
-                                            "assets/images/user.png"),
-                                        fit: BoxFit.fitHeight,
-                                      ),
-                                    ),
-                                  ],
+                                width: size.width * 0.85,
+                                padding: EdgeInsets.only(top: 20, bottom: 20),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    adhaImage = await ImagePicker.pickImage(
+                                        source: ImageSource.gallery,maxHeight: 250,maxWidth: 250);
+                                    setState(() {
+                                      _Aadhar = adhaImage;
+                                    });
+                                  },
+                                  child: _Aadhar == null
+                                      ? Image(
+                                    height: size.height * 0.13,
+                                    image: AssetImage(
+                                        "assets/images/adhar.jpg"),
+                                    fit: BoxFit.fitHeight,
+                                  )
+                                      : Image.file(_Aadhar),
+                                )
+                              ),
+                              Container(
+                                width: size.width * 0.9,
+                                height: 40,
+                                child: Text(
+                                  "Aadhaar Pic",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 17, color: MyColors.grayText),
                                 ),
                               ),
                               Container(
                                 width: size.width * 0.9,
                                 height: 50,
+                                margin: EdgeInsets.only(top: 15),
                                 child: FlatButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Username()));
+                                    _registration();
                                   },
-                                  color: Dcolor.appGrayColor,
+                                  color: MyColors.pinkvariaance,
                                   child: Text(
-                                    "Skip",
+                                    "Continue",
                                     style: TextStyle(
-                                        color: MyColors.whiteColor, fontSize: 20),
+                                        color: MyColors.whiteColor,
+                                        fontSize: 20),
                                   ),
                                 ),
                               )
@@ -187,4 +202,44 @@ class _UploadPhoto extends State<UploadPhoto> {
       ),
     );
   }
+
+  _registration() {
+    if (_profile == "") {
+      Fluttertoast.showToast(
+          msg: "Please Select Profile",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    } else if (_Aadhar == "") {
+      Fluttertoast.showToast(
+          msg: "Please Select Aadhar",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else {
+      _userRegistration();
+    }
+  }
+
+  _userRegistration() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Username(
+      maritalstatus: widget.maritalstatus,
+      gender: widget.gender,
+      m_month: widget.m_month,
+      m_year: widget.m_year,
+      town: widget.town,
+      firstname: widget.firstname,
+      laastname: widget.laastname,
+      dob: widget.dob,
+      dob_place: widget.dob_place,
+      mobileno: widget.mobileno,
+      email: widget.email,
+      password: widget.password,
+      profileimage: _profile,
+      adharimage: _Aadhar,
+    )));
+  }
+
 }

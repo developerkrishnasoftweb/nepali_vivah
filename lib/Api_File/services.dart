@@ -98,19 +98,16 @@ class Services {
     dio.options.contentType = Headers.jsonContentType;
     print(url);
     try {
-      print("work");
-      Response response = await dio.post(url, data: body,options: Options(
-      headers: {"Content-Type":"multipart/form-data",}
-      ));
-      print(response.data);
+      Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
-        Data datas = new Data(message: 'No Data',response: "1");
-        final jsonResponse = json.decode(response.data);
-        datas.message = jsonResponse['Message'];
-        datas.response = jsonResponse['Response'].toString();
-
-        print("Member Registration Responce: ${jsonResponse}");
-        return datas;
+        Data data = new Data(message: 'No Data',response: "1");
+        // final jsonResponse = json.decode(response.data.toString());
+        // print(jsonResponse[0].toString());
+        print(response.data["Message"]);
+        data.response = response.data["Response"];
+        data.message = response.data["Message"];
+        data.data = response.data["Data"];
+        return data;
       } else {
         throw Exception("Something went Wrong");
       }

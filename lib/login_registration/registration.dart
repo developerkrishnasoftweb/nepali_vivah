@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
@@ -12,11 +13,19 @@ class Registration extends StatefulWidget{
 }
 class _Registration extends State<Registration>{
   @override
+  List months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   String maritalStatus = "Choose marital status";
   String month = "May";
   String year = "2020";
   String gender = "male";
+  var now = new DateTime.now();
+
+  TextEditingController town = TextEditingController();
+
   Widget build(BuildContext context) {
+
+    String month = months[now.month-1];
+    String year = now.year.toString();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -512,6 +521,7 @@ class _Registration extends State<Registration>{
                                   color: MyColors.whiteColor,
                                 ),
                                 child: TextFormField(
+                                  controller: town,
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
@@ -547,14 +557,15 @@ class _Registration extends State<Registration>{
                     children: [
                       FlatButton(
                         onPressed: () async {
-                          String id = "23";
-                          FormData formData = FormData.fromMap({
-                            "member_id" : id
-                          });
-                          await Services.userSignIn(formData).then((value) {
-                            print(value.response);
-                          });
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDetail()));
+                           _registration();
+                          // String id = "23";
+                          // FormData formData = FormData.fromMap({
+                          //   "member_id" : id
+                          // });
+                          // await Services.userSignIn(formData).then((value) {
+                          //   print(value.response);
+                          // });
+
                         },
                         child: Text(string.registrationButton,
                           style: TextStyle(
@@ -575,5 +586,59 @@ class _Registration extends State<Registration>{
         ),
       ),
     );
+  }
+
+  _registration() {
+    if (maritalStatus == "Choose marital status") {
+      Fluttertoast.showToast(
+          msg: "Please Choose marital ststus",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    } else if (gender == "") {
+      Fluttertoast.showToast(
+          msg: "Please Select Gender",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else if (month== "") {
+      Fluttertoast.showToast(
+          msg: "Please Select month",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else if (year == "") {
+      Fluttertoast.showToast(
+          msg: "Please select year ",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else if (town.text == "") {
+      Fluttertoast.showToast(
+          msg: "Please Enter Live town ",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    }else {
+      _userRegistration();
+    }
+  }
+
+  _userRegistration() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalDetail(
+      maritalstatus: maritalStatus,
+      gender: gender,
+      m_month: month,
+      m_year: year,
+      town: town.text,
+    )));
   }
 }
