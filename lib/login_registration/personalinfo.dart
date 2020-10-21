@@ -1,18 +1,35 @@
+import 'dart:math';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nepali_vivah/login_registration/contactinfo.dart';
 import 'package:nepali_vivah/login_registration/lifestyle.dart';
 
 class PersonalDetail extends StatefulWidget {
+
+  final String maritalstatus,gender,m_month,m_year,message;
+  PersonalDetail({this.maritalstatus,this.gender,this.m_month,this.m_year,this.message});
+
   @override
   _PersonalDetail createState() => _PersonalDetail();
 }
 
 class _PersonalDetail extends State<PersonalDetail> {
+  TextEditingController date = TextEditingController();
+  TextEditingController firstname = TextEditingController();
+  TextEditingController lastname = TextEditingController();
+  TextEditingController bornplace = TextEditingController();
+
+  DateTime picker;
+  DateTime selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
+    print(widget.maritalstatus+" "+widget.gender+" "+widget.m_month+widget.m_year+" "+widget.message);
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -41,7 +58,10 @@ class _PersonalDetail extends State<PersonalDetail> {
                           width: size.width,
                           child: Text(
                             "Tell us who you are",
-                            style: TextStyle(fontSize: 20,color: MyColors.blackText,),
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: MyColors.blackText,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -58,6 +78,7 @@ class _PersonalDetail extends State<PersonalDetail> {
                                 height: 30,
                                 width: size.width * 0.4,
                                 child: TextField(
+                                  controller: firstname,
                                   decoration: InputDecoration(
                                     hintText: "First Name",
                                     hintStyle: TextStyle(
@@ -69,6 +90,7 @@ class _PersonalDetail extends State<PersonalDetail> {
                                 height: 30,
                                 width: size.width * 0.4,
                                 child: TextField(
+                                  controller: lastname,
                                   decoration: InputDecoration(
                                     hintText: "Last Name",
                                     hintStyle: TextStyle(
@@ -92,13 +114,37 @@ class _PersonalDetail extends State<PersonalDetail> {
                                 height: 40,
                                 width: size.width * 0.85,
                                 child: TextField(
+                                  controller: date,
                                   decoration: InputDecoration(
-                                      hintText: "When were you born ?",
+                                      hintText: "15/10/1999",
                                       hintStyle: TextStyle(
                                         color: MyColors.grayText,
                                         fontSize: 17,
                                       ),
-                                      suffixIcon: Icon(Icons.calendar_today)),
+                                      suffixIcon: GestureDetector(
+                                          onTap: () async {
+                                            picker = await showDatePicker(
+                                              context: context,
+                                              initialDate: selectedDate,
+                                              firstDate: DateTime(2015, 8),
+                                              lastDate: DateTime(2101),
+                                              builder: (context, child) {
+                                                return Theme(
+                                                  data: ThemeData.dark(),
+                                                  // This will change to light theme.
+                                                  child: child,
+                                                );
+                                              },
+                                            );
+                                            if (picker != null &&
+                                                picker != selectedDate)
+                                              setState(() {
+                                                selectedDate = picker;
+                                                date.text = DateFormat.yMd()
+                                                    .format(selectedDate);
+                                              });
+                                          },
+                                          child: Icon(Icons.calendar_today))),
                                 ),
                               ),
                             ],
@@ -115,6 +161,7 @@ class _PersonalDetail extends State<PersonalDetail> {
                                 height: 50,
                                 width: size.width * 0.85,
                                 child: TextField(
+                                  controller: bornplace,
                                   decoration: InputDecoration(
                                     hintText: "Where were you born ?",
                                     hintStyle: TextStyle(
@@ -139,15 +186,13 @@ class _PersonalDetail extends State<PersonalDetail> {
                                 width: size.width * 0.85,
                                 child: FlatButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Lifestyle()));
+                                    _registration();
                                   },
                                   child: Text(
                                     "Continue",
                                     style: TextStyle(
-                                        color: MyColors.whiteColor, fontSize: 17),
+                                        color: MyColors.whiteColor,
+                                        fontSize: 17),
                                   ),
                                   color: MyColors.pinkvariaance,
                                 ),
@@ -165,5 +210,58 @@ class _PersonalDetail extends State<PersonalDetail> {
         ),
       ),
     );
+  }
+
+  _registration() {
+    if (firstname.text == "") {
+      Fluttertoast.showToast(
+          msg: "Please enter f_name",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    } else if (lastname.text == "") {
+      Fluttertoast.showToast(
+          msg: "Please enter L_name",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else if (date.text== "") {
+      Fluttertoast.showToast(
+          msg: "Please enter DOB",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else if (bornplace.text == "") {
+      Fluttertoast.showToast(
+          msg: "Please enter Born Place",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else {
+      _UserRegistation();
+    }
+  }
+
+  _UserRegistation() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ContactInfo(
+              fname: firstname.text,
+              lname: lastname.text,
+              dob: date.text,
+              dob_place: bornplace.text,
+              maritalstatus: widget.maritalstatus,
+              gender: widget.gender,
+              m_month: widget.m_month,
+              m_year: widget.m_year,
+              message: widget.message,
+            )));
   }
 }

@@ -2,13 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/professionalinfo.dart';
 class Lifestyle extends StatefulWidget{
+
   @override
   _Lifestyle createState() => _Lifestyle();
 }
 class _Lifestyle extends State<Lifestyle>{
+
+  TextEditingController diet = TextEditingController();
+  TextEditingController smoke = TextEditingController();
+  TextEditingController drink = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -71,6 +83,7 @@ class _Lifestyle extends State<Lifestyle>{
                                 height: 40,
                                 width: size.width * 0.85,
                                 child: TextField(
+                                  controller: diet,
                                   decoration: InputDecoration(
                                       hintText: "What's your diet ?",
                                       hintStyle: TextStyle(
@@ -94,6 +107,7 @@ class _Lifestyle extends State<Lifestyle>{
                                 height: 40,
                                 width: size.width * 0.85,
                                 child: TextField(
+                                  controller: smoke,
                                   decoration: InputDecoration(
                                       hintText: "Do you smoke ?",
                                       hintStyle: TextStyle(
@@ -117,6 +131,7 @@ class _Lifestyle extends State<Lifestyle>{
                                 height: 40,
                                 width: size.width * 0.85,
                                 child: TextField(
+                                  controller: drink,
                                   decoration: InputDecoration(
                                       hintText: "Do you drink ?",
                                       hintStyle: TextStyle(
@@ -141,7 +156,7 @@ class _Lifestyle extends State<Lifestyle>{
                                 width: size.width * 0.85,
                                 child: FlatButton(
                                   onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfessionalInfo()));
+                                    _registration();
                                   },
                                   child: Text("Continue",
                                     style: TextStyle(
@@ -166,4 +181,52 @@ class _Lifestyle extends State<Lifestyle>{
       ),
     );
   }
+
+  _registration() {
+    if (diet.text == "") {
+      Fluttertoast.showToast(
+          msg: "Please enter diet",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    } else if (smoke.text == "") {
+      Fluttertoast.showToast(
+          msg: "Please enter smoke",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else if (drink.text== "") {
+      Fluttertoast.showToast(
+          msg: "Please enter drink",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else {
+      // _UserRegistation();
+    }
+  }
+
+  // _UserRegistation() {
+  //   Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //           builder: (context) => ProfessionalInfo(
+  //             fname: widget.fname,
+  //             lname: widget.lname,
+  //             dob: widget.dob,
+  //             dob_place: widget.dob_place,
+  //             maritalstatus: widget.maritalstatus,
+  //             gender: widget.gender,
+  //             m_month: widget.m_month,
+  //             m_year: widget.m_year,
+  //             message: widget.message,
+  //             diet: diet.text,
+  //             drink: drink.text,
+  //             smoke: smoke.text,
+  //           )));
+  // }
 }

@@ -1,22 +1,55 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:async';
+import 'dart:ui';
+import 'package:dio/dio.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Api_File/Url.dart';
+import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/partner.dart';
+import 'package:nepali_vivah/mainscreens/home.dart';
 
 class Username extends StatefulWidget {
+
+  String fname,lname,dob,dob_place,maritalstatus,gender,m_month,m_year,mobileno,email,password,profilebaseimage,aadharbaseimage;
+  File profileimage,adharimage;
+  Username({this.fname,this.lname,this.dob,this.dob_place,this.maritalstatus,this.gender,this.m_month,this.m_year,this.mobileno,this.email,
+    this.password,this.profileimage,this.adharimage,this.profilebaseimage,this.aadharbaseimage});
+
+
   @override
   _Username createState() => _Username();
 }
 
 class _Username extends State<Username> {
+  int _counter = 1;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _counter++;
+    });
+  }
+  @override
+
+  var profile_baseimage;
+  var Aadhaar_baseimage;
   var autoUsername = "Durgesh15";
   TextEditingController username = TextEditingController();
 
   Widget build(BuildContext context) {
+    print(widget.profileimage.path+ " " +_counter.toString());
     username.text = autoUsername;
+
+    profile_baseimage = base64Encode(widget.profileimage.readAsBytesSync());
+    Aadhaar_baseimage = base64Encode(widget.adharimage.readAsBytesSync());
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -220,15 +253,13 @@ class _Username extends State<Username> {
                           height: 50,
                           margin: EdgeInsets.only(bottom: 20,top:10.0),
                           child: FlatButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PartnerInfo()));
+                            onPressed: () async {
+                              // print(widget.adharimage.readAsBytesSync());
+                             _registrintion();
                             },
                             color: MyColors.pinkvariaance,
                             child: Text(
-                              "Next",
+                              "Registration",
                               style:
                                   TextStyle(color: MyColors.whiteColor, fontSize: 20),
                             ),
@@ -244,5 +275,49 @@ class _Username extends State<Username> {
         ),
       ),
     );
+  }
+
+  _registrintion() {
+    if (username.text == "") {
+      Fluttertoast.showToast(
+        msg: "Please enter UserName",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.grey.shade300,
+        textColor: Colors.black,
+        timeInSecForIosWeb: 1,);
+    }else {
+      _UserRegistation();
+    }
+  }
+
+  _UserRegistation() async {
+
+    FormData d = FormData.fromMap({
+      "first_name": widget.fname,
+      "last_name": widget.lname,
+      "gender": widget.gender,
+      "date_of_birth": widget.dob,
+      "mobile_no": widget.mobileno,
+      "email": widget.email,
+      "password": widget.password,
+      "username": username.text,
+      "profile": widget.profilebaseimage,
+      "adharcard": widget.aadharbaseimage,
+    });
+
+    Services.MemberSignUp(d).then((data) {
+      if(data.response == "1"){
+        Fluttertoast.showToast(
+            msg: data.message,
+            backgroundColor: Colors.black,
+            gravity: ToastGravity.BOTTOM,
+            toastLength: Toast.LENGTH_SHORT);
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>Home(),),);
+      } else {
+        print("Somting is wrong..");
+      }
+    });
   }
 }

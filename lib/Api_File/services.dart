@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'Url.dart';
 import 'data.dart';
+import 'package:http/http.dart' as http;
 
 Dio dio = new Dio();
+
 
 class Services {
   static Future<Data> userSignIn(body) async {
@@ -87,4 +91,32 @@ class Services {
       print(e.toString);
     }
   }
+
+  static Future<Data> MemberSignUp(body) async {
+    String url = Urls.baseUrl + Urls.registration_url;
+    dio.options.contentType = Headers.jsonContentType;
+    print(url);
+    try {
+      print("work");
+      Response response = await dio.post(url, data: body,options: Options(
+      headers: {"Content-Type":"multipart/form-data",}
+      ));
+      print(response.data);
+      if (response.statusCode == 200) {
+        Data datas = new Data(message: 'No Data',response: "1");
+        final jsonResponse = json.decode(response.data);
+        datas.message = jsonResponse['Message'];
+        datas.response = jsonResponse['Response'].toString();
+
+        print("Member Registration Responce: ${jsonResponse}");
+        return datas;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } catch (e) {
+      print("Member Registration Error : " + e.toString());
+      throw Exception("Something went wrong");
+    }
+  }
+
 }
