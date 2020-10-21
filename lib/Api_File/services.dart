@@ -102,8 +102,6 @@ class Services {
       if (response.statusCode == 200) {
         Data data = new Data(message: 'No Data',response: "1");
         // final jsonResponse = json.decode(response.data.toString());
-        // print(jsonResponse[0].toString());
-        print(response.data["Message"]);
         data.response = response.data["Response"];
         data.message = response.data["Message"];
         data.data = response.data["Data"];

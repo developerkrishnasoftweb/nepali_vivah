@@ -29,7 +29,6 @@ class _PersonalDetail extends State<PersonalDetail> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.maritalstatus+" "+widget.gender+" "+widget.m_month+widget.m_year+" "+widget.town);
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -115,8 +114,9 @@ class _PersonalDetail extends State<PersonalDetail> {
                                 width: size.width * 0.85,
                                 child: TextField(
                                   controller: date,
+                                  readOnly: true,
                                   decoration: InputDecoration(
-                                      hintText: "15/10/1999",
+                                      hintText: "Select Date og Birth",
                                       hintStyle: TextStyle(
                                         color: MyColors.grayText,
                                         fontSize: 17,

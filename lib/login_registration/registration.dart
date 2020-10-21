@@ -13,10 +13,12 @@ class Registration extends StatefulWidget{
 }
 class _Registration extends State<Registration>{
   @override
-  List months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  String maritalStatus = "Choose marital status";
-  String month = "May";
-  String year = "2020";
+  static const marriage = ['Married', 'Unmarried', 'Widow', 'Separated'];
+  static const years = ['2020','2021','2022','2023','2024','2025'];
+  static const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  String maritalStatus;
+  String month;
+  String year;
   String gender = "male";
   var now = new DateTime.now();
 
@@ -24,8 +26,6 @@ class _Registration extends State<Registration>{
 
   Widget build(BuildContext context) {
 
-    String month = months[now.month-1];
-    String year = now.year.toString();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -181,6 +181,7 @@ class _Registration extends State<Registration>{
                                 ),
 
                                 child: DropdownButton(
+                                  hint: Text("Choose marital status",style: TextStyle(color: MyColors.pinkvariaance,),),
                                   value: maritalStatus,
                                   icon: Icon(Icons.keyboard_arrow_down,color: MyColors.pinkvariaance,),
                                   iconSize: 20,
@@ -195,7 +196,7 @@ class _Registration extends State<Registration>{
                                   },
                                   underline: Container(color: Colors.transparent,),
                                   isExpanded: true,
-                                  items: <String>['Choose marital status', 'Married', 'Unmarried', 'Widow', 'Separated'].map<DropdownMenuItem<String>>((String value) {
+                                  items: marriage.map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),
@@ -419,8 +420,10 @@ class _Registration extends State<Registration>{
                                                 blurRadius: 5
                                             ),
                                           ],
-                                        color: MyColors.whiteColor,                                      ),
+                                        color: MyColors.whiteColor,
+                                      ),
                                       child: DropdownButton(
+                                        hint: Text(months[now.month-1],style: TextStyle(color: MyColors.pinkvariaance,),),
                                         value: month,
                                         icon: Icon(Icons.keyboard_arrow_down,color: MyColors.pinkvariaance,),
                                         iconSize: 20,
@@ -434,7 +437,7 @@ class _Registration extends State<Registration>{
                                         },
                                         underline: Container(color: Colors.transparent,),
                                         isExpanded: true,
-                                        items: <String>['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map<DropdownMenuItem<String>>((String value) {
+                                        items: months.map<DropdownMenuItem<String>>((String value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
                                             child: Text(value),
@@ -459,7 +462,8 @@ class _Registration extends State<Registration>{
                                           ],
                                         color: MyColors.whiteColor,
                                       ),
-                                      child: DropdownButton(
+                                      child: DropdownButton<String>(
+                                        hint: Text(now.year.toString(),style: TextStyle(color: MyColors.pinkvariaance,),),
                                         value: year,
                                         icon: Icon(Icons.keyboard_arrow_down,color: MyColors.pinkvariaance,),
                                         iconSize: 20,
@@ -473,7 +477,7 @@ class _Registration extends State<Registration>{
                                         },
                                         underline: Container(color: Colors.transparent,),
                                         isExpanded: true,
-                                        items: <String>['2020', '2021', '2022', '2023', '2024', '2025'].map<DropdownMenuItem<String>>((String value) {
+                                        items: years.map((String value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
                                             child: Text(value),
@@ -589,7 +593,7 @@ class _Registration extends State<Registration>{
   }
 
   _registration() {
-    if (maritalStatus == "Choose marital status") {
+    if (maritalStatus == null) {
       Fluttertoast.showToast(
           msg: "Please Choose marital ststus",
           backgroundColor: Colors.black,
@@ -603,7 +607,7 @@ class _Registration extends State<Registration>{
           backgroundColor: Colors.black,
           timeInSecForIosWeb: 1,
           fontSize: 16.0);
-    } else if (month== "") {
+    } else if (month == null) {
       Fluttertoast.showToast(
           msg: "Please Select month",
           toastLength: Toast.LENGTH_SHORT,
@@ -611,7 +615,7 @@ class _Registration extends State<Registration>{
           backgroundColor: Colors.black,
           timeInSecForIosWeb: 1,
           fontSize: 16.0);
-    } else if (year == "") {
+    } else if (year == null){
       Fluttertoast.showToast(
           msg: "Please select year ",
           toastLength: Toast.LENGTH_SHORT,

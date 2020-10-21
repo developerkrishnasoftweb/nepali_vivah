@@ -1,14 +1,19 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
+import 'package:nepali_vivah/mainscreens/home.dart';
 import '../Api_File/services.dart';
 import 'package:nepali_vivah/login_registration/partner.dart';
 import 'package:intl/intl.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class Username extends StatefulWidget {
   final String maritalstatus,
@@ -23,9 +28,7 @@ class Username extends StatefulWidget {
       mobileno,
       email,
       password;
-  File
-      profileimage,
-      adharimage;
+  File profileimage, adharimage;
 
   Username(
       {this.maritalstatus,
@@ -48,11 +51,25 @@ class Username extends StatefulWidget {
 }
 
 class _Username extends State<Username> {
+  ProgressDialog pr;
+  var rng = Random();
+  List<String> Uname = List<String>();
+
   @override
-  var autoUsername = "Durgesh15";
+  void initState() {
+    pr = ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false);
+  }
+
+  @override
+
   TextEditingController username = TextEditingController();
 
   Widget build(BuildContext context) {
+
+
+
+    var autoUsername = widget.firstname+rng.nextInt(10).toString();
     username.text = autoUsername;
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -211,9 +228,9 @@ class _Username extends State<Username> {
                                 child: Column(
                                   children: [
                                     RadioListTile(
-                                      title: Text("Durgesh15"),
+                                      title: Text(Uname[0]),
                                       groupValue: autoUsername,
-                                      value: "Durgesh15",
+                                      value: Uname[0],
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
@@ -225,9 +242,9 @@ class _Username extends State<Username> {
                                       thickness: 1,
                                     ),
                                     RadioListTile(
-                                      title: Text("Durgesh14"),
+                                      title: Text(Uname[1]),
                                       groupValue: autoUsername,
-                                      value: "Durgesh14",
+                                      value: Uname[1],
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
@@ -239,23 +256,23 @@ class _Username extends State<Username> {
                                       thickness: 1,
                                     ),
                                     RadioListTile(
-                                      title: Text("Durgesh101"),
+                                      title: Text(Uname[2]),
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
                                         });
                                       },
                                       groupValue: autoUsername,
-                                      value: "Durgesh101",
+                                      value: Uname[2],
                                     ),
                                     Divider(
                                       color: MyColors.blackText,
                                       thickness: 1,
                                     ),
                                     RadioListTile(
-                                      title: Text("Durgesh155"),
+                                      title: Text(Uname[3]),
                                       groupValue: autoUsername,
-                                      value: "Durgesh155",
+                                      value: Uname[3],
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
@@ -274,7 +291,8 @@ class _Username extends State<Username> {
                           margin: EdgeInsets.only(bottom: 20, top: 10.0),
                           child: FlatButton(
                             onPressed: () {
-                              _userRegistration();
+                              _registration();
+
                             },
                             color: MyColors.pinkvariaance,
                             child: Text(
@@ -296,32 +314,96 @@ class _Username extends State<Username> {
     );
   }
 
-  _userRegistration() async{
-    String fileName = widget.profileimage.path.split('/').last;
-    String fileName1 = widget.adharimage.path.split('/').last;
-    print(widget.firstname + " " + widget.laastname + " " + widget.gender + " " + widget.email + " " + widget.dob + " " + widget.password + " " + widget.mobileno + " " + username.text);
-    FormData d = FormData.fromMap({
-      "first_name": widget.firstname,
-      "last_name" : widget.laastname,
-      "gender" : widget.gender,
-      "email": widget.email,
-      "date_of_birth" : widget.dob,
-      "password" : widget.password,
-      "mobile_no" : widget.mobileno,
-      "profile" :  await MultipartFile.fromFile(widget.profileimage.path, filename:fileName),
-      "adharcard" :await MultipartFile.fromFile(widget.adharimage.path, filename:fileName1),
-      "username" : username.text,
-    });
+  _registration() {
+    if (username.text == "") {
+      Fluttertoast.showToast(
+          msg: "Please enter Username",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    } else{
+      _userRegistration();
+    }
+  }
 
-    Services.MemberSignUp(d).then((value) {
-      print("");
-      if(value.response == "1"){
-        print(value.message);
-      } else {
-        print("error");
+  _userRegistration() async {
+    try {
+      pr.show();
+      String fileName = widget.profileimage.path.split('/').last;
+      String fileName1 = widget.adharimage.path.split('/').last;
+      print(widget.firstname +
+          " " +
+          widget.laastname +
+          " " +
+          widget.gender +
+          " " +
+          widget.email +
+          " " +
+          widget.dob +
+          " " +
+          widget.password +
+          " " +
+          widget.mobileno +
+          " " +
+          username.text);
+      FormData d = FormData.fromMap({
+        "first_name": widget.firstname,
+        "last_name": widget.laastname,
+        "gender": widget.gender,
+        "email": widget.email,
+        "date_of_birth": widget.dob,
+        "password": widget.password,
+        "mobile_no": widget.mobileno,
+        "profile": await MultipartFile.fromFile(widget.profileimage.path,
+            filename: fileName),
+        "adharcard": await MultipartFile.fromFile(widget.adharimage.path,
+            filename: fileName1),
+        "username": username.text,
+      });
+
+      Services.MemberSignUp(d).then((value) {
+        pr.hide();
+        if (value.response == "1") {
+          Fluttertoast.showToast(
+              msg: value.message,
+              backgroundColor: Colors.grey.shade100,
+              gravity: ToastGravity.BOTTOM,
+              toastLength: Toast.LENGTH_SHORT);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (Route<dynamic>route) => false);
+        } else {
+          showMsg("Something went wrong.");
+        }
       }
-    });
+      );
+    } catch (e) {
+      pr.hide();
+      showMsg("Not access");
+    }
+  }
 
-
+  showMsg(String msg) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Nepali Member"),
+          content: new Text(msg),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text(
+                "Close",
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
