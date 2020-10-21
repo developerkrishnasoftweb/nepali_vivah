@@ -242,7 +242,7 @@ class _Screen2State extends State<Screen2> {
                             children: [
                               Stack(
                                 children: [
-                                   Container(
+                                  Container(
                                     margin: EdgeInsets.only(top: 15),
                                     width: 230.0,
                                     child: Padding(
@@ -252,7 +252,8 @@ class _Screen2State extends State<Screen2> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.only(
                                                 topRight: Radius.circular(10.0),
-                                                topLeft: Radius.circular(10.0))),
+                                                topLeft:
+                                                    Radius.circular(10.0))),
                                         child: Text(
                                           "Good Plan",
                                           style: TextStyle(
@@ -264,7 +265,6 @@ class _Screen2State extends State<Screen2> {
                                     ),
                                   ),
                                 ],
-
                               ),
                               Container(
                                 color: Colors.grey[200],
@@ -332,7 +332,8 @@ class _Screen2State extends State<Screen2> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.only(
                                                 topRight: Radius.circular(10.0),
-                                                topLeft: Radius.circular(10.0))),
+                                                topLeft:
+                                                    Radius.circular(10.0))),
                                         child: Text(
                                           "Better Plan",
                                           style: TextStyle(
@@ -367,7 +368,6 @@ class _Screen2State extends State<Screen2> {
                                     ],
                                   ),
                                 ],
-
                               ),
                               Container(
                                 color: Colors.grey[200],
@@ -380,7 +380,7 @@ class _Screen2State extends State<Screen2> {
                                         child: Text(
                                           "\$ 585 INR / Month",
                                           style: TextStyle(
-                                            // color: MyColors.grayText,
+                                              // color: MyColors.grayText,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 17.0),
                                         )),
@@ -394,7 +394,7 @@ class _Screen2State extends State<Screen2> {
                                         )),
                                     Container(
                                       margin:
-                                      EdgeInsets.only(top: 10, bottom: 20),
+                                          EdgeInsets.only(top: 10, bottom: 20),
                                       width: 135.0,
                                       height: 45,
                                       child: Padding(
@@ -403,7 +403,7 @@ class _Screen2State extends State<Screen2> {
                                           color: MyColors.lightgreen,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(12.0)),
+                                                  BorderRadius.circular(12.0)),
                                           child: Text(
                                             "Subscribe",
                                             style: TextStyle(
@@ -425,8 +425,10 @@ class _Screen2State extends State<Screen2> {
                             children: [
                               Stack(
                                 children: [
-                                   Container(
-                                    margin: EdgeInsets.only(top: 15,),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      top: 15,
+                                    ),
                                     width: 230.0,
                                     child: Padding(
                                       padding: EdgeInsets.all(0.0),
@@ -435,7 +437,8 @@ class _Screen2State extends State<Screen2> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.only(
                                                 topRight: Radius.circular(10.0),
-                                                topLeft: Radius.circular(10.0))),
+                                                topLeft:
+                                                    Radius.circular(10.0))),
                                         child: Text(
                                           "Best Plan",
                                           style: TextStyle(
@@ -447,7 +450,6 @@ class _Screen2State extends State<Screen2> {
                                     ),
                                   ),
                                   Stack(
-
                                     children: [
                                       FaIcon(
                                         FontAwesomeIcons.certificate,
@@ -471,10 +473,8 @@ class _Screen2State extends State<Screen2> {
                                     ],
                                   ),
                                 ],
-
                               ),
                               Container(
-
                                 color: Colors.grey[200],
                                 width: 230.0,
                                 child: Column(
@@ -485,7 +485,7 @@ class _Screen2State extends State<Screen2> {
                                         child: Text(
                                           "\$ 553 INR / Month",
                                           style: TextStyle(
-                                            // color: MyColors.grayText,
+                                              // color: MyColors.grayText,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 17.0),
                                         )),
@@ -499,7 +499,7 @@ class _Screen2State extends State<Screen2> {
                                         )),
                                     Container(
                                       margin:
-                                      EdgeInsets.only(top: 10, bottom: 20),
+                                          EdgeInsets.only(top: 10, bottom: 20),
                                       width: 135.0,
                                       height: 45,
                                       child: Padding(
@@ -508,7 +508,7 @@ class _Screen2State extends State<Screen2> {
                                           color: MyColors.pinkColor,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(12.0)),
+                                                  BorderRadius.circular(12.0)),
                                           child: Text(
                                             "Subscribe",
                                             style: TextStyle(
@@ -523,12 +523,9 @@ class _Screen2State extends State<Screen2> {
                               )
                             ],
                           ),
-
-
                           SizedBox(
                             height: 40,
                           ),
-
                         ],
                       ),
                     ),

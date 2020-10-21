@@ -4,11 +4,13 @@ import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/mainscreens/home.dart';
-class PartnerInfo extends StatefulWidget{
+
+class PartnerInfo extends StatefulWidget {
   @override
   _PartnerInfo createState() => _PartnerInfo();
 }
-class _PartnerInfo extends State<PartnerInfo>{
+
+class _PartnerInfo extends State<PartnerInfo> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,16 +39,16 @@ class _PartnerInfo extends State<PartnerInfo>{
                           padding: EdgeInsets.only(top: 10, bottom: 10),
                           alignment: Alignment(0.0, 0.0),
                           width: size.width,
-                          child: Text("Now tell us the Qualities of the life partner\n You are looking for",
+                          child: Text(
+                            "Now tell us the Qualities of the life partner\n You are looking for",
                             style: TextStyle(
-                                color: MyColors.blackText,
-                                fontSize: 19
-                            ),
+                                color: MyColors.blackText, fontSize: 19),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 10),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 10),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +72,8 @@ class _PartnerInfo extends State<PartnerInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 10),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 10),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +96,10 @@ class _PartnerInfo extends State<PartnerInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.05, bottom: 5),
+                          margin: EdgeInsets.only(
+                              left: size.width * 0.05,
+                              right: size.width * 0.05,
+                              bottom: 5),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -106,9 +112,7 @@ class _PartnerInfo extends State<PartnerInfo>{
                                   decoration: InputDecoration(
                                     hintText: "Min age range",
                                     hintStyle: TextStyle(
-                                        color: MyColors.grayText,
-                                        fontSize: 17
-                                    ),
+                                        color: MyColors.grayText, fontSize: 17),
                                   ),
                                 ),
                               ),
@@ -120,9 +124,7 @@ class _PartnerInfo extends State<PartnerInfo>{
                                   decoration: InputDecoration(
                                     hintText: "Max age range",
                                     hintStyle: TextStyle(
-                                        color: MyColors.grayText,
-                                        fontSize: 17
-                                    ),
+                                        color: MyColors.grayText, fontSize: 17),
                                   ),
                                 ),
                               )
@@ -130,7 +132,8 @@ class _PartnerInfo extends State<PartnerInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 5),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 5),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +156,8 @@ class _PartnerInfo extends State<PartnerInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 5),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 5),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -176,7 +180,8 @@ class _PartnerInfo extends State<PartnerInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 5),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 5),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -199,7 +204,8 @@ class _PartnerInfo extends State<PartnerInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 20),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -222,7 +228,8 @@ class _PartnerInfo extends State<PartnerInfo>{
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 0.05, right: 0.05, bottom: 20),
+                          margin: EdgeInsets.only(
+                              left: 0.05, right: 0.05, bottom: 20),
                           width: size.width * 0.9,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -231,16 +238,19 @@ class _PartnerInfo extends State<PartnerInfo>{
                                 height: 50,
                                 width: size.width * 0.85,
                                 child: FlatButton(
-                                  onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()));
                                   },
-                                  child: Text("Continue",
+                                  child: Text(
+                                    "Continue",
                                     style: TextStyle(
                                         color: MyColors.whiteColor,
-                                        fontSize: 17
-                                    ),
+                                        fontSize: 17),
                                   ),
-                                    color: MyColors.pinkvariaance,
+                                  color: MyColors.pinkvariaance,
                                 ),
                               ),
                             ],
