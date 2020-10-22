@@ -9,27 +9,70 @@ Dio dio = new Dio();
 
 
 class Services {
-  static Future<Data> userSignIn(body) async {
-    String url = Urls.baseUrl + Urls.login_url;
+
+  static Future<Data> MemberView(body) async {
+    String url = Urls.baseUrl + Urls.memberView;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      Response response = await dio.post(url, data: body);
-      print(response.data);
+      Response response = await dio.post(url,data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse['Response'];
-        print(data.response);
-        List list = [];
-        list = jsonResponse["Data"];
-        data.data = list;
+        data.data = jsonResponse['Data']['all_members'];
         return data;
       } else {
         throw Exception("Something went Wrong");
       }
     } on Exception catch (e) {
       print(e.toString);
+    }
+  }
+
+  static Future<Data> MemberSignIn(body) async {
+    String url = Urls.baseUrl + Urls.login_url;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      Response response = await dio.post(url, data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse['Response'];
+        // data.data = jsonResponse['Data'];
+        data.data = [
+          {"member_id" : jsonResponse["Data"].toString()}
+        ];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
+
+  static Future<Data> MemberSignUp(body) async {
+    String url = Urls.baseUrl + Urls.registration_url;
+    dio.options.contentType = Headers.jsonContentType;
+    print(url);
+    try {
+      final Response response = await dio.post(url, data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data(message: 'No Data',response: "1");
+        final jsonResponse = response.data;
+        data.message = jsonResponse['Message'];
+        data.response = jsonResponse['Response'].toString();
+        print(jsonResponse['Data']);
+        data.data = jsonResponse['Data'];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } catch (e) {
+      print("Member Registration Error : " + e.toString());
+      throw Exception("Something went wrong");
     }
   }
 
@@ -110,26 +153,5 @@ class Services {
     }
   }
 
-  static Future<Data> MemberSignUp(body) async {
-    String url = Urls.baseUrl + Urls.registration_url;
-    dio.options.contentType = Headers.jsonContentType;
-    print(url);
-    try {
-      final Response response = await dio.post(url, data: body);
-      if (response.statusCode == 200) {
-        Data data = new Data(message: 'No Data',response: "1");
-        final jsonResponse = response.data;
-        data.message = jsonResponse['Message'];
-        data.response = jsonResponse['Response'].toString();
-        print(jsonResponse['Data']);
-        data.data = jsonResponse['Data'];
-        return data;
-      } else {
-        throw Exception("Something went Wrong");
-      }
-    } catch (e) {
-      print("Member Registration Error : " + e.toString());
-      throw Exception("Something went wrong");
-    }
-  }
+
 }

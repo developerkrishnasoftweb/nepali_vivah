@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/constant/colors.dart';
+import 'package:nepali_vivah/mainscreens/home.dart';
+import 'package:nepali_vivah/mainscreens/main.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -15,8 +18,16 @@ class Login extends StatefulWidget {
 
 
 class _LoginState extends State<Login> {
+  ProgressDialog pr;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  @override
+  void initState() {
+    pr = ProgressDialog(context,
+        type: ProgressDialogType.Normal, isDismissible: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -93,13 +104,32 @@ class _LoginState extends State<Login> {
   }
   void login() {
     print(email.text + password.text);
-    if (email.text != "" && password.text != "") {
+    if (email.text == "" && password.text == "") {
+      Fluttertoast.showToast(
+        msg: "please enter your email or password",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: MyColors.blackText,
+        textColor: MyColors.whiteColor,
+        timeInSecForIosWeb: 1,
+        fontSize: 16,
+      );
+    } else {
+        _userLogin();
+    }
+  }
+
+  _userLogin(){
+
+    try{
+      pr.show();
       FormData formData = FormData.fromMap({
         "email" : email.text,
         "pass" : password.text
       });
-      Services.userSignIn(formData).then((value) {
-        print(value.response);
+      Services.MemberSignIn(formData).then((value) {
+        pr.hide();
+        print(value.data[0]["member_id"]);
         if(value.response == "1"){
           Fluttertoast.showToast(
             msg: "Login successfully",
@@ -110,9 +140,10 @@ class _LoginState extends State<Login> {
             timeInSecForIosWeb: 1,
             fontSize: 16,
           );
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(navbarIndex: 0,),), (route) => false);
         } else {
           Fluttertoast.showToast(
-            msg: "Something went wrong !!!",
+            msg: "Invalid username or password",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             backgroundColor: MyColors.blackText,
@@ -122,9 +153,10 @@ class _LoginState extends State<Login> {
           );
         }
       });
-    } else {
+    }catch(e){
+      pr.hide();
       Fluttertoast.showToast(
-        msg: "please enter your email or password",
+        msg: "Invalid username or password",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: MyColors.blackText,
@@ -133,5 +165,7 @@ class _LoginState extends State<Login> {
         fontSize: 16,
       );
     }
+
+
   }
 }
