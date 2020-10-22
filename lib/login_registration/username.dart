@@ -10,6 +10,7 @@ import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/mainscreens/home.dart';
+import 'package:nepali_vivah/mainscreens/main.dart';
 import '../Api_File/services.dart';
 import 'package:nepali_vivah/login_registration/partner.dart';
 import 'package:intl/intl.dart';
@@ -60,17 +61,16 @@ class _Username extends State<Username> {
     pr = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
   }
-
+  var autoUsername;
   @override
 
   TextEditingController username = TextEditingController();
 
   Widget build(BuildContext context) {
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 4; i++){
       Uname.add(widget.firstname+rng.nextInt(1000).toString());
     }
-    var autoUsername = Uname[0];
-    username.text = autoUsername;
+
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -228,12 +228,29 @@ class _Username extends State<Username> {
                                 child: Column(
                                   children: [
                                     RadioListTile(
+                                      title: Text(Uname[0]),
+                                      groupValue: autoUsername,
+                                      value: Uname[0],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          autoUsername = value;
+                                          username.text =value;
+                                        });
+                                        print(autoUsername);
+                                      },
+                                    ),
+                                    Divider(
+                                      color: MyColors.blackText,
+                                      thickness: 1,
+                                    ),
+                                    RadioListTile(
                                       title: Text(Uname[1]),
                                       groupValue: autoUsername,
                                       value: Uname[1],
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
+                                          username.text =value;
                                         });
                                         print(autoUsername);
                                       },
@@ -249,6 +266,7 @@ class _Username extends State<Username> {
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
+                                          username.text =value;
                                         });
                                         print(autoUsername);
                                       },
@@ -264,21 +282,7 @@ class _Username extends State<Username> {
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
-                                        });
-                                        print(autoUsername);
-                                      },
-                                    ),
-                                    Divider(
-                                      color: MyColors.blackText,
-                                      thickness: 1,
-                                    ),
-                                    RadioListTile(
-                                      title: Text(Uname[4]),
-                                      groupValue: autoUsername,
-                                      value: Uname[4],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          autoUsername = value;
+                                          username.text =value;
                                         });
                                         print(autoUsername);
                                       },
@@ -371,13 +375,18 @@ class _Username extends State<Username> {
         if (value.response == "1") {
           Fluttertoast.showToast(
               msg: value.message,
-              backgroundColor: Colors.grey.shade100,
-              gravity: ToastGravity.BOTTOM,
-              toastLength: Toast.LENGTH_SHORT);
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (Route<dynamic>route) => false);
+              backgroundColor: MyColors.pinkvariaance,
+              gravity: ToastGravity.CENTER,
+              toastLength: Toast.LENGTH_SHORT,
+            timeInSecForIosWeb: 5,
+          );
+         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Profile(data:value.data)), (Route<dynamic>route) => false);
         } else {
           showMsg("Something went wrong.");
         }
+      },onError: (e) {
+        pr.hide();
+        showMsg("Something went wrong.");
       }
       );
     } catch (e) {

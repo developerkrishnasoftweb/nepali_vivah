@@ -7,15 +7,9 @@ import 'package:nepali_vivah/login_registration/contactinfo.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
 import 'settings.dart';
 
-void main() => runApp(new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Philosopher",
-      ),
-      home: PersonalDetail(),
-    ));
-
 class Profile extends StatefulWidget {
+  final List data;
+  Profile({this.data});
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -25,6 +19,7 @@ class _ProfileState extends State<Profile> {
   var _index = 0;
 
   Widget build(BuildContext context) {
+    print(widget.data);
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -56,8 +51,7 @@ class _ProfileState extends State<Profile> {
             ),
           ],
         ),
-        backgroundColor: Color.fromRGBO(238, 62, 95, 1),
-        elevation: 0.0,
+        backgroundColor: MyColors.pinkvariaance,
       ),
       body: SafeArea(
         child: Container(
@@ -159,7 +153,7 @@ class _ProfileState extends State<Profile> {
                         margin: EdgeInsets.only(top: 20),
                         height: 50,
                         width: size.width,
-                        color: Color.fromRGBO(238, 62, 95, 1),
+                        color: MyColors.pinkvariaance,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [

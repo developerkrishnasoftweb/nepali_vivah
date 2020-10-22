@@ -98,13 +98,14 @@ class Services {
     dio.options.contentType = Headers.jsonContentType;
     print(url);
     try {
-      Response response = await dio.post(url, data: body);
+      final Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data(message: 'No Data',response: "1");
-        // final jsonResponse = json.decode(response.data.toString());
-        data.response = response.data["Response"];
-        data.message = response.data["Message"];
-        data.data = response.data["Data"];
+        final jsonResponse = response.data;
+        data.message = jsonResponse['Message'];
+        data.response = jsonResponse['Response'].toString();
+        print(jsonResponse['Data']);
+        data.data = jsonResponse['Data'];
         return data;
       } else {
         throw Exception("Something went Wrong");
