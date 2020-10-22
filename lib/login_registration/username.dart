@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
+import 'package:nepali_vivah/login_registration/login.dart';
 import 'package:nepali_vivah/mainscreens/home.dart';
 import 'package:nepali_vivah/mainscreens/main.dart';
 import '../Api_File/services.dart';
@@ -380,7 +381,7 @@ class _Username extends State<Username> {
               toastLength: Toast.LENGTH_SHORT,
             timeInSecForIosWeb: 5,
           );
-         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Profile(data:value.data)), (Route<dynamic>route) => false);
+         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (Route<dynamic>route) => false);
         } else {
           showMsg("Something went wrong.");
         }

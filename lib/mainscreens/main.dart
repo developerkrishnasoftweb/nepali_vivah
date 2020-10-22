@@ -8,8 +8,6 @@ import 'package:nepali_vivah/login_registration/personalinfo.dart';
 import 'settings.dart';
 
 class Profile extends StatefulWidget {
-  final List data;
-  Profile({this.data});
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -19,7 +17,7 @@ class _ProfileState extends State<Profile> {
   var _index = 0;
 
   Widget build(BuildContext context) {
-    print(widget.data);
+
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
