@@ -53,7 +53,7 @@ class Username extends StatefulWidget {
 class _Username extends State<Username> {
   ProgressDialog pr;
   var rng = Random();
-  List<String> Uname = List<String>();
+  List Uname = List();
 
   @override
   void initState() {
@@ -66,10 +66,10 @@ class _Username extends State<Username> {
   TextEditingController username = TextEditingController();
 
   Widget build(BuildContext context) {
-
-
-
-    var autoUsername = widget.firstname+rng.nextInt(10).toString();
+    for(int i = 0; i < 3; i++){
+      Uname.add(widget.firstname+rng.nextInt(1000).toString());
+    }
+    var autoUsername = Uname[0];
     username.text = autoUsername;
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -228,20 +228,6 @@ class _Username extends State<Username> {
                                 child: Column(
                                   children: [
                                     RadioListTile(
-                                      title: Text(Uname[0]),
-                                      groupValue: autoUsername,
-                                      value: Uname[0],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          autoUsername = value;
-                                        });
-                                      },
-                                    ),
-                                    Divider(
-                                      color: MyColors.blackText,
-                                      thickness: 1,
-                                    ),
-                                    RadioListTile(
                                       title: Text(Uname[1]),
                                       groupValue: autoUsername,
                                       value: Uname[1],
@@ -249,6 +235,7 @@ class _Username extends State<Username> {
                                         setState(() {
                                           autoUsername = value;
                                         });
+                                        print(autoUsername);
                                       },
                                     ),
                                     Divider(
@@ -257,13 +244,14 @@ class _Username extends State<Username> {
                                     ),
                                     RadioListTile(
                                       title: Text(Uname[2]),
+                                      groupValue: autoUsername,
+                                      value: Uname[2],
                                       onChanged: (value) {
                                         setState(() {
                                           autoUsername = value;
                                         });
+                                        print(autoUsername);
                                       },
-                                      groupValue: autoUsername,
-                                      value: Uname[2],
                                     ),
                                     Divider(
                                       color: MyColors.blackText,
@@ -277,6 +265,22 @@ class _Username extends State<Username> {
                                         setState(() {
                                           autoUsername = value;
                                         });
+                                        print(autoUsername);
+                                      },
+                                    ),
+                                    Divider(
+                                      color: MyColors.blackText,
+                                      thickness: 1,
+                                    ),
+                                    RadioListTile(
+                                      title: Text(Uname[4]),
+                                      groupValue: autoUsername,
+                                      value: Uname[4],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          autoUsername = value;
+                                        });
+                                        print(autoUsername);
                                       },
                                     )
                                   ],
@@ -292,11 +296,10 @@ class _Username extends State<Username> {
                           child: FlatButton(
                             onPressed: () {
                               _registration();
-
                             },
                             color: MyColors.pinkvariaance,
                             child: Text(
-                              "Next",
+                              "Registration",
                               style: TextStyle(
                                   color: MyColors.whiteColor, fontSize: 20),
                             ),
