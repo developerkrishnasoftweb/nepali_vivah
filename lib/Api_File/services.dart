@@ -10,23 +10,48 @@ Dio dio = new Dio();
 
 class Services {
   static Future<Data> userSignIn(body) async {
-    String url = Urls.baseUrl + Urls.memberView;
+    String url = Urls.baseUrl + Urls.login_url;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      final response = await dio.post(url, data: body);
+      Response response = await dio.post(url, data: body);
+      print(response.data);
       if (response.statusCode == 200) {
         Data data = new Data();
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse['Response'];
-        List list;
+        print(data.response);
+        List list = [];
+        list = jsonResponse["Data"];
+        data.data = list;
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
+
+  static Future<Data> memberViewById(String id) async {
+    String url = Urls.baseUrl + Urls.memberViewId;
+    FormData data = FormData.fromMap({"member_id" : id});
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      Response response = await dio.post(url, data: data);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse['Response'];
+        List list = [];
         list = [
           /// Todo API path copy to here all data
           {
-            "member_id": jsonResponse['Data'][0]["id"],
-            "mahasangh_id": jsonResponse['Data'][0]["first_name"],
-            "member_profile_id": jsonResponse['Data'][0]["model_name"],
-            "first_name": jsonResponse['Data'][0]['email'],
+            "member_id": jsonResponse['Data'][0]["member_id"],
+            "mahasangh_id": jsonResponse['Data'][0]["mahasangh_id"],
+            "member_profile_id": jsonResponse['Data'][0]["member_profile_id"],
+            "first_name": jsonResponse['Data'][0]['first_name'],
             "last_name": jsonResponse['Data'][0]['last_name'],
             "gender": jsonResponse['Data'][0]['gender'],
             "email": jsonResponse['Data'][0]['email'],
@@ -55,25 +80,17 @@ class Services {
             "family_id": jsonResponse['Data'][0]['family_id'],
             "introduction": jsonResponse['Data'][0]['introduction'],
             "basic_info": jsonResponse['Data'][0]['basic_info'],
-            "education_and_career": jsonResponse['Data'][0]
-                ['education_and_career'],
-            "physical_attributes": jsonResponse['Data'][0]
-                ['physical_attributes'],
+            "education_and_career": jsonResponse['Data'][0]['education_and_career'],
+            "physical_attributes": jsonResponse['Data'][0]['physical_attributes'],
             "language": jsonResponse['Data'][0]['language'],
-            "hobbies_and_interest": jsonResponse['Data'][0]
-                ['hobbies_and_interest'],
-            "residency_information": jsonResponse['Data'][0]
-                ['residency_information'],
-            "spiritual_and_social_background": jsonResponse['Data'][0]
-                ['spiritual_and_social_background'],
+            "hobbies_and_interest": jsonResponse['Data'][0]['hobbies_and_interest'],
+            "residency_information": jsonResponse['Data'][0]['residency_information'],
+            "spiritual_and_social_background": jsonResponse['Data'][0]['spiritual_and_social_background'],
             "life_style": jsonResponse['Data'][0]['life_style'],
-            "astronomic_information": jsonResponse['Data'][0]
-                ['astronomic_information'],
+            "astronomic_information": jsonResponse['Data'][0]['astronomic_information'],
             "family_info": jsonResponse['Data'][0]['family_info'],
-            "additional_personal_details": jsonResponse['Data'][0]
-                ['additional_personal_details'],
-            "partner_expectation": jsonResponse['Data'][0]
-                ['partner_expectation'],
+            "additional_personal_details": jsonResponse['Data'][0]['additional_personal_details'],
+            "partner_expectation": jsonResponse['Data'][0]['partner_expectation'],
             "interest": jsonResponse['Data'][0]['interest'],
             "short_list": jsonResponse['Data'][0]['short_list'],
             "followed": jsonResponse['Data'][0]['followed'],
