@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
+import 'package:nepali_vivah/login_registration/login.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
 import '../Api_File/services.dart';
 class Registration extends StatefulWidget{
@@ -89,24 +90,29 @@ class _Registration extends State<Registration>{
                           ],
                         ),
                       ),
-                      Container(
-                        width: size.width * 0.3,
-                        height: 60,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.person_outline,
-                              color: MyColors.whiteColor,
-                              size: 25,
-                            ),
-                            Text("Login",
-                              style: TextStyle(
-                                  color: MyColors.whiteColor,
-                                fontSize: 12
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Login(),),);
+                        },
+                        child: Container(
+                          width: size.width * 0.3,
+                          height: 60,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.person_outline,
+                                color: MyColors.whiteColor,
+                                size: 25,
                               ),
-                            )
-                          ],
+                              Text("Login",
+                                style: TextStyle(
+                                    color: MyColors.whiteColor,
+                                  fontSize: 12
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
