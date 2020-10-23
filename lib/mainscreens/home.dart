@@ -24,24 +24,19 @@ class _Home extends State<Home> {
   var agestatus;
   String Status;
   String profileImage;
+  String aadharImage;
 
   @override
   void initState() {
-    // TODO: implement initState
-    setState(() {
-      _getMember();
-    });
+    _getMember();
+    _getcradintional();
+    super.initState();
   }
 
-@override
-  void setState(fn) {
-    // TODO: implement setState
-    super.setState(fn);
-    setState(() async {
-      prefs = await SharedPreferences.getInstance();
-      profileImage = prefs.getString('profile_Image');
-      print(profileImage);
-    });
+  _getcradintional() async {
+    prefs = await SharedPreferences.getInstance();
+    profileImage = prefs.getString('profile_Image');
+    aadharImage = prefs.getString('Aadhar_Image');
   }
 
   @override
@@ -50,8 +45,6 @@ class _Home extends State<Home> {
   TextEditingController search = TextEditingController();
 
   Widget build(BuildContext context) {
-
-
 
     (widget.navbarIndex != null) ? _index = widget.navbarIndex : _index = 0;
     Size size = MediaQuery.of(context).size;
@@ -145,7 +138,7 @@ class _Home extends State<Home> {
                         width: size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 20,
+                            itemCount: Memberdata.length,
                             itemBuilder: (context,index){
                               agestatus = Memberdata[index]["marital_status_id"];
                               return GestureDetector(
@@ -298,10 +291,12 @@ class _Home extends State<Home> {
         bottomNavigationBar: Bottom_bar());
   }
 
-  _getMember() {
-    Services.MemberView().then((value) {
+  _getMember() async {
+    await Services.MemberView().then((value) {
      if(value.response == 1){
-      Memberdata = value.data;
+       setState(() {
+         Memberdata = value.data;
+       });
      }
     });
   }
