@@ -77,12 +77,11 @@ class Services {
     }
   }
 
-  static Future<Data> memberViewById(String id) async {
+  static Future<Data> memberViewById(body) async {
     String url = Urls.baseUrl + Urls.memberViewId;
-    FormData data = FormData.fromMap({"member_id" : id});
     dio.options.contentType = Headers.jsonContentType;
     try {
-      Response response = await dio.post(url, data: data);
+      Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
         final jsonResponse = response.data;
@@ -140,8 +139,29 @@ class Services {
             "followed": jsonResponse['Data'][0]['followed'],
             "followers": jsonResponse['Data'][0]['followers'],
             "ignored": jsonResponse['Data'][0]['ignored'],
-
-            ///TODO : There are more properties to check once
+            "ignored_by": jsonResponse['Data'][0]['ignored_by'],
+            "gallery": jsonResponse['Data'][0]['gallery'],
+            "happy_story": jsonResponse['Data'][0]['happy_story'],
+            "package_info": jsonResponse['Data'][0]['package_info'],
+            "payments_info": jsonResponse['Data'][0]['payments_info'],
+            "interested_by": jsonResponse['Data'][0]['interested_by'],
+            "follower": jsonResponse['Data'][0]['follower'],
+            "membership": jsonResponse['Data'][0]['membership'],
+            "notifications": jsonResponse['Data'][0]['notifications'],
+            "profile_status": jsonResponse['Data'][0]['profile_status'],
+            "member_since": jsonResponse['Data'][0]['member_since'],
+            "express_interest": jsonResponse['Data'][0]['express_interest'],
+            "direct_messages": jsonResponse['Data'][0]['direct_messages'],
+            "photo_gallery": jsonResponse['Data'][0]['photo_gallery'],
+            "profile_completion": jsonResponse['Data'][0]['profile_completion'],
+            "is_blocked": jsonResponse['Data'][0]['is_blocked'],
+            "privacy_status": jsonResponse['Data'][0]['privacy_status'],
+            "pic_privacy": jsonResponse['Data'][0]['pic_privacy'],
+            "report_profile": jsonResponse['Data'][0]['report_profile'],
+            "reported_by": jsonResponse['Data'][0]['reported_by'],
+            "created_at": jsonResponse['Data'][0]['created_at'],
+            "updated_at": jsonResponse['Data'][0]['updated_at'],
+            "status": jsonResponse['Data'][0]['status'],
           }
         ];
         data.data = list;

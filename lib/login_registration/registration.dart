@@ -568,14 +568,6 @@ class _Registration extends State<Registration>{
                       FlatButton(
                         onPressed: () async {
                            _registration();
-                          // String id = "23";
-                          // FormData formData = FormData.fromMap({
-                          //   "member_id" : id
-                          // });
-                          // await Services.userSignIn(formData).then((value) {
-                          //   print(value.response);
-                          // });
-
                         },
                         child: Text(string.registrationButton,
                           style: TextStyle(

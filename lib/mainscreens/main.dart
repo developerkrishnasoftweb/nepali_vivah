@@ -1,26 +1,44 @@
+import 'package:dio/dio.dart';
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/login_registration/contactinfo.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'settings.dart';
 
 class Profile extends StatefulWidget {
-
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  @override
-  var _index = 0;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _membergetbyId();
+  }
+
+  @override
+  String Status;
+  SharedPreferences pref;
+  String profileImage;
+  String aadharImage;
+  var ageStatus;
+  List Userdata;
+  var _index = 0;
+  String M_id;
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
+    ageStatus = Userdata[0]["marital_status_id"];
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -89,7 +107,7 @@ class _ProfileState extends State<Profile> {
                             children: [
                               CircleAvatar(
                                 backgroundImage:
-                                    AssetImage('assets/images/John.jpg'),
+                                    NetworkImage(profileImage+Userdata[0]["profile_image"]),
                                 radius: 50.0,
                               )
                             ],
@@ -117,14 +135,14 @@ class _ProfileState extends State<Profile> {
                       Column(
                         children: [
                           Text(
-                            string.user_name,
+                            Userdata[0]["first_name"]+" "+Userdata[0]["last_name"],
                             style: TextStyle(
                               fontSize: 20.0,
                               color: MyColors.whiteColor,
                             ),
                           ),
                           Text(
-                            string.user_info,
+                            Userdata[0]["age"].toString()+" "+Userdata[0]["gender"]+" "+_status(ageStatus),
                             style: TextStyle(
                               fontSize: 16.0,
                               color: MyColors.whiteColor,
@@ -137,8 +155,16 @@ class _ProfileState extends State<Profile> {
                                 Icons.location_on,
                                 color: MyColors.whiteColor,
                               ),
-                              Text(
-                                string.user_location,
+                              Userdata[0]["address"] == null
+                                  ? Text(
+                                "--",
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: MyColors.whiteColor,
+                                ),
+                              )
+                                  :Text(
+                                jsonDecode(Userdata[0]["address"])[0]["Country"].toString() + ", " + jsonDecode(Userdata[0]["address"])[0]["State"].toString()  + ", " + jsonDecode(Userdata[0]["address"])[0]["City"].toString(),
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   color: MyColors.whiteColor,
@@ -225,14 +251,14 @@ class _ProfileState extends State<Profile> {
                             //width: MediaQuery.of(context).size.width * 0.8,
                             margin: EdgeInsets.only(left: 10),
                             child: Text(
-                              "Interested in Nikhil Monga",
+                              "Interested in "+ Userdata[0]["first_name"]+" "+Userdata[0]["last_name"],
                               style: TextStyle(),
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 10, top: 5),
                             child: Text(
-                              "(350)",
+                              "\("+Userdata[0]["interest"]+"\)",
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -250,7 +276,7 @@ class _ProfileState extends State<Profile> {
                             // width: MediaQuery.of(context).size.width * 0.8,
                             margin: EdgeInsets.only(left: 10, right: 10),
                             child: Text(
-                              "Nikhil Monga interestd in",
+                              Userdata[0]["first_name"]+" "+Userdata[0]["last_name"]+" interestd in",
                               style: TextStyle(
                                 color: MyColors.grayText,
                               ),
@@ -259,7 +285,7 @@ class _ProfileState extends State<Profile> {
                           Container(
                             margin: EdgeInsets.only(right: 10, top: 5),
                             child: Text(
-                              "(35)",
+                                "\("+Userdata[0]["interest"]+"\)",
                               style: TextStyle(
                                 color: MyColors.grayText,
                               ),
@@ -371,12 +397,12 @@ class _ProfileState extends State<Profile> {
                 ),
                 Row(
                   children: <Widget>[
-                    Text(
-                      "I am in India.",
-                      style: TextStyle(fontSize: 18),
+                    Container(
+                      width: size.width,
+                      child: Text(Userdata[0]["introduction"],
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
-                    Text("I am hindu.", style: TextStyle(fontSize: 18)),
-                    Text("I am a doctor.", style: TextStyle(fontSize: 18)),
                   ],
                 ),
                 Container(
@@ -403,20 +429,23 @@ class _ProfileState extends State<Profile> {
                   width: MediaQuery.of(context).size.width,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 5,
+                    itemCount: Userdata[0]["gallery"].toString().split(",").length,
                     itemBuilder: (BuildContext context, int index) {
+                      // print("Image Src : " + pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",").first);
+                      print("Image Src : " + Userdata[0]["gallery"].toString().split(",")[1]);
                       return Row(
                         children: <Widget>[
                           Container(
                             height: 150,
                             width: 150,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100.0),
+                                shape: BoxShape.circle,
                                 image: DecorationImage(
                                     fit: BoxFit.fitHeight,
-                                    image: AssetImage(
-                                      "assets/images/profile.png",
-                                    ))),
+                                    image:NetworkImage(profileImage+Userdata[0]["profile_image"]),
+                                   // NetworkImage((pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",")[index]),)
+                                ),
+                          ),
                           ),
                         ],
                       );
@@ -1770,5 +1799,44 @@ class _ProfileState extends State<Profile> {
       ),
         bottomNavigationBar: Bottom_bar(currentIndex: 0,),
     );
+  }
+
+
+  _membergetbyId() async {
+    pref = await SharedPreferences.getInstance();
+    profileImage = pref.getString('profile_Image');
+    aadharImage = pref.getString('Aadhar_Image');
+    String M_id = pref.getString("m_id");
+    FormData formData = FormData.fromMap({
+      "member_id" : M_id,
+    });
+    Services.memberViewById(formData).then((value) {
+      if(value.response == 1){
+        print(value.data);
+        setState(() {
+          print(value.message);
+          Userdata = value.data;
+        });
+      }
+    });
+
+  }
+
+  _status(int status) {
+    switch(status){
+      case 1:
+        Status = "Single";
+        break;
+      case 2:
+        Status = "Divoces";
+        break;
+      case 3:
+        Status = "Window";
+        break;
+      case 4:
+        Status = "Widower";
+        break;
+    }
+    return Status;
   }
 }

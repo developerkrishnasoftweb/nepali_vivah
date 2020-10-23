@@ -179,6 +179,7 @@ class _LoginState extends State<Login> {
           SharedPreferences _prefs = await SharedPreferences.getInstance();
           await _prefs.setString("m_id", value.data[0]["member_id"]);
           await _prefs.setString("profile_Image", "http://kvms.kriishnacab.com/public/images/Profile/");
+          await _prefs.setString("GalleryImage", "http://kvms.kriishnacab.com/public/images/Gallery/");
           await _prefs.setString("Aadhar_Image","http://kvms.kriishnacab.com/public/images/Adhar_CArd/" );
           Navigator.pushAndRemoveUntil(
               context,
