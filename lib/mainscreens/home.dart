@@ -8,22 +8,44 @@ import 'package:nepali_vivah/mainscreens/Screen1.dart';
 import 'package:nepali_vivah/mainscreens/chat_home.dart';
 import 'package:nepali_vivah/mainscreens/main.dart';
 import 'package:nepali_vivah/mainscreens/settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
-  Home({this.navbarIndex}) : super();
   final int navbarIndex;
-
+  String memberid;
+  Home({this.navbarIndex,this.memberid}) : super();
   @override
   _Home createState() => _Home();
 }
 
 class _Home extends State<Home> {
+  SharedPreferences prefs;
+  List Memberdata;
+  var agestatus;
+  String Status;
+  String profileImage;
+  String aadharImage;
+
+  @override
+  void initState() {
+    _getMember();
+    _getcradintional();
+    super.initState();
+  }
+
+  _getcradintional() async {
+    prefs = await SharedPreferences.getInstance();
+    profileImage = prefs.getString('profile_Image');
+    aadharImage = prefs.getString('Aadhar_Image');
+  }
+
   @override
   var _index;
   Icon clear;
   TextEditingController search = TextEditingController();
 
   Widget build(BuildContext context) {
+
     (widget.navbarIndex != null) ? _index = widget.navbarIndex : _index = 0;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -36,7 +58,10 @@ class _Home extends State<Home> {
               Icons.keyboard_arrow_left,
               color: MyColors.whiteColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              String stringValue = prefs.getString('profile_Image');
+              print(stringValue);
+            },
             splashColor: Dcolor.appGrayColor,
           ),
           title: Container(
@@ -113,11 +138,15 @@ class _Home extends State<Home> {
                         width: size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 5,
+                            itemCount: Memberdata.length,
                             itemBuilder: (context,index){
+                              agestatus = Memberdata[index]["marital_status_id"];
                               return GestureDetector(
-                                onTap: () {
-                                  _getMember();
+                                onTap: () async {
+                                  // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  // String stringValue = prefs.getString('m_id');
+                                  // print(stringValue);
+
                                   // Navigator.push(
                                   //     context,
                                   //     MaterialPageRoute(
@@ -140,8 +169,7 @@ class _Home extends State<Home> {
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(80),
                                             image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/user_image.jpg"),
+                                              image: NetworkImage(profileImage+Memberdata[index]["profile_image"]),
                                               fit: BoxFit.fill,
                                             )),
                                       ),
@@ -150,7 +178,7 @@ class _Home extends State<Home> {
                                         width: size.width,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Nikhil Monga",
+                                          Memberdata[index]["first_name"]+" "+Memberdata[index]["last_name"],
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: MyColors.pinkvariaance),
@@ -161,7 +189,7 @@ class _Home extends State<Home> {
                                         width: size.width,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "28, Single",
+                                          Memberdata[index]["age"].toString()+" "+_agestatus(agestatus,index),
                                           style: TextStyle(fontSize: 14),
                                         ),
                                       ),
@@ -174,8 +202,9 @@ class _Home extends State<Home> {
                                           children: <Widget>[
                                             Icon(Icons.location_on,
                                                 color: MyColors.blue),
-                                            Text(
-                                              "Indore, India",
+                                            Memberdata[index]["location"]== null ? Text("-")
+                                                :Text(
+                                              Memberdata[index]["location"],
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   color: MyColors.blue),
@@ -262,11 +291,31 @@ class _Home extends State<Home> {
         bottomNavigationBar: Bottom_bar());
   }
 
-  _getMember() {
-    Services.MemberView({}).then((data) {
-     if(data.data == "1"){
-       print("success");
+  _getMember() async {
+    await Services.MemberView().then((value) {
+     if(value.response == 1){
+       setState(() {
+         Memberdata = value.data;
+       });
      }
     });
+  }
+
+  _agestatus(int status,index) {
+    switch(status) {
+      case 1:
+        Status= "Single";
+        break;
+      case 2:
+        Status= "Divoces";
+        break;
+      case 3:
+        Status= "Window";
+        break;
+      case 4:
+        Status= "Windower";
+        break;
+    }
+    return Status;
   }
 }

@@ -183,10 +183,7 @@ class _LoginState extends State<Login> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => Home(
-                  navbarIndex: 0,
-                  memberid: value.data[0]["member_id"],
-                ),
+                builder: (context) => Profile(),
               ),
               (route) => false);
         } else {

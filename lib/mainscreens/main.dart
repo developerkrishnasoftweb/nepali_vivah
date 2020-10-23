@@ -9,6 +9,7 @@ import 'package:nepali_vivah/login_registration/personalinfo.dart';
 import 'settings.dart';
 
 class Profile extends StatefulWidget {
+
   @override
   _ProfileState createState() => _ProfileState();
 }
