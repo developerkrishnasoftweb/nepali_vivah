@@ -139,15 +139,12 @@ class _Home extends State<Home> {
                         width: size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-
-
-
                             itemCount: Memberdata.length,
-
                             itemBuilder: (context,index){
+                              agestatus = Memberdata[index]["marital_status_id"];
                               return GestureDetector(
                                 onTap: () {
-                                  _getMember();
+                                  // _getMember();
                                   // Navigator.push(
                                   //     context,
                                   //     MaterialPageRoute(
@@ -170,8 +167,7 @@ class _Home extends State<Home> {
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(80),
                                             image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/user_image.jpg"),
+                                              image: NetworkImage(profileImage+Memberdata[index]["profile_image"]),
                                               fit: BoxFit.fill,
                                             )),
                                       ),
@@ -180,7 +176,7 @@ class _Home extends State<Home> {
                                         width: size.width,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Nikhil Monga",
+                                          Memberdata[index]["first_name"]+" "+Memberdata[index]["last_name"],
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: MyColors.pinkvariaance),
@@ -191,7 +187,7 @@ class _Home extends State<Home> {
                                         width: size.width,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "28, Single",
+                                            Memberdata[index]["age"].toString()+" "+_status(agestatus),
                                           style: TextStyle(fontSize: 14),
                                         ),
                                       ),
@@ -204,8 +200,8 @@ class _Home extends State<Home> {
                                           children: <Widget>[
                                             Icon(Icons.location_on,
                                                 color: MyColors.blue),
-                                            Text(
-                                              "Indore, India",
+                                            Memberdata[index]["location"] == null ? Text("-") :Text(
+                                              Memberdata[index]["location"],
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   color: MyColors.blue),
@@ -289,10 +285,8 @@ class _Home extends State<Home> {
             ),
           ),
         ),
-        bottomNavigationBar: Bottom_bar());
+        bottomNavigationBar: Bottom_bar(currentIndex: 1,));
   }
-
-
 
   _getMember() async {
     await Services.MemberView().then((value) {
@@ -300,8 +294,25 @@ class _Home extends State<Home> {
        setState(() {
          Memberdata = value.data;
        });
-
      }
     });
+  }
+
+  _status(int status) {
+    switch(status){
+      case 1:
+        Status = "Single";
+        break;
+      case 2:
+        Status = "Divoces";
+        break;
+      case 3:
+        Status = "Window";
+        break;
+      case 4:
+        Status = "Widower";
+        break;
+    }
+    return Status;
   }
 }

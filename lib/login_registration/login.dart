@@ -65,8 +65,8 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: MyColors.whiteColor),
                   controller: email,
                   decoration: InputDecoration(
-                    labelText: "Email",
-                    labelStyle: TextStyle(color: MyColors.whiteColor),
+                    hintText: "Email",
+                    hintStyle: TextStyle(color: MyColors.whiteColor),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
                     contentPadding: EdgeInsets.only(left: 20),
@@ -83,8 +83,8 @@ class _LoginState extends State<Login> {
                   controller: password,
                   obscureText: true,
                   decoration: InputDecoration(
-                    labelText: "Password",
-                    labelStyle: TextStyle(color: MyColors.whiteColor),
+                    hintText: "Password",
+                    hintStyle: TextStyle(color: MyColors.whiteColor),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.amber),
                         borderRadius: BorderRadius.circular(10)),
