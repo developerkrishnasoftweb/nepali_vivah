@@ -14,7 +14,7 @@ class Registration extends StatefulWidget{
 }
 class _Registration extends State<Registration>{
   @override
-  static const marriage = ['Married', 'Unmarried', 'Widow', 'Separated'];
+  static const marriage = ['Single', 'Divoces', 'Widow', 'Widower'];
   static const years = ['2020','2021','2022','2023','2024','2025'];
   static const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   String maritalStatus;

@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^0.1.3
   fluttertoast:
   progress_dialog: ^1.2.4
+  shared_preferences: ^0.5.12+2
 
 dev_dependencies:
   flutter_test:
@@ -40,7 +41,6 @@ dev_dependencies:
   flutter_swiper:
   font_awesome_flutter: ^8.10.0
   dio: ^3.0.9
-  file_picker: ^2.0.7
   image_picker:
   http:
 

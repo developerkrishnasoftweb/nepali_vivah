@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nepali_vivah/Common/Appbar.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
+import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/contactinfo.dart';
 import 'package:nepali_vivah/login_registration/lifestyle.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       title: string.title,
       theme: ThemeData(
-        primaryColor: Colors.orange,
+        primaryColor: MyColors.pinkvariaance,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Philosopher',
 
