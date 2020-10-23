@@ -10,17 +10,19 @@ Dio dio = new Dio();
 
 class Services {
 
-  static Future<Data> MemberView(body) async {
+  static Future<Data> MemberView() async {
     String url = Urls.baseUrl + Urls.memberView;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      Response response = await dio.post(url,data: body);
+      print(url);
+      Response response = await dio.get(url);
       if (response.statusCode == 200) {
         Data data = new Data();
+
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
-        data.response = jsonResponse['Response'];
-        data.data = jsonResponse['Data']['all_members'];
+        data.response = jsonResponse["Response"];
+        data.data = jsonResponse["Data"];
         return data;
       } else {
         throw Exception("Something went Wrong");
@@ -40,7 +42,6 @@ class Services {
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse['Response'];
-        // data.data = jsonResponse['Data'];
         data.data = [
           {"member_id" : jsonResponse["Data"].toString()}
         ];
