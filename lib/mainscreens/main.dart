@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/login_registration/contactinfo.dart';
@@ -17,7 +18,6 @@ class _ProfileState extends State<Profile> {
   var _index = 0;
 
   Widget build(BuildContext context) {
-
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -368,26 +368,15 @@ class _ProfileState extends State<Profile> {
                   ),
                   alignment: Alignment(-0.9, 0.0),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    itemCount: 1,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        children: <Widget>[
-                          Text(
-                            "I am in India.",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text("I am hindu.", style: TextStyle(fontSize: 18)),
-                          Text("I am a doctor.",
-                              style: TextStyle(fontSize: 18)),
-                        ],
-                      );
-                    },
-                  ),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      "I am in India.",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text("I am hindu.", style: TextStyle(fontSize: 18)),
+                    Text("I am a doctor.", style: TextStyle(fontSize: 18)),
+                  ],
                 ),
                 Container(
                   height: 1,
@@ -447,525 +436,500 @@ class _ProfileState extends State<Profile> {
                   ),
                   alignment: Alignment(-0.8, 0.0),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    itemCount: 1,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Target wedding date :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "November 2015",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  "Target wedding date :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
                                 ),
                               ),
                               Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Name :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Nikhil Monga",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Gender :",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: MyColors.grayText,
-                                          fontSize: 17,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "female",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Age :",
-                                        style: TextStyle(
-                                            color: MyColors.grayText,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "28",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Height :",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: MyColors.grayText,
-                                          fontSize: 17,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "42 (127cms)",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Complextion :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Dark",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Built :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Heavy",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Native Language :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Hindi",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Marital Status :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Unmarried",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Location :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Nepal",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Religion :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Hindu",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Education :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Doctorate",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 5, bottom: 5),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Rasidency Status :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                        margin:
-                                            EdgeInsets.only(top: 5, bottom: 5),
-                                        height: 20,
-                                        width: 60,
-                                        child: RaisedButton(
-                                          onPressed: () {},
-                                          //elevation: 0.1,
-                                          color: MyColors.pinkvariaance,
-                                          child: Text(
-                                            "Ask?",
-                                            style: TextStyle(
-                                                color: MyColors.whiteColor,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12),
-                                          ),
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Salary :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "\$2000000",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: 10,
-                                ),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Proffession :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Doctor",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 15),
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  "November 2015",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
                                 ),
                               ),
                             ],
                           ),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Name :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Nikhil Monga",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Gender :",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: MyColors.grayText,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "female",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Age :",
+                                  style: TextStyle(
+                                      color: MyColors.grayText,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "28",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Height :",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: MyColors.grayText,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "42 (127cms)",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Complextion :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Dark",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Built :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Heavy",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Native Language :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Hindi",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Marital Status :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Unmarried",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Location :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Nepal",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Religion :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Hindu",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Education :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Doctorate",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 5, bottom: 5),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Rasidency Status :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(top: 5, bottom: 5),
+                                  height: 20,
+                                  width: 60,
+                                  child: RaisedButton(
+                                    onPressed: () {},
+                                    //elevation: 0.1,
+                                    color: MyColors.pinkvariaance,
+                                    child: Text(
+                                      "Ask?",
+                                      style: TextStyle(
+                                          color: MyColors.whiteColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Salary :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "\$2000000",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Proffession :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Doctor",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 15),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 20, bottom: 25),
@@ -1061,521 +1025,496 @@ class _ProfileState extends State<Profile> {
                   ),
                   alignment: Alignment(-0.8, 0.0),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    itemCount: 1,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(top: 5, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(top: 5, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Target wedding date :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "November 2015",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  "Target wedding date :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
                                 ),
                               ),
                               Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Name :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Nikhil Monga",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Gender :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "female",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Age :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "28",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Height :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "42 (127cms)",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Complextion :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Dark",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Built :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Heavy",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Native Language :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Hindi",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Marital Status :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Unmarried",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Location :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Nepal",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Religion :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Hindu",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Education :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Doctorate",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 5, bottom: 5),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Rasidency Status :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                        margin:
-                                            EdgeInsets.only(top: 5, bottom: 5),
-                                        height: 20,
-                                        width: 60,
-                                        child: RaisedButton(
-                                          onPressed: () {},
-                                          //elevation: 0.1,
-                                          color: MyColors.pinkvariaance,
-                                          child: Text(
-                                            "Ask?",
-                                            style: TextStyle(
-                                                color: MyColors.whiteColor,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12),
-                                          ),
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Salary :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "\$2000000",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 1,
-                                width: size.width,
-                                color: MyColors.grayText,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 20),
-                                width: MediaQuery.of(context).size.width * 0.95,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Text(
-                                        "Proffession :",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.grayText,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        "Doctor",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.pinkvariaance,
-                                            fontSize: 17),
-                                      ),
-                                    ),
-                                  ],
+                                child: Text(
+                                  "November 2015",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
                                 ),
                               ),
                             ],
                           ),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Name :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Nikhil Monga",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Gender :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "female",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Age :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "28",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Height :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "42 (127cms)",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Complextion :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Dark",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Built :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Heavy",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Native Language :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Hindi",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Marital Status :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Unmarried",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Location :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Nepal",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Religion :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Hindu",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Education :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Doctorate",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 5, bottom: 5),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Rasidency Status :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(top: 5, bottom: 5),
+                                  height: 20,
+                                  width: 60,
+                                  child: RaisedButton(
+                                    onPressed: () {},
+                                    //elevation: 0.1,
+                                    color: MyColors.pinkvariaance,
+                                    child: Text(
+                                      "Ask?",
+                                      style: TextStyle(
+                                          color: MyColors.whiteColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Salary :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "\$2000000",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: size.width,
+                          color: MyColors.grayText,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 20),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  "Proffession :",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.grayText,
+                                      fontSize: 17),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Doctor",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 20),
@@ -1828,48 +1767,7 @@ class _ProfileState extends State<Profile> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: MyColors.pinkvariaance,
-        unselectedItemColor: MyColors.grayText,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: _index,
-        onTap: (index) {
-          setState(() {
-            _index = index;
-            switch (_index) {
-              case 4:
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Settings()));
-                break;
-            }
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.home,
-            ),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.search),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.conciergeBell),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text("Home"),
-          ),
-        ],
-      ),
+        bottomNavigationBar: Bottom_bar(currentIndex: 0,),
     );
   }
 }

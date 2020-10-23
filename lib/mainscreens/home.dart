@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -19,7 +18,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   @override
-  var _index;
+  var _index = 1;
   Icon clear;
   TextEditingController search = TextEditingController();
 
@@ -91,8 +90,33 @@ class _Home extends State<Home> {
             child: Column(
               children: <Widget>[
                 Container(
+                  height: 200,
                   width: size.width,
-                  padding: EdgeInsets.only(top: 15, bottom: 15),
+                  child: CarouselSlider(
+                    height: 190,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    aspectRatio: 19 / 9,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 600),
+                    viewportFraction: 1.0,
+                    items: [
+                      Container(
+                        margin: EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/user_image.jpg'),
+                                fit: BoxFit.fill)),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: size.width,
+                  padding: EdgeInsets.only(top: 5, bottom: 5),
                   alignment: Alignment(0.0, 0.0),
                   child: Text(
                     "You might be interested in",
@@ -109,86 +133,173 @@ class _Home extends State<Home> {
                     alignment: Alignment.center,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Container(
-                        width: size.width,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 5,
-                            itemBuilder: (context,index){
-                              return GestureDetector(
-                                onTap: () {
-                                  _getMember();
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => Screen1()));
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
-                                  height: 200,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.whiteColor,
+                      child: Row(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Screen1()));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              height: 200,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  color: MyColors.whiteColor,
+                                  boxShadow: [BoxShadow()]),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    height: 80,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(80),
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/user_image.jpg"),
+                                          fit: BoxFit.fill,
+                                        )),
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(80),
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/user_image.jpg"),
-                                              fit: BoxFit.fill,
-                                            )),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Nikhil Monga",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: MyColors.pinkvariaance),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "28, Single",
-                                          style: TextStyle(fontSize: 14),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        child: Row(
-                                          mainAxisAlignment:
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Nikhil Monga",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: MyColors.pinkvariaance),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "28, Single",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    width: size.width,
+                                    child: Row(
+                                      mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Icon(Icons.location_on,
-                                                color: MyColors.blue),
-                                            Text(
-                                              "Indore, India",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: MyColors.blue),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                      children: <Widget>[
+                                        Icon(Icons.location_on,
+                                            color: MyColors.blue),
+                                        Text(
+                                          "Indore, India",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: MyColors.blue),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Screen1()));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              height: 200,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  color: MyColors.whiteColor,
+                                  boxShadow: [BoxShadow()]),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    height: 80,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(80),
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/user_image.jpg"),
+                                          fit: BoxFit.fill,
+                                        )),
                                   ),
-                                ),
-                              );
-                            }),),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Ankush Sharma",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: MyColors.pinkvariaance),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "34, Single",
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    width: size.width,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.location_on,
+                                          color: MyColors.blue,
+                                        ),
+                                        Text(
+                                          "Delhi, India",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: MyColors.blue,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     )),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 110,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/user_image.jpg'),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   width: size.width,
                   padding: EdgeInsets.only(top: 60, bottom: 20),
@@ -220,7 +331,6 @@ class _Home extends State<Home> {
                               width: 180,
                               height: 180,
                               margin: EdgeInsets.only(top: 20, right: 90),
-                              // padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(300.0),
                                 image: DecorationImage(
@@ -259,14 +369,6 @@ class _Home extends State<Home> {
             ),
           ),
         ),
-        bottomNavigationBar: Bottom_bar());
-  }
-
-  _getMember() {
-    Services.MemberView({}).then((data) {
-     if(data.data == "1"){
-       print("success");
-     }
-    });
+        bottomNavigationBar: Bottom_bar(currentIndex: 1,));
   }
 }

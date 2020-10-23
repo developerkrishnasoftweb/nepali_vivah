@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'main.dart';
@@ -12,7 +13,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   @override
-  var _index = 0;
+  var _index = 3;
 
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -355,52 +356,7 @@ class _SettingsState extends State<Settings> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: MyColors.pinkvariaance,
-        unselectedItemColor: MyColors.grayText,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: 4,
-        onTap: (index) {
-          setState(() {
-            _index = index;
-            switch (_index) {
-              case 0:
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
-                break;
-              case 1:
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Splash()));
-                break;
-            }
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.home,
-            ),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.search),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.conciergeBell),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text("Home"),
-          ),
-        ],
-      ),
-    );
+        bottomNavigationBar: Bottom_bar(currentIndex: 3,));
+
   }
 }

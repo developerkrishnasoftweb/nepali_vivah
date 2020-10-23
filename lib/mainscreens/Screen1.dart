@@ -11,7 +11,7 @@ class Screen1 extends StatefulWidget {
 }
 
 class _Screen1State extends State<Screen1> {
-  var _index = 0;
+  //var _index = 0;
 
   @override
   Widget build(BuildContext context) {

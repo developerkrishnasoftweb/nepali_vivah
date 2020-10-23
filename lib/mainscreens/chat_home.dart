@@ -170,6 +170,6 @@ class _ChatHome extends State<ChatHome> {
             ),
           ),
         ),
-        bottomNavigationBar: Bottom_bar());
+        bottomNavigationBar: Bottom_bar(currentIndex: 2,));
   }
 }
