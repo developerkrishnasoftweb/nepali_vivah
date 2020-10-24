@@ -12,11 +12,11 @@ class string{
   static var user_name = "Nikhli Monga";
   static var user_info = "(28, Male, Separated)";
   static var user_location = "Indiana, PA, United States";
-  static var maintabtitle1 = "About Nikhil Monga  :";
-  static var maintabtitle2 = "Nikhil Monga's Photos  :";
-  static var maintabtitle3 = "Nikhil Monga's Profile Details  :";
+  static var maintabtitle1 = "About";
+  static var maintabtitle2 = "Photos  :";
+  static var maintabtitle3 = "Profile Details  :";
   static var maintabtitle4 = "See how you look together  :";
-  static var maintabtitle5 = "Nikhil Monga's Partner Profile Detail  :";
+  static var maintabtitle5 = "Partner Profile Detail  :";
   static var settingstabtitle1 = "Profile Settings";
   static var settingstabtitle2 = "Personalization";
   static var settingstabtitle3 = "Help and Support";

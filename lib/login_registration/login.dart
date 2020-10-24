@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     pr = ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: false);
+        type: ProgressDialogType.Normal, isDismissible: true);
   }
 
   @override
@@ -159,13 +159,12 @@ class _LoginState extends State<Login> {
     }
   }
 
-  _userLogin() {
+  void _userLogin() async {
     try {
       pr.show();
       FormData formData =
           FormData.fromMap({"email": email.text, "pass": password.text});
-      Services.MemberSignIn(formData).then((value) async {
-        pr.hide();
+      await Services.MemberSignIn(formData).then((value) async {
         if (value.response == "1") {
           Fluttertoast.showToast(
             msg: "Login successfully",
@@ -188,6 +187,7 @@ class _LoginState extends State<Login> {
               ),
               (route) => false);
         } else {
+          pr.hide();
           Fluttertoast.showToast(
             msg: "Invalid username or password",
             toastLength: Toast.LENGTH_SHORT,

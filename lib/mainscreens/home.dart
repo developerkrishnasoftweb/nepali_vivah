@@ -113,7 +113,8 @@ class _Home extends State<Home> {
         body: Container(
           height: size.height,
           width: size.width,
-          child: SingleChildScrollView(
+          alignment: Alignment.center,
+          child: Memberdata !=null ? SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Container(
@@ -283,7 +284,8 @@ class _Home extends State<Home> {
                 ),
               ],
             ),
-          ),
+          )
+              :SizedBox(height: 50, width: 50, child: CircularProgressIndicator(valueColor:AlwaysStoppedAnimation(MyColors.pinkvariaance),)),
         ),
         bottomNavigationBar: Bottom_bar(currentIndex: 1,));
   }

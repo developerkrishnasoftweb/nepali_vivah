@@ -10,6 +10,7 @@ import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/login_registration/contactinfo.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'settings.dart';
 
@@ -22,23 +23,21 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _membergetbyId();
+    super.initState();
   }
-
-  @override
   String Status;
   SharedPreferences pref;
   String profileImage;
   String aadharImage;
   var ageStatus;
+  var P_ageStatus;
   List Userdata;
   var _index = 0;
   String M_id;
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    ageStatus = Userdata[0]["marital_status_id"];
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -75,7 +74,9 @@ class _ProfileState extends State<Profile> {
           height: size.height,
           width: size.width,
           color: MyColors.whiteColor,
-          child: SingleChildScrollView(
+          alignment: Alignment.center,
+          child: Userdata != null
+          ? SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 Container(
@@ -107,7 +108,7 @@ class _ProfileState extends State<Profile> {
                             children: [
                               CircleAvatar(
                                 backgroundImage:
-                                    NetworkImage(profileImage+Userdata[0]["profile_image"]),
+                                NetworkImage(profileImage+Userdata[0]["profile_image"]),
                                 radius: 50.0,
                               )
                             ],
@@ -164,7 +165,9 @@ class _ProfileState extends State<Profile> {
                                 ),
                               )
                                   :Text(
-                                jsonDecode(Userdata[0]["address"])[0]["Country"].toString() + ", " + jsonDecode(Userdata[0]["address"])[0]["State"].toString()  + ", " + jsonDecode(Userdata[0]["address"])[0]["City"].toString(),
+                                jsonDecode(Userdata[0]["address"])[0]["City"].toString()+ ", " +
+                                    jsonDecode(Userdata[0]["address"])[0]["State"].toString()  + ", " +
+                                    jsonDecode(Userdata[0]["address"])[0]["Country"].toString(),
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   color: MyColors.whiteColor,
@@ -285,7 +288,7 @@ class _ProfileState extends State<Profile> {
                           Container(
                             margin: EdgeInsets.only(right: 10, top: 5),
                             child: Text(
-                                "\("+Userdata[0]["interest"]+"\)",
+                              "\("+Userdata[0]["followed"]+"\)",
                               style: TextStyle(
                                 color: MyColors.grayText,
                               ),
@@ -309,7 +312,9 @@ class _ProfileState extends State<Profile> {
                         Container(
                           margin: EdgeInsets.only(top: 30, left: 20),
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _showMyDialog("intrested peoples are:");
+                            },
                             color: MyColors.pinkvariaance,
                             child: Icon(
                               Icons.favorite,
@@ -334,7 +339,8 @@ class _ProfileState extends State<Profile> {
                         Container(
                           margin: EdgeInsets.only(top: 30, left: 20),
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                            },
                             color: MyColors.lightgreen,
                             child: Icon(
                               Icons.chat_bubble,
@@ -359,7 +365,9 @@ class _ProfileState extends State<Profile> {
                         Container(
                           margin: EdgeInsets.only(top: 30, left: 20),
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _showMyDialog("Dislike peoples is : ");
+                              },
                             color: MyColors.grayText,
                             child: Icon(
                               Icons.thumb_down,
@@ -387,7 +395,7 @@ class _ProfileState extends State<Profile> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
-                    string.maintabtitle1,
+                    string.maintabtitle1+" "+Userdata[0]["first_name"]+" "+Userdata[0]["last_name"]+" :",
                     style: TextStyle(
                         color: MyColors.whiteColor,
                         fontWeight: FontWeight.bold,
@@ -416,7 +424,7 @@ class _ProfileState extends State<Profile> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
-                    string.maintabtitle2,
+                    Userdata[0]["first_name"]+" "+Userdata[0]["last_name"]+" "+string.maintabtitle2,
                     style: TextStyle(
                         color: MyColors.whiteColor,
                         fontWeight: FontWeight.bold,
@@ -431,21 +439,19 @@ class _ProfileState extends State<Profile> {
                     scrollDirection: Axis.horizontal,
                     itemCount: Userdata[0]["gallery"].toString().split(",").length,
                     itemBuilder: (BuildContext context, int index) {
-                      // print("Image Src : " + pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",").first);
-                      print("Image Src : " + Userdata[0]["gallery"].toString().split(",")[1]);
+                      // print(pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",")[index]);
                       return Row(
                         children: <Widget>[
                           Container(
-                            height: 150,
-                            width: 150,
+                            margin: EdgeInsets.only(left: 25.0,right: 25.0),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    fit: BoxFit.fitHeight,
-                                    image:NetworkImage(profileImage+Userdata[0]["profile_image"]),
-                                   // NetworkImage((pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",")[index]),)
-                                ),
-                          ),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                    (pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",")[index]),),
+                                  fit: BoxFit.fill),
+                              shape: BoxShape.circle,
+                            ),
+                            height: 150,width: 85,
                           ),
                         ],
                       );
@@ -458,7 +464,7 @@ class _ProfileState extends State<Profile> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
-                    string.maintabtitle3,
+                    Userdata[0]["first_name"]+" "+Userdata[0]["last_name"]+" "+string.maintabtitle3,
                     style: TextStyle(
                         color: MyColors.whiteColor,
                         fontSize: 18,
@@ -472,39 +478,7 @@ class _ProfileState extends State<Profile> {
                     Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Target wedding date :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "November 2015",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          padding: EdgeInsets.only(top: 5, bottom: 10),
                           width: MediaQuery.of(context).size.width * 0.95,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -520,7 +494,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Nikhil Monga",
+                                  Userdata[0]["first_name"]+" "+Userdata[0]["last_name"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -553,7 +527,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "female",
+                                  Userdata[0]["gender"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -585,7 +559,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "28",
+                                  Userdata[0]["age"].toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -618,7 +592,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "42 (127cms)",
+                                  "\("+Userdata[0]["height"].toString()+"\cms)",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -650,39 +624,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Dark",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Built :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "Heavy",
+                                  jsonDecode(Userdata[0]["physical_attributes"])[0]["Complexion"].toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -714,7 +656,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Hindi",
+                                  jsonDecode(Userdata[0]["language"])[0]["Mother_tongue"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -746,7 +688,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Unmarried",
+                                  _status(ageStatus),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -778,39 +720,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Nepal",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Religion :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "Hindu",
+                                  jsonDecode(Userdata[0]["address"])[0]["Country"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -842,7 +752,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Doctorate",
+                                  Userdata[0]["education"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -913,7 +823,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "\$2000000",
+                                  "\u20B9 "+Userdata[0]["salary"].toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -947,11 +857,11 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Doctor",
+                                  jsonDecode(Userdata[0]["education_and_career"])[0]["Occupation"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
-                                      fontSize: 15),
+                                      fontSize: 17),
                                 ),
                               ),
                             ],
@@ -988,7 +898,7 @@ class _ProfileState extends State<Profile> {
                         children: <Widget>[
                           CircleAvatar(
                             backgroundImage:
-                                AssetImage('assets/images/John.jpg'),
+                            AssetImage('assets/images/kaif.jpg'),
                             radius: 50.0,
                           ),
                           Container(
@@ -1003,7 +913,7 @@ class _ProfileState extends State<Profile> {
                           ),
                           CircleAvatar(
                             backgroundImage:
-                                AssetImage('assets/images/kaif.jpg'),
+                            NetworkImage(profileImage+Userdata[0]["profile_image"]),
                             radius: 50.0,
                           ),
                         ],
@@ -1047,7 +957,7 @@ class _ProfileState extends State<Profile> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: MyColors.pinkvariaance),
                   child: Text(
-                    string.maintabtitle5,
+                    Userdata[0]["first_name"]+" "+Userdata[0]["last_name"]+" "+string.maintabtitle5,
                     style: TextStyle(
                         fontSize: 17,
                         color: MyColors.whiteColor,
@@ -1068,70 +978,6 @@ class _ProfileState extends State<Profile> {
                             children: <Widget>[
                               Container(
                                 child: Text(
-                                  "Target wedding date :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "November 2015",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Name :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "Nikhil Monga",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
                                   "Gender :",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -1140,8 +986,14 @@ class _ProfileState extends State<Profile> {
                                 ),
                               ),
                               Container(
-                                child: Text(
-                                  "female",
+                                child: Userdata[0]["gender"] == "Male"
+                                    ? Text("Female",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: MyColors.pinkvariaance,
+                                      fontSize: 17),
+                                )
+                                    :Text("Male",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1173,7 +1025,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "28",
+                                  jsonDecode(Userdata[0]["partner_expectation"])[0]["P_age"].toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1205,7 +1057,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "42 (127cms)",
+                                  jsonDecode(Userdata[0]["partner_expectation"])[0]["P_height"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1237,39 +1089,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Dark",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Built :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "Heavy",
+                                  jsonDecode(Userdata[0]["partner_expectation"])[0]["P_complexion"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1301,7 +1121,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Hindi",
+                                  jsonDecode(Userdata[0]["partner_expectation"])[0]["P_mother_tongue"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1333,7 +1153,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Unmarried",
+                                  _status(ageStatus),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1365,39 +1185,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Nepal",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Religion :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "Hindu",
+                                  jsonDecode(Userdata[0]["partner_expectation"])[0]["P_country_of_residence"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1429,7 +1217,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Doctorate",
+                                  jsonDecode(Userdata[0]["partner_expectation"])[0]["P_education"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1484,38 +1272,6 @@ class _ProfileState extends State<Profile> {
                           color: MyColors.grayText,
                         ),
                         Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Salary :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "\$2000000",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.pinkvariaance,
-                                      fontSize: 17),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
                           padding: EdgeInsets.only(top: 10, bottom: 20),
                           width: MediaQuery.of(context).size.width * 0.95,
                           child: Row(
@@ -1532,7 +1288,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  "Doctor",
+                                  jsonDecode(Userdata[0]["partner_expectation"])[0]["P_profession"],
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1563,8 +1319,8 @@ class _ProfileState extends State<Profile> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(300.0),
                           image: DecorationImage(
-                            image: AssetImage("assets/images/John.jpg"),
-                            fit: BoxFit.cover,
+                            image:NetworkImage(profileImage+Userdata[0]["profile_image"]),
+                            fit: BoxFit.fill,
                           ),
                         ),
                       ),
@@ -1579,8 +1335,8 @@ class _ProfileState extends State<Profile> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(300.0),
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/John.jpg"),
-                                  fit: BoxFit.cover,
+                                  image:NetworkImage(profileImage+Userdata[0]["profile_image"]),
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
@@ -1594,11 +1350,10 @@ class _ProfileState extends State<Profile> {
                                     // padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
                                     decoration: BoxDecoration(
                                       borderRadius:
-                                          BorderRadius.circular(300.0),
+                                      BorderRadius.circular(300.0),
                                       image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/John.jpg"),
-                                        fit: BoxFit.cover,
+                                        image: NetworkImage(profileImage+Userdata[0]["profile_image"]),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -1617,7 +1372,7 @@ class _ProfileState extends State<Profile> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        string.user_name,
+                        Userdata[0]["first_name"]+" "+Userdata[0]["last_name"],
                         style: TextStyle(
                           color: MyColors.pinkvariaance,
                           fontSize: 25,
@@ -1627,7 +1382,7 @@ class _ProfileState extends State<Profile> {
                       Container(
                         margin: EdgeInsets.only(top: 8, bottom: 8),
                         child: Text(
-                          string.user_info,
+                          "\("+Userdata[0]["age"].toString()+" "+Userdata[0]["gender"]+" "+_status(ageStatus)+"\)",
                           style: TextStyle(
                             color: MyColors.pinkvariaance,
                             fontSize: 15,
@@ -1636,7 +1391,9 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       Text(
-                        string.user_location,
+                        jsonDecode(Userdata[0]["address"])[0]["City"].toString()+ ", " +
+                            jsonDecode(Userdata[0]["address"])[0]["State"].toString()  + ", " +
+                            jsonDecode(Userdata[0]["address"])[0]["Country"].toString(),
                         style: TextStyle(
                           color: MyColors.pinkvariaance,
                           fontSize: 15,
@@ -1667,7 +1424,7 @@ class _ProfileState extends State<Profile> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 5),
                                 child: Text(
-                                  string.user_name,
+                                  Userdata[0]["first_name"]+" "+Userdata[0]["last_name"],
                                   style: TextStyle(
                                       fontSize: 17,
                                       color: MyColors.pinkvariaance),
@@ -1676,7 +1433,7 @@ class _ProfileState extends State<Profile> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 5, left: 2),
                                 child: Text(
-                                  "now Earns RS.2.40.000 per year",
+                                  "now Earns RS."+jsonDecode(Userdata[0]["education_and_career"])[0]["Annual_Income"]+" per year",
                                   style: TextStyle(
                                       fontSize: 12, color: MyColors.grayText),
                                 ),
@@ -1692,7 +1449,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 5, bottom: 2),
+                                const EdgeInsets.only(left: 5, bottom: 2),
                                 child: Text(
                                   "2 March 2018",
                                   style: TextStyle(
@@ -1712,7 +1469,7 @@ class _ProfileState extends State<Profile> {
                               width: 50,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: AssetImage("assets/images/John.jpg"),
+                                    image: NetworkImage(profileImage+Userdata[0]["profile_image"]),
                                     fit: BoxFit.fill,
                                     alignment: Alignment.center),
                                 borderRadius: BorderRadius.circular(50),
@@ -1794,7 +1551,8 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
-          ),
+          )
+          : SizedBox(height: 50, width: 50, child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(MyColors.pinkvariaance),)),
         ),
       ),
         bottomNavigationBar: Bottom_bar(currentIndex: 0,),
@@ -1810,16 +1568,64 @@ class _ProfileState extends State<Profile> {
     FormData formData = FormData.fromMap({
       "member_id" : M_id,
     });
-    Services.memberViewById(formData).then((value) {
+    await Services.memberViewById(formData).then((value) {
       if(value.response == 1){
         print(value.data);
         setState(() {
           print(value.message);
           Userdata = value.data;
+          ageStatus = Userdata[0]["marital_status_id"];
+          P_ageStatus = jsonDecode(Userdata[0]["partner_expectation"])[0]["P_marital_status"];
         });
       }
     });
+  }
 
+  Future<void> _showMyDialog(String mess) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: mess == "intrested peoples are:"
+              ? Container(
+            decoration: BoxDecoration(
+              color: MyColors.pinkvariaance,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.favorite,
+              color: MyColors.whiteColor,
+              size: 30,
+            ),
+            padding: EdgeInsets.all(16),
+          )
+          :Container(
+            decoration: BoxDecoration(
+              color: MyColors.grayText,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.thumb_down,
+              color: MyColors.whiteColor,
+              size: 30,
+            ),
+            padding: EdgeInsets.all(16),
+          ),
+          content: mess == "intrested peoples are:" ? Text("Great! "+mess+" "+Userdata[0]["interest"], textAlign: TextAlign.center,)
+              :Text("Great! "+mess+" "+Userdata[0]["ignored"], textAlign: TextAlign.center,),
+            contentTextStyle: TextStyle(
+              color: MyColors.pinkvariaance,
+              fontSize: 20,
+              fontFamily: "Philosopher",
+            ),
+          scrollable: true,
+          // contentPadding: EdgeInsets.all(10.0),
+          insetPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+          // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        );
+      },
+    );
   }
 
   _status(int status) {
