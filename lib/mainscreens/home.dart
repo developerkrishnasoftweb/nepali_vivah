@@ -118,6 +118,30 @@ class _Home extends State<Home> {
             child: Column(
               children: <Widget>[
                 Container(
+                  height: 200,
+                  width: size.width,
+                  child:  CarouselSlider(
+                    height: 190,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    aspectRatio: 19 / 9,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 600),
+                    viewportFraction: 1.0,
+                    items: [
+                      Container(
+                        margin: EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/user_image.jpg'),
+                                fit: BoxFit.fill)),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
                   width: size.width,
                   padding: EdgeInsets.only(top: 15, bottom: 15),
                   alignment: Alignment(0.0, 0.0),
@@ -216,6 +240,20 @@ class _Home extends State<Home> {
                               );
                             }),),
                     )),
+                Container(
+                  height: 110,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/user_image.jpg'),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   width: size.width,
                   padding: EdgeInsets.only(top: 60, bottom: 20),
