@@ -183,6 +183,7 @@ class _LoginState extends State<Login> {
           await _prefs.setString("profile_Image", Urls.baseUrl+"public/images/Profile/");
           await _prefs.setString("GalleryImage", Urls.baseUrl+"public/images/Gallery/");
           await _prefs.setString("Aadhar_Image",Urls.baseUrl+"public/images/Adhar_CArd/" );
+          await _prefs.setString("Advertisement_Image",Urls.AdminbaseUrl+"assets/images/advertisement/" );
           await _prefs.setString("Username",email.text);
           await _prefs.setString("Password",password.text);
           Navigator.pushAndRemoveUntil(

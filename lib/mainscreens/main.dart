@@ -105,7 +105,7 @@ class _ProfileState extends State<Profile> {
                                       source: ImageSource.gallery,maxHeight: 250,maxWidth: 250);
                                   setState(() {
                                     _profile = proImage;
-                                    _profileUpdate();
+                                    _profilePicUpdate();
                                   });
                                 },
                                 child: Container(
@@ -1581,12 +1581,15 @@ class _ProfileState extends State<Profile> {
     pref = await SharedPreferences.getInstance();
     profileImage = pref.getString('profile_Image');
     aadharImage = pref.getString('Aadhar_Image');
+
     M_id = pref.getString("m_id");
+
     FormData formData = FormData.fromMap({
       "member_id" : M_id,
     });
-    await Services.memberViewById(formData).then((value) {
+    await Services.memberViewById(formData).then((value) async {
       if(value.response == 1){
+        await pref.setString("m_gender", value.data[0]["gender"]);
         print("work is profile"+value.data.toString());
         setState(() {
           print(value.message);
@@ -1594,12 +1597,13 @@ class _ProfileState extends State<Profile> {
           ageStatus = Userdata[0]["marital_status_id"];
           P_ageStatus = jsonDecode(Userdata[0]["partner_expectation"])[0]["P_marital_status"];
           profileString = profileImage+Userdata[0]["profile_image"];
+
         });
       }
     });
   }
 
-  _profileUpdate() async {
+  _profilePicUpdate() async {
     String fileName = _profile.path.split('/').last;
     FormData d = FormData.fromMap({
       "member_id" : Userdata[0]["member_id"],

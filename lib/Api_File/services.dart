@@ -317,4 +317,26 @@ class Services {
       print(e.toString);
     }
   }
+
+  static Future<Data> matched_profile(body) async {
+    String url = Urls.baseUrl + Urls.match_profile;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      print(url);
+      Response response = await dio.post(url,data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        data.data = jsonResponse["Data"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
 }

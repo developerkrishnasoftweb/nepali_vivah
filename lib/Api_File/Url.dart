@@ -1,5 +1,6 @@
 class Urls {
   static var baseUrl = "http://kvms.kriishnacab.com/";
+  static var AdminbaseUrl = "http://admin.kriishnacab.com/";
   static var registration_url = "api/member/register_member";
   static var login_url = "api/login/checklogin";
   static var memberViewId = "api/member/view/id";
@@ -10,4 +11,5 @@ class Urls {
   static var followers_add = "api/follow/insert";
   static var interest_add = "api/interest/insert";
   static var ignore_add = "api/ignore/insert";
+  static var match_profile = "api/matched_profile";
 }
