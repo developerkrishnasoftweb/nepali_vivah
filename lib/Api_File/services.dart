@@ -7,9 +7,7 @@ import 'package:http/http.dart' as http;
 
 Dio dio = new Dio();
 
-
 class Services {
-
   static Future<Data> MemberView() async {
     String url = Urls.baseUrl + Urls.memberView;
     dio.options.contentType = Headers.jsonContentType;
@@ -43,7 +41,7 @@ class Services {
         data.message = jsonResponse["Message"];
         data.response = jsonResponse['Response'];
         data.data = [
-          {"member_id" : jsonResponse["Data"].toString()}
+          {"member_id": jsonResponse["Data"].toString()}
         ];
         return data;
       } else {
@@ -61,7 +59,7 @@ class Services {
     try {
       final Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
-        Data data = new Data(message: 'No Data',response: "1");
+        Data data = new Data(message: 'No Data', response: "1");
         final jsonResponse = response.data;
         data.message = jsonResponse['Message'];
         data.response = jsonResponse['Response'].toString();
@@ -123,17 +121,25 @@ class Services {
             "family_id": jsonResponse['Data'][0]['family_id'],
             "introduction": jsonResponse['Data'][0]['introduction'],
             "basic_info": jsonResponse['Data'][0]['basic_info'],
-            "education_and_career": jsonResponse['Data'][0]['education_and_career'],
-            "physical_attributes": jsonResponse['Data'][0]['physical_attributes'],
+            "education_and_career": jsonResponse['Data'][0]
+                ['education_and_career'],
+            "physical_attributes": jsonResponse['Data'][0]
+                ['physical_attributes'],
             "language": jsonResponse['Data'][0]['language'],
-            "hobbies_and_interest": jsonResponse['Data'][0]['hobbies_and_interest'],
-            "residency_information": jsonResponse['Data'][0]['residency_information'],
-            "spiritual_and_social_background": jsonResponse['Data'][0]['spiritual_and_social_background'],
+            "hobbies_and_interest": jsonResponse['Data'][0]
+                ['hobbies_and_interest'],
+            "residency_information": jsonResponse['Data'][0]
+                ['residency_information'],
+            "spiritual_and_social_background": jsonResponse['Data'][0]
+                ['spiritual_and_social_background'],
             "life_style": jsonResponse['Data'][0]['life_style'],
-            "astronomic_information": jsonResponse['Data'][0]['astronomic_information'],
+            "astronomic_information": jsonResponse['Data'][0]
+                ['astronomic_information'],
             "family_info": jsonResponse['Data'][0]['family_info'],
-            "additional_personal_details": jsonResponse['Data'][0]['additional_personal_details'],
-            "partner_expectation": jsonResponse['Data'][0]['partner_expectation'],
+            "additional_personal_details": jsonResponse['Data'][0]
+                ['additional_personal_details'],
+            "partner_expectation": jsonResponse['Data'][0]
+                ['partner_expectation'],
             "interest": jsonResponse['Data'][0]['interest'],
             "short_list": jsonResponse['Data'][0]['short_list'],
             "followed": jsonResponse['Data'][0]['followed'],
@@ -175,7 +181,6 @@ class Services {
   }
 
   static Future<Data> memberProfileUpdate(body) async {
-
     String url = Urls.baseUrl + Urls.profileUpdate;
     dio.options.contentType = Headers.jsonContentType;
     try {
@@ -196,7 +201,6 @@ class Services {
   }
 
   static Future<Data> memberChangePassword(body) async {
-
     String url = Urls.baseUrl + Urls.ChangePassword;
     dio.options.contentType = Headers.jsonContentType;
     try {
@@ -238,12 +242,11 @@ class Services {
   }
 
   static Future<Data> followadd(body) async {
-
     String url = Urls.baseUrl + Urls.followers_add;
     dio.options.contentType = Headers.jsonContentType;
     try {
       print(url);
-      Response response = await dio.post(url,data: body);
+      Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
 
@@ -259,4 +262,45 @@ class Services {
     }
   }
 
+  static Future<Data> interestadd(body) async {
+    String url = Urls.baseUrl + Urls.interest_add;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      print(url);
+      Response response = await dio.post(url, data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
+
+  static Future<Data> ignoreadd(body) async {
+    String url = Urls.baseUrl + Urls.ignore_add;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      print(url);
+      Response response = await dio.post(url, data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
 }

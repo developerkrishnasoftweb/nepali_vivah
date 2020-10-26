@@ -8,5 +8,6 @@ class Urls {
   static var ChangePassword = "api/change_password";
   static var Advertisement_add = "api/advertisement";
   static var followers_add = "api/follow/insert";
-
+  static var interest_add = "api/interest/insert";
+  static var ignore_add = "api/ignore/insert";
 }

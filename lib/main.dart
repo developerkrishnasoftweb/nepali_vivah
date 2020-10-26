@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget{
         fontFamily: 'Philosopher',
 
       ),
-      home: Registration(),
+      home: Home(),
       debugShowCheckedModeBanner: false,
     );
   }
