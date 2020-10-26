@@ -7,5 +7,6 @@ class Urls {
   static var profileUpdate = "api/profile_picture/update";
   static var ChangePassword = "api/change_password";
   static var Advertisement_add = "api/advertisement";
+  static var followers_add = "api/follow/insert";
 
 }

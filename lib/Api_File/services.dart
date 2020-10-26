@@ -236,4 +236,27 @@ class Services {
       print(e.toString);
     }
   }
+
+  static Future<Data> followadd(body) async {
+
+    String url = Urls.baseUrl + Urls.followers_add;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      print(url);
+      Response response = await dio.post(url,data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
+
 }
