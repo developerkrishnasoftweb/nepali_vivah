@@ -25,6 +25,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   SharedPreferences prefs;
+  String follow = "follow", ingnore = "ingnore", interest = "interest";
   String Advertisement_image;
   List Memberdata;
   List Advertise;
@@ -39,7 +40,7 @@ class _Home extends State<Home> {
     _getMember();
     _getcradintional();
     _Advertisements();
-_matched_profile();
+    _matched_profile();
     super.initState();
   }
 
@@ -96,9 +97,9 @@ _matched_profile();
                 setState(() {
                   (value.length > 0)
                       ? clear = Icon(
-                    Icons.clear,
-                    color: Dcolor.appGrayColor,
-                  )
+                          Icons.clear,
+                          color: Dcolor.appGrayColor,
+                        )
                       : clear = null;
                 });
               },
@@ -122,261 +123,274 @@ _matched_profile();
           alignment: Alignment.center,
           child: Memberdata != null
               ? SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 200,
-                  width: size.width,
-                  child: CarouselSlider(
-                    height: 190,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 19 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration:
-                    Duration(milliseconds: 600),
-                    viewportFraction: 1.0,
-                    items: [
+                  child: Column(
+                    children: <Widget>[
                       Container(
-                        margin: EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/user_image.jpg'),
-                                fit: BoxFit.fill)),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: size.width,
-                  padding: EdgeInsets.only(top: 15, bottom: 15),
-                  alignment: Alignment(0.0, 0.0),
-                  child: Text(
-                    "You might be interested in",
-                    style: TextStyle(
-                      color: MyColors.pinkvariaance,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                    width: size.width,
-                    height: 200,
-                    alignment: Alignment.center,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Container(
+                        height: 200,
                         width: size.width,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: Matched_profile.length,
-                            itemBuilder: (context, index) {
-                              agestatus =
-                              Matched_profile[index]["marital_status_id"];
-                              return GestureDetector(
-                                onTap: () {
-                                  // _getMember();
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => Screen1()));
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  height: 200,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.whiteColor,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(80),
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  profileImage +
-                                                      Matched_profile[index][
-                                                      "profile_image"]),
-                                              fit: BoxFit.fill,
-                                            )),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          Matched_profile[index]
-                                          ["first_name"] +
-                                              " " +
-                                              Matched_profile[index]
-                                              ["last_name"],
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color:
-                                              MyColors.pinkvariaance),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          Matched_profile[index]["age"]
-                                              .toString() +
-                                              " " +
-                                              _status(agestatus),
-                                          style: TextStyle(fontSize: 14),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            height: 30,
-                                            width: 60,
-                                            decoration: BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  5),
-                                            ),
-                                            child: FlatButton(
-                                                child: Text(
-                                                  "Interest",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 8,
-                                                      color:
-                                                      Colors.white),
-                                                ),
-                                                onPressed: () {
-                                                  var id =
-                                                  Matched_profile[index]
-                                                  ["member_id"];
-                                                  print(id);
-                                                  //_interest(id);
-
-                                                }),
-                                          ),
-                                          Container(
-                                            height: 30,
-                                            width: 60,
-                                            decoration: BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  5),
-                                            ),
-                                            child: FlatButton(
-                                                child: Text(
-                                                  "Follow",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 8,
-                                                      color:
-                                                      Colors.white),
-                                                ),
-                                                onPressed: () {
-                                                  var id =
-                                                  Matched_profile[index]
-                                                  ["member_id"];
-                                                  print(id);
-                                                  // _follow(id);
-
-                                                }),
-                                          ),
-                                          Container(
-                                            height: 30,
-                                            width: 60,
-                                            decoration: BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  5),
-                                            ),
-                                            child: FlatButton(
-                                                child: Text(
-                                                  "ignore",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 8,
-                                                      color:
-                                                      Colors.white),
-                                                ),
-                                                onPressed: () {
-                                                  var id =
-                                                  Matched_profile[index]
-                                                  ["member_id"];
-                                                  //_Ignore(id);
-
-
-                                                }),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
+                        child: CarouselSlider(
+                          height: 190,
+                          enlargeCenterPage: true,
+                          autoPlay: true,
+                          aspectRatio: 19 / 9,
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enableInfiniteScroll: true,
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 600),
+                          viewportFraction: 1.0,
+                          items: [
+                            Container(
+                              margin: EdgeInsets.all(3.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/user_image.jpg'),
+                                      fit: BoxFit.fill)),
+                            ),
+                          ],
+                        ),
                       ),
-                    )),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 110,
-                  width: size.width * 0.96,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(Advertisement_image+Advertise[0]["middle_advertisement"]),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: size.width,
-                  padding: EdgeInsets.only(top: 60, bottom: 20),
-                  alignment: Alignment(0.0, 0.0),
-                  child: Text(
-                    "Recommended member for you",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  child: Stack(
-                    children: [
                       Container(
-                        width: 180,
-                        height: 180,
-                        margin: EdgeInsets.only(top: 20, left: 150),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(300.0),
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/John.jpg"),
-                            fit: BoxFit.cover,
+                        width: size.width,
+                        padding: EdgeInsets.only(top: 15, bottom: 15),
+                        alignment: Alignment(0.0, 0.0),
+                        child: Text(
+                          "You might be interested in",
+                          style: TextStyle(
+                            color: MyColors.pinkvariaance,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
+                        ),
+                      ),
+                      Container(
+                          width: size.width,
+                          height: 200,
+                          alignment: Alignment.center,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Container(
+                              width: size.width,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: Matched_profile.length,
+                                  itemBuilder: (context, index) {
+                                    agestatus = Matched_profile[index]
+                                        ["marital_status_id"];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        // _getMember();
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) => Screen1()));
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        height: 200,
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                          color: MyColors.whiteColor,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Container(
+                                              height: 80,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(80),
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        profileImage +
+                                                            Matched_profile[
+                                                                    index][
+                                                                "profile_image"]),
+                                                    fit: BoxFit.fill,
+                                                  )),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5),
+                                              width: size.width,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                Matched_profile[index]
+                                                        ["first_name"] +
+                                                    " " +
+                                                    Matched_profile[index]
+                                                        ["last_name"],
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color:
+                                                        MyColors.pinkvariaance),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5),
+                                              width: size.width,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                Matched_profile[index]["age"]
+                                                        .toString() +
+                                                    " " +
+                                                    _status(agestatus),
+                                                style: TextStyle(fontSize: 14),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Container(
+                                                  height: 30,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: interest == "interest"
+                                                      ? FlatButton(
+                                                          child: Text(
+                                                            interest,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 8,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          onPressed: () {
+                                                            var id =
+                                                                Matched_profile[
+                                                                        index][
+                                                                    "member_id"];
+                                                            print(id);
+                                                            _interest(id);
+                                                          })
+                                                      : FlatButton(
+                                                          child: Text(
+                                                            interest,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 8,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          onPressed: () {
+                                                            var id =
+                                                                Matched_profile[
+                                                                        index][
+                                                                    "member_id"];
+                                                            print(id);
+                                                            //_interest(id);
+                                                            _interestdelete(id);
+                                                          }),
+                                                ),
+                                                Container(
+                                                  height: 30,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: FlatButton(
+                                                      child: Text(
+                                                        "Follow",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 8,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      onPressed: () {
+                                                        var id =
+                                                            Matched_profile[
+                                                                    index]
+                                                                ["member_id"];
+                                                        print(id);
+                                                        // _follow(id);
+                                                        _followdelete(id);
+                                                      }),
+                                                ),
+                                                Container(
+                                                  height: 30,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: FlatButton(
+                                                      child: Text(
+                                                        "ignore",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 8,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      onPressed: () {
+                                                        var id =
+                                                            Matched_profile[
+                                                                    index]
+                                                                ["member_id"];
+                                                        //_Ignore(id);
+                                                        _ignoredelete(id);
+                                                      }),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 110,
+                        width: size.width * 0.96,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage(Advertisement_image +
+                                Advertise[0]["middle_advertisement"]),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: size.width,
+                        padding: EdgeInsets.only(top: 60, bottom: 20),
+                        alignment: Alignment(0.0, 0.0),
+                        child: Text(
+                          "Recommended member for you",
+                          style: TextStyle(fontSize: 20),
                         ),
                       ),
                       Container(
@@ -385,14 +399,11 @@ _matched_profile();
                             Container(
                               width: 180,
                               height: 180,
-                              margin: EdgeInsets.only(top: 20, right: 90),
-                              // padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
+                              margin: EdgeInsets.only(top: 20, left: 150),
                               decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(300.0),
+                                borderRadius: BorderRadius.circular(300.0),
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/John.jpg"),
+                                  image: AssetImage("assets/images/John.jpg"),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -401,17 +412,38 @@ _matched_profile();
                               child: Stack(
                                 children: [
                                   Container(
-                                    width: 220,
-                                    height: 220,
-                                    margin: EdgeInsets.only(left: 60),
+                                    width: 180,
+                                    height: 180,
+                                    margin: EdgeInsets.only(top: 20, right: 90),
+                                    // padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
                                     decoration: BoxDecoration(
                                       borderRadius:
-                                      BorderRadius.circular(300.0),
+                                          BorderRadius.circular(300.0),
                                       image: DecorationImage(
                                         image: AssetImage(
                                             "assets/images/John.jpg"),
                                         fit: BoxFit.cover,
                                       ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: 220,
+                                          height: 220,
+                                          margin: EdgeInsets.only(left: 60),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(300.0),
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/John.jpg"),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
@@ -422,16 +454,13 @@ _matched_profile();
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          )
+                )
               : SizedBox(
-              height: 50,
-              width: 50,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(MyColors.pinkvariaance),
-              )),
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(MyColors.pinkvariaance),
+                  )),
         ),
         bottomNavigationBar: Bottom_bar(
           currentIndex: 1,
@@ -458,11 +487,11 @@ _matched_profile();
     });
   }
 
-  _matched_profile()  async {
+  _matched_profile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FormData d = FormData.fromMap({
       "member_id": prefs.getString("m_id"),
-      "gender" : prefs.getString("m_gender"),
+      "gender": prefs.getString("m_gender"),
     });
 
     await Services.matched_profile(d).then((value) {
@@ -473,7 +502,6 @@ _matched_profile();
         print(Matched_profile.length);
       }
     });
-
   }
 
   _status(int status) {
@@ -506,12 +534,42 @@ _matched_profile();
     });
   }
 
+  _followdelete(int id) async {
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.followdelete(d).then((value) {
+      if (value.response == 1) {
+        print(value.message);
+      }
+    });
+  }
+
   _interest(int id) async {
+    setState(() {
+      interest = "uninterest";
+    });
     FormData d = FormData.fromMap({
       "member_id": prefs.getString("m_id"),
       "id": id,
     });
     Services.interestadd(d).then((value) {
+      if (value.response == 1) {
+        print(value.message);
+      }
+    });
+  }
+
+  _interestdelete(int id) async {
+    setState(() {
+      interest = "interest";
+    });
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.interestdelete(d).then((value) {
       if (value.response == 1) {
         print(value.message);
       }
@@ -530,5 +588,15 @@ _matched_profile();
     });
   }
 
-
+  _ignoredelete(int id) async {
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.ignoredelete(d).then((value) {
+      if (value.response == 1) {
+        print(value.message);
+      }
+    });
+  }
 }

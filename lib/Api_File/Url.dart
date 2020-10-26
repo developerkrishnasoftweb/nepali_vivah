@@ -9,7 +9,10 @@ class Urls {
   static var ChangePassword = "api/change_password";
   static var Advertisement_add = "api/advertisement";
   static var followers_add = "api/follow/insert";
+  static var follow_delete = "api/follow/delete";
   static var interest_add = "api/interest/insert";
+  static var interest_delete = "api/interest/delete";
   static var ignore_add = "api/ignore/insert";
+  static var ignore_delete = "api/ignore/delete";
   static var match_profile = "api/matched_profile";
 }

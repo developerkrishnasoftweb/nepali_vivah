@@ -275,6 +275,26 @@ class Services {
       print(e.toString);
     }
   }
+  static Future<Data> followdelete(body) async {
+    String url = Urls.baseUrl + Urls.follow_delete;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      Response response = await dio.post(url, data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
+
+
 
   static Future<Data> interestadd(body) async {
     String url = Urls.baseUrl + Urls.interest_add;
@@ -296,6 +316,28 @@ class Services {
       print(e.toString);
     }
   }
+  static Future<Data> interestdelete(body) async {
+    String url = Urls.baseUrl + Urls.interest_delete;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      print(url);
+      Response response = await dio.post(url, data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
+
+
 
   static Future<Data> ignoreadd(body) async {
     String url = Urls.baseUrl + Urls.ignore_add;
@@ -317,6 +359,29 @@ class Services {
       print(e.toString);
     }
   }
+  static Future<Data> ignoredelete(body) async {
+    String url = Urls.baseUrl + Urls.ignore_delete;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      print(url);
+      Response response = await dio.post(url, data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
+
+
+
 
   static Future<Data> matched_profile(body) async {
     String url = Urls.baseUrl + Urls.match_profile;
