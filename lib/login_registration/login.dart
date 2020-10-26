@@ -1,10 +1,10 @@
-// import 'dart:html';
 import 'dart:io';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nepali_vivah/Api_File/Url.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/mainscreens/home.dart';
@@ -19,11 +19,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   ProgressDialog pr;
+  SharedPreferences _prefs;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
   @override
   void initState() {
+       _LoginCheck();
+     super.initState();
     pr = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: true);
   }
@@ -175,11 +178,13 @@ class _LoginState extends State<Login> {
             timeInSecForIosWeb: 1,
             fontSize: 16,
           );
-          SharedPreferences _prefs = await SharedPreferences.getInstance();
+          _prefs = await SharedPreferences.getInstance();
           await _prefs.setString("m_id", value.data[0]["member_id"]);
-          await _prefs.setString("profile_Image", "http://kvms.kriishnacab.com/public/images/Profile/");
-          await _prefs.setString("GalleryImage", "http://kvms.kriishnacab.com/public/images/Gallery/");
-          await _prefs.setString("Aadhar_Image","http://kvms.kriishnacab.com/public/images/Adhar_CArd/" );
+          await _prefs.setString("profile_Image", Urls.baseUrl+"public/images/Profile/");
+          await _prefs.setString("GalleryImage", Urls.baseUrl+"public/images/Gallery/");
+          await _prefs.setString("Aadhar_Image",Urls.baseUrl+"public/images/Adhar_CArd/" );
+          await _prefs.setString("Username",email.text);
+          await _prefs.setString("Password",password.text);
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -212,4 +217,14 @@ class _LoginState extends State<Login> {
       );
     }
   }
+
+  _LoginCheck() async {
+    _prefs = await SharedPreferences.getInstance();
+    if(_prefs.getString("Username") != null && _prefs.getString("Password") != null){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => Profile()
+      ));
+    }
+  }
+
 }

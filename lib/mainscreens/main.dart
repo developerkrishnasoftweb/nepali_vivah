@@ -9,9 +9,12 @@ import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/login_registration/contactinfo.dart';
+import 'package:nepali_vivah/login_registration/login.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'chat_home.dart';
 import 'settings.dart';
 
 class Profile extends StatefulWidget {
@@ -20,6 +23,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  bool updated = false;
+  String profileString;
+  var proImage, adhaImage;
+  File _profile;
+  File _Aadhar;
 
   @override
   void initState() {
@@ -37,6 +45,7 @@ class _ProfileState extends State<Profile> {
   String M_id;
   @override
   Widget build(BuildContext context) {
+
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -81,7 +90,7 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.only(top: 15),
-                  height: 250,
+                  height: 260,
                   color: MyColors.pinkvariaance,
                   child: Column(
                     children: [
@@ -90,88 +99,64 @@ class _ProfileState extends State<Profile> {
                         children: [
                           Column(
                             children: [
-                              CircleAvatar(
-                                backgroundColor: MyColors.whiteColor,
-                                child: Icon(
-                                  Icons.insert_photo,
-                                  color: MyColors.pinkvariaance,
+                              GestureDetector(
+                                onTap: () async {
+                                  proImage = await ImagePicker.pickImage(
+                                      source: ImageSource.gallery,maxHeight: 250,maxWidth: 250);
+                                  setState(() {
+                                    _profile = proImage;
+                                    _profileUpdate();
+                                  });
+                                },
+                                child: Container(
+                                  height: 110,
+                                  width: 110,
+                                  child:  CircleAvatar(
+                                    backgroundImage:
+                                       NetworkImage(profileString),
+                                    radius: 50.0,
+                                  ),
                                 ),
-                                radius: 20.0,
                               ),
                               Text(
-                                "Add photo",
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage:
-                                NetworkImage(profileImage+Userdata[0]["profile_image"]),
-                                radius: 50.0,
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: MyColors.whiteColor,
-                                child: Icon(
-                                  Icons.flag,
-                                  color: MyColors.pinkvariaance,
-                                ),
-                                radius: 20.0,
-                              ),
-                              Text(
-                                "Reports",
+                                Userdata[0]["first_name"]+" "+Userdata[0]["last_name"],
                                 style: TextStyle(
+                                  fontSize: 20.0,
                                   color: MyColors.whiteColor,
                                 ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            Userdata[0]["first_name"]+" "+Userdata[0]["last_name"],
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: MyColors.whiteColor,
-                            ),
-                          ),
-                          Text(
-                            Userdata[0]["age"].toString()+" "+Userdata[0]["gender"]+" "+_status(ageStatus),
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: MyColors.whiteColor,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                color: MyColors.whiteColor,
                               ),
-                              Userdata[0]["address"] == null
-                                  ? Text(
-                                "--",
+                              Text(
+                                Userdata[0]["age"].toString()+" "+Userdata[0]["gender"]+" "+_status(ageStatus),
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   color: MyColors.whiteColor,
                                 ),
-                              )
-                                  :Text(
-                                jsonDecode(Userdata[0]["address"])[0]["City"].toString()+ ", " +
-                                    jsonDecode(Userdata[0]["address"])[0]["State"].toString()  + ", " +
-                                    jsonDecode(Userdata[0]["address"])[0]["Country"].toString(),
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: MyColors.whiteColor,
-                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: MyColors.whiteColor,
+                                  ),
+                                  Userdata[0]["address"] == null
+                                      ? Text(
+                                    "--",
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: MyColors.whiteColor,
+                                    ),
+                                  )
+                                      :Text(
+                                    jsonDecode(Userdata[0]["address"])[0]["City"].toString()+ ", " +
+                                        jsonDecode(Userdata[0]["address"])[0]["State"].toString()  + ", " +
+                                        jsonDecode(Userdata[0]["address"])[0]["Country"].toString(),
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: MyColors.whiteColor,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -183,40 +168,30 @@ class _ProfileState extends State<Profile> {
                         width: size.width,
                         color: MyColors.pinkvariaance,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Column(
-                              children: [
-                                Icon(
-                                  Icons.camera_alt,
-                                  color: MyColors.whiteColor,
-                                ),
-                                Text(
-                                  "Picture",
-                                  style: TextStyle(
+                            GestureDetector(
+                              onTap: () async {
+                                proImage = await ImagePicker.pickImage(
+                                    source: ImageSource.gallery,maxHeight: 250,maxWidth: 250);
+                                setState(() {
+                                  _profile = proImage;
+                                });
+                              },
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.camera_alt,
                                     color: MyColors.whiteColor,
                                   ),
-                                )
-                              ],
-                            ),
-                            Container(
-                              height: 40,
-                              width: 1,
-                              color: MyColors.whiteColor,
-                            ),
-                            Column(
-                              children: [
-                                Icon(
-                                  Icons.info,
-                                  color: MyColors.whiteColor,
-                                ),
-                                Text(
-                                  "Profile",
-                                  style: TextStyle(
-                                    color: MyColors.whiteColor,
-                                  ),
-                                )
-                              ],
+                                  Text(
+                                    "Add Picture",
+                                    style: TextStyle(
+                                      color: MyColors.whiteColor,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                             Container(
                               height: 40,
@@ -309,26 +284,40 @@ class _ProfileState extends State<Profile> {
                   children: <Widget>[
                     Column(
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 30, left: 20),
-                          child: RaisedButton(
-                            onPressed: () {
-                              _showMyDialog("intrested peoples are:");
-                            },
-                            color: MyColors.pinkvariaance,
-                            child: Icon(
-                              Icons.favorite,
-                              color: MyColors.whiteColor,
-                              size: 30,
+                        Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 30, left: 20),
+                              child: RaisedButton(
+                                onPressed: () {
+
+                                },
+                                color: MyColors.pinkvariaance,
+                                child: Icon(
+                                  Icons.favorite,
+                                  color: MyColors.whiteColor,
+                                  size: 30,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
                             ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
-                          ),
+                            Userdata[0]["interest"] != "" ? Container(
+                              margin: EdgeInsets.only(top: 32.0,left: 80.0),
+                              height: 15,
+                              width: 15,
+                              decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
+                              child: Center(
+                                child: Text(Userdata[0]["interest"],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
+                              ),
+                            ): Container(),
+                          ],
                         ),
+
                         Container(
                           margin: EdgeInsets.only(bottom: 10, left: 20),
                           child: Text(
-                            "Show Intrest",
+                            "Interested",
                             style: TextStyle(color: MyColors.grayText),
                           ),
                         ),
@@ -336,21 +325,36 @@ class _ProfileState extends State<Profile> {
                     ),
                     Column(
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 30, left: 20),
-                          child: RaisedButton(
-                            onPressed: () {
-                            },
-                            color: MyColors.lightgreen,
-                            child: Icon(
-                              Icons.chat_bubble,
-                              color: MyColors.whiteColor,
-                              size: 30,
+                        Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 30, left: 20),
+                              child: RaisedButton(
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatHome()));
+                                },
+                                color: MyColors.lightgreen,
+                                child: Icon(
+                                  Icons.chat_bubble,
+                                  color: MyColors.whiteColor,
+                                  size: 30,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
                             ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
-                          ),
+                            Userdata[0]["ignored"] == ""? Container() : Container(
+                              margin: EdgeInsets.only(top: 32.0,left: 80.0),
+                              height: 15,
+                              width: 15,
+                              decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
+                              child: Center(
+                                child: Text(Userdata[0]["ignored"],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
+                              ),
+                            )
+                          ],
                         ),
+
                         Container(
                           margin: EdgeInsets.only(bottom: 10, left: 20),
                           child: Text(
@@ -362,22 +366,35 @@ class _ProfileState extends State<Profile> {
                     ),
                     Column(
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 30, left: 20),
-                          child: RaisedButton(
-                            onPressed: () {
-                              _showMyDialog("Dislike peoples is : ");
-                              },
-                            color: MyColors.grayText,
-                            child: Icon(
-                              Icons.thumb_down,
-                              color: MyColors.whiteColor,
-                              size: 30,
+                        Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 30, left: 20),
+                              child: RaisedButton(
+                                onPressed: () {
+                                },
+                                color: MyColors.grayText,
+                                child: Icon(
+                                  Icons.thumb_down,
+                                  color: MyColors.whiteColor,
+                                  size: 30,
+                                ),
+                                padding: EdgeInsets.all(16),
+                                shape: CircleBorder(),
+                              ),
                             ),
-                            padding: EdgeInsets.all(16),
-                            shape: CircleBorder(),
-                          ),
+                            Userdata[0]["ignored"] != "" ?Container(
+                              margin: EdgeInsets.only(top: 32.0,left: 80.0),
+                              height: 15,
+                              width: 15,
+                              decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
+                              child: Center(
+                                child: Text(Userdata[0]["ignored"],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
+                              ),
+                            ): Container(),
+                          ],
                         ),
+
                         Container(
                           margin: EdgeInsets.only(bottom: 10, left: 20),
                           child: Text(
@@ -439,7 +456,8 @@ class _ProfileState extends State<Profile> {
                     scrollDirection: Axis.horizontal,
                     itemCount: Userdata[0]["gallery"].toString().split(",").length,
                     itemBuilder: (BuildContext context, int index) {
-                      // print(pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",")[index]);
+                      print(pref.getString("GalleryImage")+Userdata[0]["gallery"].toString().split(",")[index]);
+
                       return Row(
                         children: <Widget>[
                           Container(
@@ -762,45 +780,45 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                         ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 5, bottom: 5),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Rasidency Status :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                                  height: 20,
-                                  width: 60,
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    //elevation: 0.1,
-                                    color: MyColors.pinkvariaance,
-                                    child: Text(
-                                      "Ask?",
-                                      style: TextStyle(
-                                          color: MyColors.whiteColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   height: 1,
+                        //   width: size.width,
+                        //   color: MyColors.grayText,
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(top: 5, bottom: 5),
+                        //   width: MediaQuery.of(context).size.width * 0.95,
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: <Widget>[
+                        //       Container(
+                        //         child: Text(
+                        //           "Rasidency Status :",
+                        //           style: TextStyle(
+                        //               fontWeight: FontWeight.bold,
+                        //               color: MyColors.grayText,
+                        //               fontSize: 17),
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //           margin: EdgeInsets.only(top: 5, bottom: 5),
+                        //           height: 20,
+                        //           width: 60,
+                        //           child: RaisedButton(
+                        //             onPressed: () {},
+                        //             //elevation: 0.1,
+                        //             color: MyColors.pinkvariaance,
+                        //             child: Text(
+                        //               "Ask?",
+                        //               style: TextStyle(
+                        //                   color: MyColors.whiteColor,
+                        //                   fontWeight: FontWeight.bold,
+                        //                   fontSize: 12),
+                        //             ),
+                        //           )),
+                        //     ],
+                        //   ),
+                        // ),
                         Container(
                           height: 1,
                           width: size.width,
@@ -1153,7 +1171,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Container(
                                 child: Text(
-                                  _status(ageStatus),
+                                  _status(int.parse(jsonDecode(Userdata[0]["partner_expectation"])[0]["P_marital_status"].toString())),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: MyColors.pinkvariaance,
@@ -1227,45 +1245,45 @@ class _ProfileState extends State<Profile> {
                             ],
                           ),
                         ),
-                        Container(
-                          height: 1,
-                          width: size.width,
-                          color: MyColors.grayText,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 5, bottom: 5),
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "Rasidency Status :",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grayText,
-                                      fontSize: 17),
-                                ),
-                              ),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                                  height: 20,
-                                  width: 60,
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    //elevation: 0.1,
-                                    color: MyColors.pinkvariaance,
-                                    child: Text(
-                                      "Ask?",
-                                      style: TextStyle(
-                                          color: MyColors.whiteColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   height: 1,
+                        //   width: size.width,
+                        //   color: MyColors.grayText,
+                        // ),
+                        // Container(
+                        //   padding: EdgeInsets.only(top: 5, bottom: 5),
+                        //   width: MediaQuery.of(context).size.width * 0.95,
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: <Widget>[
+                        //       Container(
+                        //         child: Text(
+                        //           "Rasidency Status :",
+                        //           style: TextStyle(
+                        //               fontWeight: FontWeight.bold,
+                        //               color: MyColors.grayText,
+                        //               fontSize: 17),
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //           margin: EdgeInsets.only(top: 5, bottom: 5),
+                        //           height: 20,
+                        //           width: 60,
+                        //           child: RaisedButton(
+                        //             onPressed: () {},
+                        //             //elevation: 0.1,
+                        //             color: MyColors.pinkvariaance,
+                        //             child: Text(
+                        //               "Ask?",
+                        //               style: TextStyle(
+                        //                   color: MyColors.whiteColor,
+                        //                   fontWeight: FontWeight.bold,
+                        //                   fontSize: 12),
+                        //             ),
+                        //           )),
+                        //     ],
+                        //   ),
+                        // ),
                         Container(
                           height: 1,
                           width: size.width,
@@ -1559,73 +1577,48 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-
   _membergetbyId() async {
     pref = await SharedPreferences.getInstance();
     profileImage = pref.getString('profile_Image');
     aadharImage = pref.getString('Aadhar_Image');
-    String M_id = pref.getString("m_id");
+    M_id = pref.getString("m_id");
     FormData formData = FormData.fromMap({
       "member_id" : M_id,
     });
     await Services.memberViewById(formData).then((value) {
       if(value.response == 1){
-        print(value.data);
+        print("work is profile"+value.data.toString());
         setState(() {
           print(value.message);
           Userdata = value.data;
           ageStatus = Userdata[0]["marital_status_id"];
           P_ageStatus = jsonDecode(Userdata[0]["partner_expectation"])[0]["P_marital_status"];
+          profileString = profileImage+Userdata[0]["profile_image"];
         });
       }
     });
   }
 
-  Future<void> _showMyDialog(String mess) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: mess == "intrested peoples are:"
-              ? Container(
-            decoration: BoxDecoration(
-              color: MyColors.pinkvariaance,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.favorite,
-              color: MyColors.whiteColor,
-              size: 30,
-            ),
-            padding: EdgeInsets.all(16),
-          )
-          :Container(
-            decoration: BoxDecoration(
-              color: MyColors.grayText,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.thumb_down,
-              color: MyColors.whiteColor,
-              size: 30,
-            ),
-            padding: EdgeInsets.all(16),
-          ),
-          content: mess == "intrested peoples are:" ? Text("Great! "+mess+" "+Userdata[0]["interest"], textAlign: TextAlign.center,)
-              :Text("Great! "+mess+" "+Userdata[0]["ignored"], textAlign: TextAlign.center,),
-            contentTextStyle: TextStyle(
-              color: MyColors.pinkvariaance,
-              fontSize: 20,
-              fontFamily: "Philosopher",
-            ),
-          scrollable: true,
-          // contentPadding: EdgeInsets.all(10.0),
-          insetPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
-          // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-        );
-      },
-    );
+  _profileUpdate() async {
+    String fileName = _profile.path.split('/').last;
+    FormData d = FormData.fromMap({
+      "member_id" : Userdata[0]["member_id"],
+      "profile": await MultipartFile.fromFile(_profile.path, filename: fileName),
+    });
+
+    Services.memberProfileUpdate(d).then((value) {
+      if(value.response == "1"){
+        setState(() {
+          updated = true;
+          profileString = profileImage+Userdata[0]["profile_image"];
+        });
+        Navigator.push(context, MaterialPageRoute(builder: (context) => new Profile()));
+      } else {
+        setState(() {
+          updated= false;
+        });
+      }
+    });
   }
 
   _status(int status) {

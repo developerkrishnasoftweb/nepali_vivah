@@ -7,12 +7,24 @@ import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/login_registration/login.dart';
 import 'package:nepali_vivah/login_registration/personalinfo.dart';
+import 'package:nepali_vivah/mainscreens/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Api_File/services.dart';
 class Registration extends StatefulWidget{
   @override
   _Registration createState() => _Registration();
 }
 class _Registration extends State<Registration>{
+  SharedPreferences _prefs;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _LoginCheck();
+    super.initState();
+
+  }
+
   @override
   static const marriage = ['Single', 'Divoces', 'Widow', 'Widower'];
   static const years = ['2020','2021','2022','2023','2024','2025'];
@@ -21,6 +33,7 @@ class _Registration extends State<Registration>{
   String month;
   String year;
   String gender = "male";
+
   var now = new DateTime.now();
 
   TextEditingController town = TextEditingController();
@@ -92,7 +105,8 @@ class _Registration extends State<Registration>{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Login(),),);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                          print("hello");
                         },
                         child: Container(
                           width: size.width * 0.3,
@@ -642,5 +656,14 @@ class _Registration extends State<Registration>{
       m_year: year,
       town: town.text,
     )));
+  }
+
+  _LoginCheck() async {
+    _prefs = await SharedPreferences.getInstance();
+    if(_prefs.getString("Username") != null && _prefs.getString("Password") != null){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => Profile()
+      ));
+    }
   }
 }

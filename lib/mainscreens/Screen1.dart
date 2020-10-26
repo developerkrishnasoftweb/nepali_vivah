@@ -671,6 +671,6 @@ class _Screen1State extends State<Screen1> {
             ),
           ],
         ),
-        bottomNavigationBar: Bottom_bar());
+        bottomNavigationBar: Bottom_bar(currentIndex: 1,));
   }
 }
