@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nepali_vivah/login_registration/changepassword.dart';
 import 'main.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import '../splash.dart';
@@ -126,7 +127,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 Container(width: size.width, height: 1, color: Colors.grey),
                 Container(
-                  margin: EdgeInsets.only(left: 10, top: 10, bottom: 1),
+                  margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
                   height: 20,
                   width: MediaQuery.of(context).size.width,
                   child: Text(
@@ -135,6 +136,24 @@ class _SettingsState extends State<Settings> {
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
+                  ),
+                ),
+                Container(width: size.width, height: 1, color: Colors.grey),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword(),),);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10, top: 10, bottom: 1),
+                    height: 20,
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      "Change Password",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
+                    ),
                   ),
                 ),
                 Container(

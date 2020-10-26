@@ -5,4 +5,7 @@ class Urls {
   static var memberViewId = "api/member/view/id";
   static var memberView = "api/member/view";
   static var profileUpdate = "api/profile_picture/update";
+  static var ChangePassword = "api/change_password";
+  static var Advertisement_add = "api/advertisement";
+
 }
