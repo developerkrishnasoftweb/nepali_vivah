@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:nepali_vivah/constant/colors.dart';
 import 'Url.dart';
 import 'data.dart';
 import 'package:http/http.dart' as http;
@@ -223,15 +224,27 @@ class Services {
     String url = Urls.baseUrl + Urls.Advertisement_add;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
       Response response = await dio.get(url);
       if (response.statusCode == 200) {
         Data data = new Data();
-
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
-        data.response = jsonResponse["Response"];
-        data.data = jsonResponse["Data"];
+        data.response = jsonResponse["Response"].toString();
+        List list;
+        list = [
+          {
+            "advertisement_id" : jsonResponse["Data"]["advertisement_id"],
+            "title" : jsonResponse["Data"]["title"],
+            "top_advertisement" : jsonResponse["Data"]["top_advertisement"],
+            "bottom_advertisement" : jsonResponse["Data"]["bottom_advertisement"],
+            "middle_advertisement" : jsonResponse["Data"]["middle_advertisement"],
+            "vertical_advertisement" : jsonResponse["Data"]["vertical_advertisement"],
+            "inserted_at" : jsonResponse["Data"]["inserted_at"],
+            "updated_at" : jsonResponse["Data"]["updated_at"],
+            "position" : jsonResponse["Data"]["position"],
+          }
+        ];
+        data.data = list;
         return data;
       } else {
         throw Exception("Something went Wrong");
@@ -240,6 +253,7 @@ class Services {
       print(e.toString);
     }
   }
+
 
   static Future<Data> followadd(body) async {
     String url = Urls.baseUrl + Urls.followers_add;

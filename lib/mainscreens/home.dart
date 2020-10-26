@@ -26,6 +26,7 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   SharedPreferences prefs;
   List Memberdata;
+  List Advertise;
   var agestatus;
   String Status;
   String profileImage;
@@ -35,6 +36,7 @@ class _Home extends State<Home> {
   void initState() {
     _getMember();
     _getcradintional();
+    _Advertisements();
     super.initState();
   }
 
@@ -335,7 +337,7 @@ class _Home extends State<Home> {
                           borderRadius: BorderRadius.circular(10.0),
                           image: DecorationImage(
                             fit: BoxFit.fill,
-                            image: AssetImage('assets/images/user_image.jpg'),
+                            image: NetworkImage(Advertise[0]["middle_advertisement"]),
                           ),
                         ),
                       ),
@@ -430,6 +432,16 @@ class _Home extends State<Home> {
       if (value.response == 1) {
         setState(() {
           Memberdata = value.data;
+        });
+      }
+    });
+  }
+
+  _Advertisements() async {
+    await Services.Advertisements().then((value) {
+      if (value.response == "1") {
+        setState(() {
+          Advertise = value.data;
         });
       }
     });
