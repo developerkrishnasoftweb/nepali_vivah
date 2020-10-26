@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
@@ -9,6 +11,9 @@ import 'package:nepali_vivah/mainscreens/chat_home.dart';
 import 'package:nepali_vivah/mainscreens/main.dart';
 import 'package:nepali_vivah/mainscreens/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   Home({this.navbarIndex}) : super();
@@ -19,8 +24,6 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-
-
   SharedPreferences prefs;
   List Memberdata;
   var agestatus;
@@ -41,15 +44,12 @@ class _Home extends State<Home> {
     aadharImage = prefs.getString('Aadhar_Image');
   }
 
-
   @override
   var _index;
   Icon clear;
   TextEditingController search = TextEditingController();
 
   Widget build(BuildContext context) {
-
-
     (widget.navbarIndex != null) ? _index = widget.navbarIndex : _index = 0;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -114,168 +114,275 @@ class _Home extends State<Home> {
           height: size.height,
           width: size.width,
           alignment: Alignment.center,
-          child: Memberdata !=null ? SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 200,
-                  width: size.width,
-                  child:  CarouselSlider(
-                    height: 190,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    aspectRatio: 19 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: Duration(milliseconds: 600),
-                    viewportFraction: 1.0,
-                    items: [
+          child: Memberdata != null
+              ? SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
                       Container(
-                        margin: EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            image: DecorationImage(
-                                image: AssetImage('assets/images/user_image.jpg'),
-                                fit: BoxFit.fill)),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: size.width,
-                  padding: EdgeInsets.only(top: 15, bottom: 15),
-                  alignment: Alignment(0.0, 0.0),
-                  child: Text(
-                    "You might be interested in",
-                    style: TextStyle(
-                      color: MyColors.pinkvariaance,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                    width: size.width,
-                    height: 210,
-                    alignment: Alignment.center,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Container(
+                        height: 200,
                         width: size.width,
-                        child: ListView.builder(
+                        child: CarouselSlider(
+                          height: 190,
+                          enlargeCenterPage: true,
+                          autoPlay: true,
+                          aspectRatio: 19 / 9,
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enableInfiniteScroll: true,
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 600),
+                          viewportFraction: 1.0,
+                          items: [
+                            Container(
+                              margin: EdgeInsets.all(3.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/user_image.jpg'),
+                                      fit: BoxFit.fill)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: size.width,
+                        padding: EdgeInsets.only(top: 15, bottom: 15),
+                        alignment: Alignment(0.0, 0.0),
+                        child: Text(
+                          "You might be interested in",
+                          style: TextStyle(
+                            color: MyColors.pinkvariaance,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                          width: size.width,
+                          height: 200,
+                          alignment: Alignment.center,
+                          child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            itemCount: Memberdata.length,
-                            itemBuilder: (context,index){
-                              agestatus = Memberdata[index]["marital_status_id"];
-                              return GestureDetector(
-                                onTap: () {
-                                  // _getMember();
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => Screen1()));
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
-                                  height: 200,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.whiteColor,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 80,
-                                        width: 80,
+                            child: Container(
+                              width: size.width,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: Memberdata.length,
+                                  itemBuilder: (context, index) {
+                                    agestatus =
+                                        Memberdata[index]["marital_status_id"];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        // _getMember();
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) => Screen1()));
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        height: 200,
+                                        width: 200,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(80),
-                                            image: DecorationImage(
-                                              image: NetworkImage(profileImage+Memberdata[index]["profile_image"]),
-                                              fit: BoxFit.fill,
-                                            )),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          Memberdata[index]["first_name"]+" "+Memberdata[index]["last_name"],
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: MyColors.pinkvariaance),
+                                          color: MyColors.whiteColor,
                                         ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                            Memberdata[index]["age"].toString()+" "+_status(agestatus),
-                                          style: TextStyle(fontSize: 14),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        width: size.width,
-                                        child: Row(
+                                        child: Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: <Widget>[
-                                            Icon(Icons.location_on,
-                                                color: MyColors.blue),
-                                            Memberdata[index]["location"] == null ? Text("-") :Text(
-                                              Memberdata[index]["location"],
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: MyColors.blue),
+                                            Container(
+                                              height: 80,
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(80),
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        profileImage +
+                                                            Memberdata[index][
+                                                                "profile_image"]),
+                                                    fit: BoxFit.fill,
+                                                  )),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5),
+                                              width: size.width,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                Memberdata[index]
+                                                        ["first_name"] +
+                                                    " " +
+                                                    Memberdata[index]
+                                                        ["last_name"],
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color:
+                                                        MyColors.pinkvariaance),
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.only(top: 5),
+                                              width: size.width,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                Memberdata[index]["age"]
+                                                        .toString() +
+                                                    " " +
+                                                    _status(agestatus),
+                                                style: TextStyle(fontSize: 14),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Container(
+                                                  height: 30,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: FlatButton(
+                                                      child: Text(
+                                                        "Interest",
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      onPressed: () {}),
+                                                ),
+                                                Container(
+                                                  height: 30,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: FlatButton(
+                                                      child: Text(
+                                                        "Follow",
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      onPressed: () {
+                                                        var id =
+                                                            Memberdata[index]
+                                                                ["member_id"];
+                                                        print(id);
+                                                        _follow(id);
+                                                      }),
+                                                ),
+                                                Container(
+                                                  height: 30,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                  child: FlatButton(
+                                                      child: Text(
+                                                        "Ignore",
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      onPressed: () {}),
+                                                ),
+                                              ],
                                             )
+                                            // Container(
+                                            //   color: Colors.red,
+                                            //   child: Row(
+                                            //     children: [
+                                            //       SizedBox(
+                                            //           child: Row(
+                                            //             children: [
+                                            //               Container(
+                                            //                 child: FlatButton(
+                                            //                     child: Text("follow")
+                                            //                 ),height: 30,
+                                            //                 width: 30,
+                                            //               ),
+                                            //               FlatButton(
+                                            //                   child: Text("follow")
+                                            //               ),
+                                            //               FlatButton(
+                                            //                   child: Text("follow")
+                                            //               ),
+                                            //             ],
+                                            //           ),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            //
+                                            //   ),
+
+                                            // Container(
+                                            //   margin: EdgeInsets.only(top: 5),
+                                            //   width: size.width,
+                                            //   child: Row(
+                                            //     mainAxisAlignment:
+                                            //     MainAxisAlignment.center,
+                                            //     children: <Widget>[
+                                            //       Icon(Icons.location_on,
+                                            //           color: MyColors.blue),
+                                            //       Memberdata[index]["location"] == null ? Text("-") :Text(
+                                            //         Memberdata[index]["location"],
+                                            //         style: TextStyle(
+                                            //             fontSize: 14,
+                                            //             color: MyColors.blue),
+                                            //       )
+                                            //     ],
+                                            //   ),
+                                            // )
                                           ],
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),),
-                    )),
-                Container(
-                  height: 110,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/user_image.jpg'),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: size.width,
-                  padding: EdgeInsets.only(top: 60, bottom: 20),
-                  alignment: Alignment(0.0, 0.0),
-                  child: Text(
-                    "Recommended member for you",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  child: Stack(
-                    children: [
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Container(
-                        width: 180,
-                        height: 180,
-                        margin: EdgeInsets.only(top: 20, left: 150),
+                        height: 110,
+                        width: 350,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(300.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           image: DecorationImage(
-                            image: AssetImage("assets/images/John.jpg"),
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
+                            image: AssetImage('assets/images/user_image.jpg'),
                           ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: size.width,
+                        padding: EdgeInsets.only(top: 60, bottom: 20),
+                        alignment: Alignment(0.0, 0.0),
+                        child: Text(
+                          "Recommended member for you",
+                          style: TextStyle(fontSize: 20),
                         ),
                       ),
                       Container(
@@ -284,8 +391,7 @@ class _Home extends State<Home> {
                             Container(
                               width: 180,
                               height: 180,
-                              margin: EdgeInsets.only(top: 20, right: 90),
-                              // padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
+                              margin: EdgeInsets.only(top: 20, left: 150),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(300.0),
                                 image: DecorationImage(
@@ -298,9 +404,10 @@ class _Home extends State<Home> {
                               child: Stack(
                                 children: [
                                   Container(
-                                    width: 220,
-                                    height: 220,
-                                    margin: EdgeInsets.only(left: 60),
+                                    width: 180,
+                                    height: 180,
+                                    margin: EdgeInsets.only(top: 20, right: 90),
+                                    // padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
                                     decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.circular(300.0),
@@ -311,6 +418,26 @@ class _Home extends State<Home> {
                                       ),
                                     ),
                                   ),
+                                  Container(
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: 220,
+                                          height: 220,
+                                          margin: EdgeInsets.only(left: 60),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(300.0),
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/John.jpg"),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -319,27 +446,31 @@ class _Home extends State<Home> {
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          )
-              :SizedBox(height: 50, width: 50, child: CircularProgressIndicator(valueColor:AlwaysStoppedAnimation(MyColors.pinkvariaance),)),
+                )
+              : SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(MyColors.pinkvariaance),
+                  )),
         ),
-        bottomNavigationBar: Bottom_bar(currentIndex: 1,));
+        bottomNavigationBar: Bottom_bar(
+          currentIndex: 1,
+        ));
   }
 
   _getMember() async {
     await Services.MemberView().then((value) {
-     if(value.response == 1){
-       setState(() {
-         Memberdata = value.data;
-       });
-     }
+      if (value.response == 1) {
+        setState(() {
+          Memberdata = value.data;
+        });
+      }
     });
   }
 
   _status(int status) {
-    switch(status){
+    switch (status) {
       case 1:
         Status = "Single";
         break;
@@ -354,5 +485,18 @@ class _Home extends State<Home> {
         break;
     }
     return Status;
+  }
+
+  _follow(int id) async {
+    FormData d =
+        FormData.fromMap({
+          "member_id": prefs.getString("m_id"),
+          "id": id,
+        });
+    Services.followadd(d).then((value) {
+      if (value.response==1){
+        print(value.message);
+      }
+    });
   }
 }

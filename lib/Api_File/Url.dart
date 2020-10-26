@@ -4,4 +4,6 @@ class Urls {
   static var login_url = "api/login/checklogin";
   static var memberViewId = "api/member/view/id";
   static var memberView = "api/member/view";
+  static var followers_add = "api/follow/insert";
+
 }
