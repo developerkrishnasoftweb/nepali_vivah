@@ -424,6 +424,7 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
           timeInSecForIosWeb: 1,
           fontSize: 16,
         );
+
         setState(() {
           interest = false;
         });
