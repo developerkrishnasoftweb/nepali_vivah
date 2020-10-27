@@ -308,7 +308,7 @@ class _ProfileState extends State<Profile> {
                               width: 15,
                               decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
                               child: Center(
-                                child: Text(Userdata[0]["interest"].toString()[4],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
+                                child: Text(Userdata[0]["interest"].toString().split(",").length.toString(),style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
                               ),
                             ): Container(),
                           ],
@@ -343,7 +343,7 @@ class _ProfileState extends State<Profile> {
                                 shape: CircleBorder(),
                               ),
                             ),
-                            Userdata[0]["ignored"] == ""? Container() : Container(
+                            Container(
                               margin: EdgeInsets.only(top: 32.0,left: 80.0),
                               height: 15,
                               width: 15,
@@ -389,7 +389,7 @@ class _ProfileState extends State<Profile> {
                               width: 15,
                               decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
                               child: Center(
-                                child: Text(Userdata[0]["ignored"],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
+                                child: Text(Userdata[0]["ignored"].toString().split(",").length.toString(),style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
                               ),
                             ): Container(),
                           ],

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
+import 'package:nepali_vivah/Common/LoginMemberImage.dart';
+import 'package:nepali_vivah/Common/membermatchscroll.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:nepali_vivah/mainscreens/Screen1.dart';
@@ -35,6 +37,7 @@ class _Home extends State<Home> {
   String Status;
   String profileImage;
   String aadharImage;
+  List Userdata;
 
   @override
   void initState() {
@@ -42,6 +45,7 @@ class _Home extends State<Home> {
     _getcradintional();
     _Advertisements();
     _matched_profile();
+    _membergetbyId();
     super.initState();
   }
 
@@ -56,8 +60,8 @@ class _Home extends State<Home> {
   var _index;
   Icon clear;
   TextEditingController search = TextEditingController();
-
   Widget build(BuildContext context) {
+    // print("interest list"+Userdata[0]["interest"].toString().split(",")[0]);
     (widget.navbarIndex != null) ? _index = widget.navbarIndex : _index = 0;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -166,296 +170,10 @@ class _Home extends State<Home> {
                         ),
                       ),
                       Container(
-                          width: size.width,
-                          height: 200,
-                          alignment: Alignment.center,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Container(
-                              width: size.width,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: Matched_profile.length,
-                                  itemBuilder: (context, index) {
-                                    agestatus = Matched_profile[index]
-                                        ["marital_status_id"];
-                                    print(Matched_profile[
-                                    index][
-                                    "member_id"]);
-                                    return GestureDetector(
-                                      onTap: () {
-                                        // _getMember();
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => Screen1()));
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        height: 200,
-                                        width: 200,
-                                        decoration: BoxDecoration(
-                                          color: MyColors.whiteColor,
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              height: 80,
-                                              width: 80,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(80),
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        profileImage +
-                                                            Matched_profile[
-                                                                    index][
-                                                                "profile_image"]),
-                                                    fit: BoxFit.fill,
-                                                  )),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 5),
-                                              width: size.width,
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                Matched_profile[index]
-                                                        ["first_name"] +
-                                                    " " +
-                                                    Matched_profile[index]
-                                                        ["last_name"],
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color:
-                                                        MyColors.pinkvariaance),
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 5),
-                                              width: size.width,
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                Matched_profile[index]["age"]
-                                                        .toString() +
-                                                    " " +
-                                                    _status(agestatus),
-                                                style: TextStyle(fontSize: 14),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 15,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Container(
-                                                  height: 30,
-                                                  width: 60,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                  ),
-                                                  child: interest == "interest"
-                                                      ? FlatButton(
-                                                          child: Text(
-                                                            interest,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 8,
-                                                                color: MyColors
-                                                                    .blackText),
-                                                          ),
-                                                          shape: RoundedRectangleBorder(
-                                                              side: BorderSide(
-                                                                  color: MyColors
-                                                                      .blackText),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                          onPressed: () {
-                                                            var id;
-                                                            setState(() {
-                                                              id =
-                                                              Matched_profile[
-                                                              index][
-                                                              "member_id"];
-                                                              _interest(id);
-                                                            });
-                                                          })
-                                                      : FlatButton(
-                                                          child: Text(
-                                                            interest,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 9,
-                                                                color: MyColors
-                                                                    .pinkvariaance),
-                                                          ),
-                                                          shape: RoundedRectangleBorder(
-                                                              side: BorderSide(
-                                                                  color: MyColors
-                                                                      .pinkvariaance),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                          onPressed: () {
-                                                            var id;
-                                                            setState(() {
-                                                              id = Matched_profile[
-                                                              index][
-                                                              "member_id"];
-                                                              print(id);
-                                                              _interestdelete(id);
-                                                            });
-                                                          }),
-                                                ),
-                                                Container(
-                                                    height: 30,
-                                                    width: 60,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                    child: follow == "follow"
-                                                        ? FlatButton(
-                                                            child: Text(
-                                                              follow,
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 8,
-                                                                  color: MyColors
-                                                                      .blackText),
-                                                            ),
-                                                            shape: RoundedRectangleBorder(
-                                                                side: BorderSide(
-                                                                    color: MyColors
-                                                                        .blackText),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5)),
-                                                            onPressed: () {
-                                                              var id =
-                                                                  Matched_profile[
-                                                                          index]
-                                                                      [
-                                                                      "member_id"];
-                                                              print(id);
-                                                              _follow(id);
-                                                            })
-                                                        : FlatButton(
-                                                            child: Text(
-                                                              follow,
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 8,
-                                                                  color: MyColors
-                                                                      .pinkvariaance),
-                                                            ),
-                                                            shape: RoundedRectangleBorder(
-                                                                side: BorderSide(
-                                                                    color: MyColors
-                                                                        .pinkvariaance),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5)),
-                                                            onPressed: () {
-                                                              var id =
-                                                                  Matched_profile[
-                                                                          index]
-                                                                      [
-                                                                      "member_id"];
-                                                              print(id);
-                                                              _followdelete(id);
-                                                            })),
-                                                Container(
-                                                  height: 30,
-                                                  width: 60,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                  ),
-                                                  child: ingnore == "ingnore" ? FlatButton(
-                                                      child: Text(
-                                                        ingnore,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 8,
-                                                            color:
-                                                                MyColors.blackText),
-                                                      ),
-                                                      shape: RoundedRectangleBorder(
-                                                          side: BorderSide(
-                                                              color: MyColors
-                                                                  .blackText),
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              5)),
-                                                      onPressed: () {
-                                                        var id =
-                                                            Matched_profile[
-                                                                    index]
-                                                                ["member_id"];
-                                                        _Ignore(id);
-                                                      })
-                                                      :FlatButton(
-                                                      child: Text(
-                                                        ingnore,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            fontSize: 7,
-                                                            color:
-                                                            MyColors.pinkvariaance),
-                                                      ),
-                                                      shape: RoundedRectangleBorder(
-                                                          side: BorderSide(
-                                                              color: MyColors
-                                                                  .pinkvariaance),
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              5)),
-                                                      onPressed: () {
-                                                        var id =
-                                                        Matched_profile[
-                                                        index]
-                                                        ["member_id"];
-                                                        //_Ignore(id);
-                                                        _ignoredelete(id);
-                                                      })
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          )),
+                        width: size.width,
+                        height: 200,
+                        child: Membermatch_profile(Matched_profile: Matched_profile,profileImage: profileImage,agestatus: agestatus,Userdata: Userdata,),
+                      ),
                       SizedBox(
                         height: 10,
                       ),
@@ -476,7 +194,7 @@ class _Home extends State<Home> {
                       ),
                       Container(
                         width: size.width,
-                        padding: EdgeInsets.only(top: 60, bottom: 20),
+                        padding: EdgeInsets.only(top: 50, bottom: 20),
                         alignment: Alignment(0.0, 0.0),
                         child: Text(
                           "Recommended member for you",
@@ -484,63 +202,7 @@ class _Home extends State<Home> {
                         ),
                       ),
                       Container(
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 180,
-                              height: 180,
-                              margin: EdgeInsets.only(top: 20, left: 150),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(300.0),
-                                image: DecorationImage(
-                                  image: AssetImage("assets/images/John.jpg"),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: 180,
-                                    height: 180,
-                                    margin: EdgeInsets.only(top: 20, right: 90),
-                                    // padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(300.0),
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/John.jpg"),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          width: 220,
-                                          height: 220,
-                                          margin: EdgeInsets.only(left: 60),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(300.0),
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/John.jpg"),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: MemberImages(profileImage: profileImage,Userdata: Userdata,),
                       ),
                     ],
                   ),
@@ -577,6 +239,7 @@ class _Home extends State<Home> {
     });
   }
 
+
   _matched_profile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FormData d = FormData.fromMap({
@@ -586,6 +249,9 @@ class _Home extends State<Home> {
 
     await Services.matched_profile(d).then((value) {
       if (value.response == 1) {
+        print(value.data.length);
+        for(int i = 0; i < value.data.length; i++)
+          print(value.data[i]);
         setState(() {
           Matched_profile = value.data;
         });
@@ -593,162 +259,22 @@ class _Home extends State<Home> {
     });
   }
 
-  _status(int status) {
-    switch (status) {
-      case 1:
-        Status = "Single";
-        break;
-      case 2:
-        Status = "Divoces";
-        break;
-      case 3:
-        Status = "Window";
-        break;
-      case 4:
-        Status = "Widower";
-        break;
-    }
-    return Status;
-  }
+  _membergetbyId() async {
+    prefs = await SharedPreferences.getInstance();
+    profileImage = prefs.getString('profile_Image');
+    aadharImage = prefs.getString('Aadhar_Image');
 
-  _follow(int id) async {
-    setState(() {
-      follow = "unfollow";
-    });
+    String M_id = prefs.getString("m_id");
 
-    FormData d = FormData.fromMap({
-      "member_id": prefs.getString("m_id"),
-      "id": id,
+    FormData formData = FormData.fromMap({
+      "member_id" : M_id,
     });
-    Services.followadd(d).then((value) {
-      if (value.response == 1) {
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
-      }
-    });
-  }
-
-  _followdelete(int id) async {
-    setState(() {
-      follow = "follow";
-    });
-
-    FormData d = FormData.fromMap({
-      "member_id": prefs.getString("m_id"),
-      "id": id,
-    });
-    Services.followdelete(d).then((value) {
-      if (value.response == 1) {
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
-      }
-    });
-  }
-
-  _interest(int id) async {
-    setState(() {
-      interest = "uninterest";
-    });
-    FormData d = FormData.fromMap({
-      "member_id": prefs.getString("m_id"),
-      "id": id,
-    });
-    Services.interestadd(d).then((value) {
-      if (value.response == 1) {
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
-      }
-    });
-  }
-
-  _interestdelete(int id) async {
-    setState(() {
-      interest = "interest";
-    });
-    FormData d = FormData.fromMap({
-      "member_id": prefs.getString("m_id"),
-      "id": id,
-    });
-    Services.interestdelete(d).then((value) {
-      if (value.response == 1) {
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
-      }
-    });
-  }
-
-  _Ignore(int id) async {
-    setState(() {
-      ingnore = "uningnore";
-    });
-
-    FormData d = FormData.fromMap({
-      "member_id": prefs.getString("m_id"),
-      "id": id,
-    });
-    Services.ignoreadd(d).then((value) {
-      if (value.response == 1) {
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
-      }
-    });
-  }
-
-  _ignoredelete(int id) async {
-    setState(() {
-      ingnore = "ingnore";
-    });
-
-    FormData d = FormData.fromMap({
-      "member_id": prefs.getString("m_id"),
-      "id": id,
-    });
-    Services.ignoredelete(d).then((value) {
-      if (value.response == 1) {
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
+    await Services.memberViewById(formData).then((value) async {
+      if(value.response == 1){
+        print("work is profile"+value.data.toString());
+        setState(() {
+          Userdata = value.data;
+        });
       }
     });
   }

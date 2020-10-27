@@ -86,6 +86,7 @@ class Services {
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse['Response'];
+        print("Data service"+jsonResponse["Data"].toString());
         List list = [];
         list = [
           /// Todo API path copy to here all data
