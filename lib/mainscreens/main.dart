@@ -308,7 +308,7 @@ class _ProfileState extends State<Profile> {
                               width: 15,
                               decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
                               child: Center(
-                                child: Text(Userdata[0]["interest"],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
+                                child: Text(Userdata[0]["interest"].toString()[4],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
                               ),
                             ): Container(),
                           ],
