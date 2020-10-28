@@ -22,7 +22,7 @@ class Membermatch_profile extends StatefulWidget {
 class _Membermatch_profileState extends State<Membermatch_profile> {
   SharedPreferences prefs;
   String Status;
-  bool follow = false,ignore = false,interest = false;
+  bool follow = true,ignore = true,interest = false;
   var agestatus;
 
   @override
@@ -134,9 +134,10 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
                                             )),
                                         child: Center(
                                           child: Text(
-                                            "Not Interested",
+                                            "Not \n Interested",
+                                            textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontSize: 9.0,
+                                                fontSize: 10.0,
                                                 color: MyColors.pinkvariaance,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -379,7 +380,7 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
 
   _interest(int id) async {
     setState(() {
-      interest = true;
+      interest = false;
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FormData d = FormData.fromMap({
@@ -397,16 +398,13 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
           timeInSecForIosWeb: 1,
           fontSize: 16,
         );
-        setState(() {
-          interest = true;
-        });
       }
     });
   }
 
   _interestdelete(int id) async {
     setState(() {
-      interest = false;
+      interest = true;
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FormData d = FormData.fromMap({
@@ -425,9 +423,6 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
           fontSize: 16,
         );
 
-        setState(() {
-          interest = false;
-        });
       }
     });
   }

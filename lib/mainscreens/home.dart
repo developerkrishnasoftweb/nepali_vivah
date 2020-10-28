@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/Common/LoginMemberImage.dart';
+import 'package:nepali_vivah/Common/matched_profile.dart';
 import 'package:nepali_vivah/Common/membermatchscroll.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -130,6 +131,7 @@ class _Home extends State<Home> {
               ? SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
+
                       Container(
                         height: 200,
                         width: size.width,
@@ -171,8 +173,8 @@ class _Home extends State<Home> {
                       ),
                       Container(
                         width: size.width,
-                        height: 200,
-                        child: Membermatch_profile(Matched_profile: Matched_profile,profileImage: profileImage,agestatus: agestatus,Userdata: Userdata,),
+                        height: 250,
+                        child: MatchedProfile(profileImage: profileImage,agestatus: agestatus,Userdata:Userdata,Matched_profile: Matched_profile,),
                       ),
                       SizedBox(
                         height: 10,
