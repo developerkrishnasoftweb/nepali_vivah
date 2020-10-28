@@ -343,15 +343,15 @@ class _ProfileState extends State<Profile> {
                                 shape: CircleBorder(),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 32.0,left: 80.0),
-                              height: 15,
-                              width: 15,
-                              decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
-                              child: Center(
-                                child: Text(Userdata[0]["ignored"],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
-                              ),
-                            )
+                            // Container(
+                            //   margin: EdgeInsets.only(top: 32.0,left: 80.0),
+                            //   height: 15,
+                            //   width: 15,
+                            //   decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber,),
+                            //   child: Center(
+                            //     child: Text(Userdata[0]["ignored"],style: TextStyle(fontSize: 10.0,fontWeight: FontWeight.bold),),
+                            //   ),
+                            // )
                           ],
                         ),
 

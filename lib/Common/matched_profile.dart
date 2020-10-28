@@ -4,10 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 
 class MatchedProfile extends StatefulWidget {
-  String profileImage;
+  String id, profileImage;
   var agestatus;
   List Matched_profile,Userdata;
-  MatchedProfile({this.profileImage,this.agestatus,this.Userdata,this.Matched_profile});
+  MatchedProfile({this.id,this.profileImage,this.Matched_profile,this.Userdata,this.agestatus});
   @override
   _MatchedProfileState createState() => _MatchedProfileState();
 }
@@ -171,7 +171,6 @@ class _MatchedProfileState extends State<MatchedProfile> {
       );
     }
     return Container(
-      margin: EdgeInsets.only(top: 40),
       height: 200,
       width: size.width,
       alignment: Alignment.center,
@@ -189,7 +188,7 @@ class _MatchedProfileState extends State<MatchedProfile> {
   * */
   void memberViewById() async {
     FormData formData = FormData.fromMap({
-      "member_id" : "35"
+      "member_id" : widget.id,
     });
     await Services.memberViewById(formData).then((value) async {
       if(value.response == 1){

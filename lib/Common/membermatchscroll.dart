@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
+import 'package:nepali_vivah/Common/matched_profile.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/mainscreens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +14,6 @@ class Membermatch_profile extends StatefulWidget {
   String profileImage;
   var agestatus;
   List Matched_profile,Userdata;
-
   Membermatch_profile({this.profileImage,this.Matched_profile,this.Userdata,this.agestatus});
   @override
   _Membermatch_profileState createState() => _Membermatch_profileState();
@@ -22,18 +22,80 @@ class Membermatch_profile extends StatefulWidget {
 class _Membermatch_profileState extends State<Membermatch_profile> {
   SharedPreferences prefs;
   String Status;
-  bool follow = true,ignore = true,interest = false;
+  String interest = "Interest", follow = "Follow", ignore = "Ignore";
   var agestatus;
+  List interestedMembers;
+  List<AddMatchedProfile> profile = List<AddMatchedProfile>();
 
   @override
   void initState() {
     // TODO: implement initStat
+    _importanat();
     super.initState();
+  }
+
+  Widget interestBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =
+        widget.Matched_profile[index]["member_id"];
+        print(id);
+        _interest(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.blackText,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "Interest",
+              style: TextStyle(
+                  fontSize: 12.0,
+                  color: MyColors.blackText,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
+  }
+  Widget notInterestBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =
+        widget.Matched_profile[index]["member_id"];
+        print(id);
+        _interestdelete(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.pinkvariaance,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "Not Interested",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 10.0,
+                  color: MyColors.pinkvariaance,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    interestedMembers = widget.Userdata[0]["interest"].toString().split(",");
     return Container(
       width: size.width,
       height: 200,
@@ -48,14 +110,10 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
               agestatus = widget.Matched_profile[index]["marital_status_id"];
               return GestureDetector(
                 onTap: () {
-                  // _getMember();
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => Screen1()));
+
                 },
                 child: Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
+                  margin: EdgeInsets.only(left: 10, right: 10,top: 5),
                   height: 200,
                   width: 200,
                   decoration: BoxDecoration(
@@ -84,6 +142,7 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
                           widget.Matched_profile[index]["first_name"] +
                               " " +
                               widget.Matched_profile[index]["last_name"],
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 15, color: MyColors.pinkvariaance),
                         ),
@@ -111,68 +170,7 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              child: widget.Userdata[0]["interest"].toString().split(",")[widget.Userdata[0]["interest"]
-                                                      .toString().split(",").length >index
-                                              ? index
-                                              : 0].toString() == widget.Matched_profile[index]["member_id"].toString() && interest == false
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          var id =
-                                          widget.Matched_profile[index]["member_id"];
-                                          _interestdelete(id);
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                            border: Border.all(
-                                              color: MyColors.pinkvariaance,
-                                              width: 1,
-                                            )),
-                                        child: Center(
-                                          child: Text(
-                                            "Not \n Interested",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 10.0,
-                                                color: MyColors.pinkvariaance,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () {
-                                        var id;
-                                        setState(() {
-                                          id = widget.Matched_profile[index]
-                                              ["member_id"];
-                                          print(id);
-                                          _interest(id);
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                            border: Border.all(
-                                              color: MyColors.blackText,
-                                              width: 1,
-                                            )),
-                                        child: Center(
-                                            child: Text(
-                                          "Interest",
-                                          style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: MyColors.blackText,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                      ),
-                                    )
+                              child: interestedMembers.contains(widget.Matched_profile[index]["member_id"].toString()) ? notInterestBtn(index) : interestBtn(index),
                           ),
                           Container(
                               height: 30,
@@ -379,9 +377,6 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
   }
 
   _interest(int id) async {
-    setState(() {
-      interest = false;
-    });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FormData d = FormData.fromMap({
       "member_id": prefs.getString("m_id"),
@@ -403,9 +398,6 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
   }
 
   _interestdelete(int id) async {
-    setState(() {
-      interest = true;
-    });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FormData d = FormData.fromMap({
       "member_id": prefs.getString("m_id"),
@@ -469,4 +461,17 @@ class _Membermatch_profileState extends State<Membermatch_profile> {
     });
   }
 
+
+  _importanat(){
+    widget.Userdata;
+    widget.Matched_profile;
+    widget.profileImage;
+  }
+
+
+}
+
+class AddMatchedProfile{
+  final String image, firstName, lastName, age, status, id;
+  AddMatchedProfile({this.image, this.firstName, this.lastName, this.status, this.age, this.id});
 }

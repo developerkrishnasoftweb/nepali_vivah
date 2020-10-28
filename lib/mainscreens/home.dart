@@ -29,7 +29,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   SharedPreferences prefs;
-  String follow = "follow", ingnore = "ingnore", interest = "interest";
+  String interest = "Interest", follow = "Follow", ignore = "Ignore";
   String Advertisement_image;
   List Memberdata;
   List Advertise;
@@ -39,6 +39,10 @@ class _Home extends State<Home> {
   String profileImage;
   String aadharImage;
   List Userdata;
+  List interestedMembers;
+  List followMembers;
+  List ignoreMembers;
+
 
   @override
   void initState() {
@@ -57,12 +61,241 @@ class _Home extends State<Home> {
     Advertisement_image = prefs.getString("Advertisement_Image");
   }
 
+  Widget interestBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =Matched_profile[index]["member_id"];
+        print(id);
+        _interest(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.blackText,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "Interest",
+              style: TextStyle(
+                  fontSize: 12.0,
+                  color: MyColors.blackText,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
+  }
+  Widget notInterestBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =Matched_profile[index]["member_id"];
+        print(id);
+        _interestdelete(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.pinkvariaance,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "Not Interested",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11.0,
+                  color: MyColors.pinkvariaance,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
+  }
+  Widget followBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =Matched_profile[index]["member_id"];
+        print(id);
+        _follow(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.blackText,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "Follow",
+              style: TextStyle(
+                  fontSize: 12.0,
+                  color: MyColors.blackText,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
+  }
+  Widget unfollowBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =Matched_profile[index]["member_id"];
+        print(id);
+        _followdelete(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.pinkvariaance,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "UnFollow",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11.0,
+                  color: MyColors.pinkvariaance,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
+  }
+  Widget ignoreBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =Matched_profile[index]["member_id"];
+        print(id);
+        _ignore(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.blackText,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "Ignore",
+              style: TextStyle(
+                  fontSize: 12.0,
+                  color: MyColors.blackText,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
+  }
+  Widget unignoreBtn(int index){
+    return GestureDetector(
+      onTap: () {
+        var id =Matched_profile[index]["member_id"];
+        print(id);
+        _ignoredelete(id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius:
+            BorderRadius.circular(6),
+            border: Border.all(
+              color: MyColors.pinkvariaance,
+              width: 1,
+            )),
+        child: Center(
+            child: Text(
+              "UnIgnore",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 11.0,
+                  color: MyColors.pinkvariaance,
+                  fontWeight: FontWeight.bold),
+            )),
+      ),
+    );
+  }
+
   @override
   var _index;
   Icon clear;
   TextEditingController search = TextEditingController();
   Widget build(BuildContext context) {
-    // print("interest list"+Userdata[0]["interest"].toString().split(",")[0]);
+
+    Widget _showProfiles(BuildContext context, int index) {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 7),
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(60),
+                  image: DecorationImage(
+                      image:NetworkImage(profileImage+Matched_profile[index]["profile_image"])
+                  )
+              ),
+            ),
+            Container(
+              child: Text(Matched_profile[index]["first_name"] + " " + Matched_profile[index]["last_name"],
+                style: TextStyle(
+                  color: MyColors.pinkvariaance,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              child: Text(Matched_profile[index]["age"].toString()+ " " + _status(Matched_profile[index]["marital_status_id"]),
+                style: TextStyle(
+                  color: MyColors.blackText,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: 70,
+                  height: 30,
+                  child: interestedMembers.contains(Matched_profile[index]["member_id"].toString()) ? notInterestBtn(index) : interestBtn(index),
+                ),
+                SizedBox(
+                  width: 70,
+                  height: 30,
+                  child: followMembers.contains(Matched_profile[index]["member_id"].toString()) ? unfollowBtn(index) : followBtn(index),
+                ),
+                SizedBox(
+                  width: 70,
+                  height: 30,
+                  child: ignoreMembers.contains(Matched_profile[index]["member_id"].toString()) ? unignoreBtn(index) : ignoreBtn(index),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    }
+
     (widget.navbarIndex != null) ? _index = widget.navbarIndex : _index = 0;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -151,8 +384,8 @@ class _Home extends State<Home> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
                                   image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/user_image.jpg'),
+                                      image: NetworkImage(Advertisement_image +
+                                          Advertise[0]["top_advertisement"]),
                                       fit: BoxFit.fill)),
                             ),
                           ],
@@ -172,9 +405,15 @@ class _Home extends State<Home> {
                         ),
                       ),
                       Container(
+                        height: 200,
                         width: size.width,
-                        height: 250,
-                        child: MatchedProfile(profileImage: profileImage,agestatus: agestatus,Userdata:Userdata,Matched_profile: Matched_profile,),
+                        alignment: Alignment.center,
+                        child: ListView.builder(
+                          itemCount: Matched_profile.length,
+                          itemBuilder: _showProfiles,
+                          scrollDirection: Axis.horizontal,
+                          itemExtent: 230,
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -251,9 +490,6 @@ class _Home extends State<Home> {
 
     await Services.matched_profile(d).then((value) {
       if (value.response == 1) {
-        print(value.data.length);
-        for(int i = 0; i < value.data.length; i++)
-          print(value.data[i]);
         setState(() {
           Matched_profile = value.data;
         });
@@ -276,8 +512,145 @@ class _Home extends State<Home> {
         print("work is profile"+value.data.toString());
         setState(() {
           Userdata = value.data;
+          interestedMembers = value.data[0]["interest"].toString().split(",");
+          followMembers = value.data[0]["followed"].toString().split(",");
+          ignoreMembers = value.data[0]["ignored"].toString().split(",");
         });
+        _matched_profile();
       }
     });
   }
+
+  _status(int status) {
+    switch (status) {
+      case 1:
+        Status = "Single";
+        break;
+      case 2:
+        Status = "Divoces";
+        break;
+      case 3:
+        Status = "Window";
+        break;
+      case 4:
+        Status = "Widower";
+        break;
+    }
+    return Status;
+  }
+
+  _follow(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.followadd(d).then((value) {
+      if (value.response == 1) {
+        _membergetbyId();
+        Fluttertoast.showToast(
+          msg: value.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: MyColors.blackText,
+          textColor: MyColors.whiteColor,
+          timeInSecForIosWeb: 1,
+          fontSize: 16,
+        );
+      }
+    });
+  }
+
+  _followdelete(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.followdelete(d).then((value) {
+      if (value.response == 1) {
+        _membergetbyId();
+        Fluttertoast.showToast(
+          msg: value.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: MyColors.blackText,
+          textColor: MyColors.whiteColor,
+          timeInSecForIosWeb: 1,
+          fontSize: 16,
+        );
+      }
+    });
+  }
+
+  _interest(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.interestadd(d).then((value) {
+      if (value.response == 1) {
+        _membergetbyId();
+      }
+    });
+  }
+
+  _interestdelete(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.interestdelete(d).then((value) {
+      if (value.response == 1) {
+        _membergetbyId();
+      }
+    });
+  }
+
+  _ignore(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.ignoreadd(d).then((value) {
+      if (value.response == 1) {
+        _membergetbyId();
+        Fluttertoast.showToast(
+          msg: value.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: MyColors.blackText,
+          textColor: MyColors.whiteColor,
+          timeInSecForIosWeb: 1,
+          fontSize: 16,
+        );
+      }
+    });
+  }
+
+  _ignoredelete(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    FormData d = FormData.fromMap({
+      "member_id": prefs.getString("m_id"),
+      "id": id,
+    });
+    Services.ignoredelete(d).then((value) {
+      if (value.response == 1) {
+        _membergetbyId();
+        Fluttertoast.showToast(
+          msg: value.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: MyColors.blackText,
+          textColor: MyColors.whiteColor,
+          timeInSecForIosWeb: 1,
+          fontSize: 16,
+        );
+      }
+    });
+  }
+
 }
