@@ -548,15 +548,6 @@ class _Home extends State<Home> {
     Services.followadd(d).then((value) {
       if (value.response == 1) {
         _membergetbyId();
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
       }
     });
   }
@@ -570,15 +561,6 @@ class _Home extends State<Home> {
     Services.followdelete(d).then((value) {
       if (value.response == 1) {
         _membergetbyId();
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
       }
     });
   }
@@ -618,15 +600,6 @@ class _Home extends State<Home> {
     Services.ignoreadd(d).then((value) {
       if (value.response == 1) {
         _membergetbyId();
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
       }
     });
   }
@@ -640,15 +613,6 @@ class _Home extends State<Home> {
     Services.ignoredelete(d).then((value) {
       if (value.response == 1) {
         _membergetbyId();
-        Fluttertoast.showToast(
-          msg: value.message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          backgroundColor: MyColors.blackText,
-          textColor: MyColors.whiteColor,
-          timeInSecForIosWeb: 1,
-          fontSize: 16,
-        );
       }
     });
   }
