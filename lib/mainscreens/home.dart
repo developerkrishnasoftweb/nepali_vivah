@@ -43,7 +43,6 @@ class _Home extends State<Home> {
   List followMembers;
   List ignoreMembers;
 
-
   @override
   void initState() {
     _getMember();
@@ -61,168 +60,167 @@ class _Home extends State<Home> {
     Advertisement_image = prefs.getString("Advertisement_Image");
   }
 
-  Widget interestBtn(int index){
+  Widget interestBtn(int index) {
     return GestureDetector(
       onTap: () {
-        var id =Matched_profile[index]["member_id"];
+        var id = Matched_profile[index]["member_id"];
         print(id);
         _interest(id);
       },
       child: Container(
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius:
-            BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(
               color: MyColors.blackText,
               width: 1,
             )),
         child: Center(
             child: Text(
-              "Interest",
-              style: TextStyle(
-                  fontSize: 12.0,
-                  color: MyColors.blackText,
-                  fontWeight: FontWeight.bold),
-            )),
+          "Interest",
+          style: TextStyle(
+              fontSize: 12.0,
+              color: MyColors.blackText,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }
-  Widget notInterestBtn(int index){
+
+  Widget notInterestBtn(int index) {
     return GestureDetector(
       onTap: () {
-        var id =Matched_profile[index]["member_id"];
+        var id = Matched_profile[index]["member_id"];
         print(id);
         _interestdelete(id);
       },
       child: Container(
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius:
-            BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(
               color: MyColors.pinkvariaance,
               width: 1,
             )),
         child: Center(
             child: Text(
-              "Not Interested",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 11.0,
-                  color: MyColors.pinkvariaance,
-                  fontWeight: FontWeight.bold),
-            )),
+          "Not Interested",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 11.0,
+              color: MyColors.pinkvariaance,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }
-  Widget followBtn(int index){
+
+  Widget followBtn(int index) {
     return GestureDetector(
       onTap: () {
-        var id =Matched_profile[index]["member_id"];
+        var id = Matched_profile[index]["member_id"];
         print(id);
         _follow(id);
       },
       child: Container(
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius:
-            BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(
               color: MyColors.blackText,
               width: 1,
             )),
         child: Center(
             child: Text(
-              "Follow",
-              style: TextStyle(
-                  fontSize: 12.0,
-                  color: MyColors.blackText,
-                  fontWeight: FontWeight.bold),
-            )),
+          "Follow",
+          style: TextStyle(
+              fontSize: 12.0,
+              color: MyColors.blackText,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }
-  Widget unfollowBtn(int index){
+
+  Widget unfollowBtn(int index) {
     return GestureDetector(
       onTap: () {
-        var id =Matched_profile[index]["member_id"];
+        var id = Matched_profile[index]["member_id"];
         print(id);
         _followdelete(id);
       },
       child: Container(
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius:
-            BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(
               color: MyColors.pinkvariaance,
               width: 1,
             )),
         child: Center(
             child: Text(
-              "UnFollow",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 11.0,
-                  color: MyColors.pinkvariaance,
-                  fontWeight: FontWeight.bold),
-            )),
+          "UnFollow",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 11.0,
+              color: MyColors.pinkvariaance,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }
-  Widget ignoreBtn(int index){
+
+  Widget ignoreBtn(int index) {
     return GestureDetector(
       onTap: () {
-        var id =Matched_profile[index]["member_id"];
+        var id = Matched_profile[index]["member_id"];
         print(id);
         _ignore(id);
       },
       child: Container(
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius:
-            BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(
               color: MyColors.blackText,
               width: 1,
             )),
         child: Center(
             child: Text(
-              "Ignore",
-              style: TextStyle(
-                  fontSize: 12.0,
-                  color: MyColors.blackText,
-                  fontWeight: FontWeight.bold),
-            )),
+          "Ignore",
+          style: TextStyle(
+              fontSize: 12.0,
+              color: MyColors.blackText,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }
-  Widget unignoreBtn(int index){
+
+  Widget unignoreBtn(int index) {
     return GestureDetector(
       onTap: () {
-        var id =Matched_profile[index]["member_id"];
+        var id = Matched_profile[index]["member_id"];
         print(id);
         _ignoredelete(id);
       },
       child: Container(
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius:
-            BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(
               color: MyColors.pinkvariaance,
               width: 1,
             )),
         child: Center(
             child: Text(
-              "UnIgnore",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 11.0,
-                  color: MyColors.pinkvariaance,
-                  fontWeight: FontWeight.bold),
-            )),
+          "UnIgnore",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 11.0,
+              color: MyColors.pinkvariaance,
+              fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }
@@ -231,8 +229,8 @@ class _Home extends State<Home> {
   var _index;
   Icon clear;
   TextEditingController search = TextEditingController();
-  Widget build(BuildContext context) {
 
+  Widget build(BuildContext context) {
     Widget _showProfiles(BuildContext context, int index) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 7),
@@ -249,12 +247,14 @@ class _Home extends State<Home> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(60),
                   image: DecorationImage(
-                      image:NetworkImage(profileImage+Matched_profile[index]["profile_image"])
-                  )
-              ),
+                      image: NetworkImage(profileImage +
+                          Matched_profile[index]["profile_image"]))),
             ),
             Container(
-              child: Text(Matched_profile[index]["first_name"] + " " + Matched_profile[index]["last_name"],
+              child: Text(
+                Matched_profile[index]["first_name"] +
+                    " " +
+                    Matched_profile[index]["last_name"],
                 style: TextStyle(
                   color: MyColors.pinkvariaance,
                   fontSize: 15,
@@ -263,7 +263,10 @@ class _Home extends State<Home> {
               ),
             ),
             Container(
-              child: Text(Matched_profile[index]["age"].toString()+ " " + _status(Matched_profile[index]["marital_status_id"]),
+              child: Text(
+                Matched_profile[index]["age"].toString() +
+                    " " +
+                    _status(Matched_profile[index]["marital_status_id"]),
                 style: TextStyle(
                   color: MyColors.blackText,
                   fontSize: 15,
@@ -277,17 +280,26 @@ class _Home extends State<Home> {
                 SizedBox(
                   width: 70,
                   height: 30,
-                  child: interestedMembers.contains(Matched_profile[index]["member_id"].toString()) ? notInterestBtn(index) : interestBtn(index),
+                  child: interestedMembers.contains(
+                          Matched_profile[index]["member_id"].toString())
+                      ? notInterestBtn(index)
+                      : interestBtn(index),
                 ),
                 SizedBox(
                   width: 70,
                   height: 30,
-                  child: followMembers.contains(Matched_profile[index]["member_id"].toString()) ? unfollowBtn(index) : followBtn(index),
+                  child: followMembers.contains(
+                          Matched_profile[index]["member_id"].toString())
+                      ? unfollowBtn(index)
+                      : followBtn(index),
                 ),
                 SizedBox(
                   width: 70,
                   height: 30,
-                  child: ignoreMembers.contains(Matched_profile[index]["member_id"].toString()) ? unignoreBtn(index) : ignoreBtn(index),
+                  child: ignoreMembers.contains(
+                          Matched_profile[index]["member_id"].toString())
+                      ? unignoreBtn(index)
+                      : ignoreBtn(index),
                 ),
               ],
             )
@@ -364,7 +376,6 @@ class _Home extends State<Home> {
               ? SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-
                       Container(
                         height: 200,
                         width: size.width,
@@ -443,7 +454,10 @@ class _Home extends State<Home> {
                         ),
                       ),
                       Container(
-                        child: MemberImages(profileImage: profileImage,Userdata: Userdata,),
+                        child: MemberImages(
+                          profileImage: profileImage,
+                          Userdata: Userdata,
+                        ),
                       ),
                     ],
                   ),
@@ -480,7 +494,6 @@ class _Home extends State<Home> {
     });
   }
 
-
   _matched_profile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     FormData d = FormData.fromMap({
@@ -505,11 +518,11 @@ class _Home extends State<Home> {
     String M_id = prefs.getString("m_id");
 
     FormData formData = FormData.fromMap({
-      "member_id" : M_id,
+      "member_id": M_id,
     });
     await Services.memberViewById(formData).then((value) async {
-      if(value.response == 1){
-        print("work is profile"+value.data.toString());
+      if (value.response == 1) {
+        print("work is profile" + value.data.toString());
         setState(() {
           Userdata = value.data;
           interestedMembers = value.data[0]["interest"].toString().split(",");
@@ -616,5 +629,4 @@ class _Home extends State<Home> {
       }
     });
   }
-
 }
