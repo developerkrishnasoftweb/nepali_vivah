@@ -3,6 +3,8 @@ import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nepali_vivah/login_registration/changepassword.dart';
+import 'package:nepali_vivah/login_registration/registration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import '../splash.dart';
@@ -15,6 +17,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   var _index = 3;
+  SharedPreferences pref;
 
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -358,16 +361,25 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
                 Container(width: size.width, height: 1, color: Colors.grey),
-                Container(
-                  margin: EdgeInsets.only(top: 10, bottom: 20, left: 10),
-                  height: 20,
-                  width: MediaQuery.of(context).size.width,
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () async {
+                    pref = await SharedPreferences.getInstance();
+                    setState(() {
+                      pref.clear();
+                    });
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Registration()), (route) => false);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                    height: 20,
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],
