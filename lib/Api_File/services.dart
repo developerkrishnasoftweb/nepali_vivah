@@ -13,7 +13,6 @@ class Services {
     String url = Urls.baseUrl + Urls.memberView;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
       Response response = await dio.get(url);
       if (response.statusCode == 200) {
         Data data = new Data();
@@ -56,7 +55,6 @@ class Services {
   static Future<Data> MemberSignUp(body) async {
     String url = Urls.baseUrl + Urls.registration_url;
     dio.options.contentType = Headers.jsonContentType;
-    print(url);
     try {
       final Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
@@ -64,7 +62,6 @@ class Services {
         final jsonResponse = response.data;
         data.message = jsonResponse['Message'];
         data.response = jsonResponse['Response'].toString();
-        print(jsonResponse['Data']);
         data.data = jsonResponse['Data'];
         return data;
       } else {
@@ -86,7 +83,6 @@ class Services {
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse['Response'];
-        print("Data service"+jsonResponse["Data"].toString());
         List list = [];
         list = [
           /// Todo API path copy to here all data
@@ -260,7 +256,7 @@ class Services {
     String url = Urls.baseUrl + Urls.followers_add;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
+
       Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
@@ -301,7 +297,6 @@ class Services {
     String url = Urls.baseUrl + Urls.interest_add;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
       Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
@@ -321,7 +316,6 @@ class Services {
     String url = Urls.baseUrl + Urls.interest_delete;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
       Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
@@ -344,7 +338,6 @@ class Services {
     String url = Urls.baseUrl + Urls.ignore_add;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
       Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
@@ -364,7 +357,6 @@ class Services {
     String url = Urls.baseUrl + Urls.ignore_delete;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
       Response response = await dio.post(url, data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
@@ -388,7 +380,6 @@ class Services {
     String url = Urls.baseUrl + Urls.match_profile;
     dio.options.contentType = Headers.jsonContentType;
     try {
-      print(url);
       Response response = await dio.post(url,data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
