@@ -1798,9 +1798,6 @@ class _ProfileState extends State<Profile> {
       if (value.response == "1") {
          setState(() {
           tempprofileString = _profile.path;
-          initState(){
-            _membergetbyId();
-          }
         });
 
       }
