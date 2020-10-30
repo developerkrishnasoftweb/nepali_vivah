@@ -19,11 +19,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  bool updated = false;
+  bool updated = true;
   String profileString;
+  String tempprofileString="";
   var proImage, adhaImage;
   File _profile;
   File _Aadhar;
+  String picImage;
 
   @override
   void initState() {
@@ -114,7 +116,9 @@ class _ProfileState extends State<Profile> {
                                         width: 110,
                                         child: CircleAvatar(
                                           backgroundImage:
-                                              NetworkImage(profileString),
+                                              tempprofileString != ""
+                                                  ? AssetImage(tempprofileString)
+                                                  : NetworkImage(profileString),
                                           radius: 50.0,
                                         ),
                                       ),
@@ -1792,16 +1796,13 @@ class _ProfileState extends State<Profile> {
 
     Services.memberProfileUpdate(d).then((value) {
       if (value.response == "1") {
-        setState(() {
-          updated = true;
-          profileString = profileImage + Userdata[0]["profile_image"];
+         setState(() {
+          tempprofileString = _profile.path;
+          initState(){
+            _membergetbyId();
+          }
         });
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => new Profile()));
-      } else {
-        setState(() {
-          updated = false;
-        });
+
       }
     });
   }

@@ -188,7 +188,9 @@ class Services {
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse['Response'].toString();
-        data.data = jsonResponse["Data"];
+        data.data = [
+          {"profile_image": jsonResponse["Data"].toString()}
+        ];
         return data;
       } else {
         throw Exception("Something went Wrong");
