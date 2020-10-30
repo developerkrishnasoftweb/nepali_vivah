@@ -2,20 +2,15 @@ import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/string.dart';
 import 'package:nepali_vivah/constant/colors.dart';
-import 'package:nepali_vivah/login_registration/contactinfo.dart';
-import 'package:nepali_vivah/login_registration/login.dart';
-import 'package:nepali_vivah/login_registration/personalinfo.dart';
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:nepali_vivah/mainscreens/Ignore.dart';
+import 'package:nepali_vivah/mainscreens/Intrested.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'chat_home.dart';
-import 'settings.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -42,6 +37,8 @@ class _ProfileState extends State<Profile> {
   var ageStatus;
   var P_ageStatus;
   List Userdata;
+  List Intresteddata;
+  List Ignoredata;
   var _index = 0;
   String M_id;
 
@@ -263,7 +260,7 @@ class _ProfileState extends State<Profile> {
                                 Container(
                                   margin: EdgeInsets.only(left: 10, top: 5),
                                   child: Text(
-                                    "\(" + Userdata[0]["interest"] + "\)",
+                                    "\(" + Userdata[0]["followers"] + "\)",
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -293,7 +290,7 @@ class _ProfileState extends State<Profile> {
                                 Container(
                                   margin: EdgeInsets.only(right: 10, top: 5),
                                   child: Text(
-                                    "\(" + Userdata[0]["followed"] + "\)",
+                                    "\(" + Userdata[0]["interest"].toString().split(",").length.toString() + "\)",
                                     style: TextStyle(
                                       color: MyColors.grayText,
                                     ),
@@ -319,7 +316,9 @@ class _ProfileState extends State<Profile> {
                                   Container(
                                     margin: EdgeInsets.only(top: 30, left: 20),
                                     child: RaisedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        _showInterested();
+                                      },
                                       color: MyColors.pinkvariaance,
                                       child: Icon(
                                         Icons.favorite,
@@ -416,7 +415,9 @@ class _ProfileState extends State<Profile> {
                                   Container(
                                     margin: EdgeInsets.only(top: 30, left: 20),
                                     child: RaisedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        _showIgnore();
+                                      },
                                       color: MyColors.grayText,
                                       child: Icon(
                                         Icons.thumb_down,
@@ -456,7 +457,7 @@ class _ProfileState extends State<Profile> {
                               Container(
                                 margin: EdgeInsets.only(bottom: 10, left: 20),
                                 child: Text(
-                                  "Dislike",
+                                  "Ignore",
                                   style: TextStyle(color: MyColors.grayText),
                                 ),
                               ),
@@ -529,11 +530,6 @@ class _ProfileState extends State<Profile> {
                               .split(",")
                               .length,
                           itemBuilder: (BuildContext context, int index) {
-                            print(pref.getString("GalleryImage") +
-                                Userdata[0]["gallery"]
-                                    .toString()
-                                    .split(",")[index]);
-
                             return Row(
                               children: <Widget>[
                                 Container(
@@ -1772,9 +1768,7 @@ class _ProfileState extends State<Profile> {
     await Services.memberViewById(formData).then((value) async {
       if (value.response == 1) {
         await pref.setString("m_gender", value.data[0]["gender"]);
-        print("work is profile" + value.data.toString());
         setState(() {
-          print(value.message);
           Userdata = value.data;
           ageStatus = Userdata[0]["marital_status_id"];
           P_ageStatus = jsonDecode(Userdata[0]["partner_expectation"])[0]
@@ -1825,5 +1819,41 @@ class _ProfileState extends State<Profile> {
         break;
     }
     return Status;
+  }
+
+  _showInterested() async {
+    pref = await SharedPreferences.getInstance();
+    profileImage = pref.getString('profile_Image');
+    M_id = pref.getString("m_id");
+
+    FormData formData = FormData.fromMap({
+      "member_id": M_id,
+    });
+    await Services.intrestedMemberView(formData).then((value) async {
+      if (value.response == 1) {
+        setState(() {
+          Intresteddata = value.data;
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Intrested(IntrestedMember: Intresteddata,),),);
+        });
+      }
+    });
+  }
+
+  _showIgnore()async {
+    pref = await SharedPreferences.getInstance();
+    profileImage = pref.getString('profile_Image');
+    M_id = pref.getString("m_id");
+
+    FormData formData = FormData.fromMap({
+      "member_id": M_id,
+    });
+    await Services.ignoreMemberView(formData).then((value) async {
+      if (value.response == 1) {
+        setState(() {
+          Ignoredata = value.data;
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Ignore(IgnoreMember: Ignoredata,),),);
+        });
+      }
+    });
   }
 }

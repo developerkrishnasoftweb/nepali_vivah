@@ -1,19 +1,10 @@
-// import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/Common/LoginMemberImage.dart';
-import 'package:nepali_vivah/Common/matched_profile.dart';
-import 'package:nepali_vivah/Common/membermatchscroll.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:nepali_vivah/mainscreens/Screen1.dart';
-import 'package:nepali_vivah/mainscreens/chat_home.dart';
-import 'package:nepali_vivah/mainscreens/main.dart';
-import 'package:nepali_vivah/mainscreens/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
@@ -64,7 +55,6 @@ class _Home extends State<Home> {
     return GestureDetector(
       onTap: () {
         var id = Matched_profile[index]["member_id"];
-        print(id);
         _interest(id);
       },
       child: Container(
@@ -91,7 +81,6 @@ class _Home extends State<Home> {
     return GestureDetector(
       onTap: () {
         var id = Matched_profile[index]["member_id"];
-        print(id);
         _interestdelete(id);
       },
       child: Container(
@@ -119,7 +108,6 @@ class _Home extends State<Home> {
     return GestureDetector(
       onTap: () {
         var id = Matched_profile[index]["member_id"];
-        print(id);
         _follow(id);
       },
       child: Container(
@@ -146,7 +134,6 @@ class _Home extends State<Home> {
     return GestureDetector(
       onTap: () {
         var id = Matched_profile[index]["member_id"];
-        print(id);
         _followdelete(id);
       },
       child: Container(
@@ -174,7 +161,6 @@ class _Home extends State<Home> {
     return GestureDetector(
       onTap: () {
         var id = Matched_profile[index]["member_id"];
-        print(id);
         _ignore(id);
       },
       child: Container(
@@ -201,7 +187,6 @@ class _Home extends State<Home> {
     return GestureDetector(
       onTap: () {
         var id = Matched_profile[index]["member_id"];
-        print(id);
         _ignoredelete(id);
       },
       child: Container(
@@ -312,17 +297,8 @@ class _Home extends State<Home> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: true,
           backgroundColor: MyColors.pinkvariaance,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            iconSize: 40,
-            icon: Icon(
-              Icons.keyboard_arrow_left,
-              color: MyColors.whiteColor,
-            ),
-            onPressed: () {},
-            splashColor: Dcolor.appGrayColor,
-          ),
           title: Container(
             width: size.width,
             height: 40,
@@ -522,7 +498,6 @@ class _Home extends State<Home> {
     });
     await Services.memberViewById(formData).then((value) async {
       if (value.response == 1) {
-        print("work is profile" + value.data.toString());
         setState(() {
           Userdata = value.data;
           interestedMembers = value.data[0]["interest"].toString().split(",");
