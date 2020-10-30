@@ -9,6 +9,7 @@ import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/mainscreens/Ignore.dart';
 import 'package:nepali_vivah/mainscreens/Intrested.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'chat_home.dart';
 
@@ -239,6 +240,7 @@ class _ProfileState extends State<Profile> {
                           ],
                         ),
                       ),
+                      /*
                       Container(
                         margin: EdgeInsets.only(top: 5, bottom: 4),
                         child: Row(
@@ -306,6 +308,7 @@ class _ProfileState extends State<Profile> {
                         width: size.width,
                         color: MyColors.grayText,
                       ),
+                      */
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
@@ -317,7 +320,7 @@ class _ProfileState extends State<Profile> {
                                     margin: EdgeInsets.only(top: 30, left: 20),
                                     child: RaisedButton(
                                       onPressed: () {
-                                        _showInterested();
+                                        Userdata[0]["interest"] != "" ? _showInterested() : null;
                                       },
                                       color: MyColors.pinkvariaance,
                                       child: Icon(
@@ -416,7 +419,7 @@ class _ProfileState extends State<Profile> {
                                     margin: EdgeInsets.only(top: 30, left: 20),
                                     child: RaisedButton(
                                       onPressed: () {
-                                        _showIgnore();
+                                        Userdata[0]["ignored"] != "" ? _showIgnore() : null;
                                       },
                                       color: MyColors.grayText,
                                       child: Icon(
@@ -1835,6 +1838,7 @@ class _ProfileState extends State<Profile> {
           Intresteddata = value.data;
           Navigator.push(context, MaterialPageRoute(builder: (context) => Intrested(IntrestedMember: Intresteddata,),),);
         });
+
       }
     });
   }
@@ -1853,6 +1857,12 @@ class _ProfileState extends State<Profile> {
           Ignoredata = value.data;
           Navigator.push(context, MaterialPageRoute(builder: (context) => Ignore(IgnoreMember: Ignoredata,),),);
         });
+      } else {
+        Fluttertoast.showToast(
+            msg: "Nobady Ignore",
+            backgroundColor: Colors.grey.shade100,
+            gravity: ToastGravity.BOTTOM,
+            toastLength: Toast.LENGTH_SHORT);
       }
     });
   }
