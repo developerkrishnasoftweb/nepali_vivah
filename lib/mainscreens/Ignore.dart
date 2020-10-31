@@ -7,7 +7,8 @@ import 'package:nepali_vivah/constant/string.dart';
 
 class Ignore extends StatefulWidget {
   List IgnoreMember;
-  Ignore({this.IgnoreMember});
+  String ProfileImage;
+  Ignore({this.IgnoreMember,this.ProfileImage});
   @override
   _IgnoreState createState() => _IgnoreState();
 }
@@ -15,21 +16,13 @@ class Ignore extends StatefulWidget {
 class _IgnoreState extends State<Ignore> {
 
   SharedPreferences prefs;
-  String profileImage;
   String Caste;
 
   @override
   void initState() {
-    _getcradintional();
     super.initState();
   }
 
-  _getcradintional() async {
-    prefs = await SharedPreferences.getInstance();
-    setState(() {
-      profileImage = prefs.getString('profile_Image');
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +93,7 @@ class _IgnoreState extends State<Ignore> {
                                     shape: BoxShape.rectangle,
                                     image: new DecorationImage(
                                       fit: BoxFit.fill,
-                                      image: NetworkImage(profileImage+widget.IgnoreMember[index]["profile_image"]),
+                                      image: NetworkImage(widget.ProfileImage+widget.IgnoreMember[index]["profile_image"]),
                                     )
                                 )
                             ),

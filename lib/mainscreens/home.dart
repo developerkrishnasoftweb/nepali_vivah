@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
+import 'package:nepali_vivah/Common/CustomTextField.dart';
+import 'package:nepali_vivah/Common/DropdownButton.dart';
 import 'package:nepali_vivah/Common/LoginMemberImage.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -17,8 +20,14 @@ class Home extends StatefulWidget {
   @override
   _Home createState() => _Home();
 }
-
 class _Home extends State<Home> {
+  final List<String> age = List();
+  static const lang = ['Odia', 'Telugu', 'Hindi', 'English'];
+  static const marriage = ['Single', 'Divoces', 'Widow', 'Widower'];
+  String ageStatus;
+  String ageFrom;
+  String ageTo;
+  String Language;
   SharedPreferences prefs;
   String interest = "Interest", follow = "Follow", ignore = "Ignore";
   String Advertisement_image;
@@ -33,6 +42,14 @@ class _Home extends State<Home> {
   List interestedMembers;
   List followMembers;
   List ignoreMembers;
+  bool viewVisible = false;
+  TextEditingController _maxheight = TextEditingController();
+  TextEditingController _minheight = TextEditingController();
+  TextEditingController _minsalary = TextEditingController();
+  TextEditingController _education = TextEditingController();
+  TextEditingController _occuption = TextEditingController();
+  TextEditingController _location = TextEditingController();
+
 
   @override
   void initState() {
@@ -216,6 +233,10 @@ class _Home extends State<Home> {
   TextEditingController search = TextEditingController();
 
   Widget build(BuildContext context) {
+    age.clear();
+    for (int i = 18; i < 66; i++) {
+      age.add("$i");
+    }
     Widget _showProfiles(BuildContext context, int index) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 7),
@@ -307,6 +328,10 @@ class _Home extends State<Home> {
               color: MyColors.darkpink,
             ),
             child: TextField(
+              onTap: () {
+                viewVisible == false ? _showSerach() : _hideSerach();
+              },
+              readOnly: true,
               controller: search,
               decoration: InputDecoration(
                   prefixIcon: Icon(
@@ -352,6 +377,132 @@ class _Home extends State<Home> {
               ? SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
+                      Visibility(
+                        maintainAnimation: true,
+                        maintainState: true,
+                        visible: viewVisible,
+                        child: Container(
+                          height: size.height * 0.53,
+                          width: size.width,
+                          margin: EdgeInsets.only(top: 10, bottom: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                width: size.width,
+                                padding: EdgeInsets.only(top: 7, bottom: 15),
+                                alignment: Alignment(0.0, 0.0),
+                                child: Text(
+                                  "ADVANCED SEARCH",
+                                  style: TextStyle(
+                                    color: MyColors.blackText,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          _CustomText("AgeFrom"),
+                                          CustomDropDownButton(hint: "Age From",list: age, val: ageFrom,),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Marital Status"),
+                                          CustomDropDownButton(hint: "Marital Status",list: marriage, val: ageStatus,),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Min Height"),
+                                          CustomTextField(hint: "Min Height",controller: _minheight,)
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Location"),
+                                          CustomTextField(hint: "Location",controller: _location,)
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Language"),
+                                          CustomDropDownButton(hint: "Language",list: lang, val: Language,),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          _CustomText("Age To"),
+                                          CustomDropDownButton(hint: "Age To",list: age, val: ageTo,)
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Min Salary"),
+                                          CustomTextField(hint: "Min Salary",controller: _minsalary,)
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Max Height"),
+                                          CustomTextField(hint: "Max Height",controller: _maxheight,)
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Education"),
+                                          CustomTextField(hint: "Education",controller: _education,)
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          _CustomText("Occupation"),
+                                          CustomTextField(hint: "Occupation",controller: _occuption,)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                width: size.width * 0.3,
+                                height: 30,
+                                margin: EdgeInsets.only(bottom: 20, top: 30.0),
+                                child: FlatButton(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                                  onPressed: () {},
+                                  color: MyColors.pinkvariaance,
+                                  child: Text(
+                                    "Submit",
+                                    style: TextStyle(
+                                        color: MyColors.whiteColor,
+                                        fontSize: 20),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Container(
                         height: 200,
                         width: size.width,
@@ -604,4 +755,23 @@ class _Home extends State<Home> {
       }
     });
   }
+
+  _showSerach() {
+    setState(() {
+      viewVisible = true;
+    });
+  }
+
+  _hideSerach() {
+    setState(() {
+      viewVisible = false;
+    });
+  }
+}
+
+Container _CustomText(String title){
+  return Container(
+    padding: const EdgeInsets.only(top:5.0,bottom:5.0),
+    child: Text(title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),),
+  );
 }

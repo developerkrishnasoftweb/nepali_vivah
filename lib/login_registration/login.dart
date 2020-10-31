@@ -165,9 +165,12 @@ class _LoginState extends State<Login> {
   void _userLogin() async {
     try {
       pr.show();
-      FormData formData =
-          FormData.fromMap({"email": email.text, "pass": password.text});
+      FormData formData = FormData.fromMap({
+            "email": email.text,
+            "pass": password.text
+          });
       await Services.MemberSignIn(formData).then((value) async {
+        pr.hide();
         if (value.response == "1") {
           Fluttertoast.showToast(
             msg: "Login successfully",
@@ -211,6 +214,7 @@ class _LoginState extends State<Login> {
       });
     } catch (e) {
       pr.hide();
+      print(e);
       Fluttertoast.showToast(
         msg: "Invalid username or password",
         toastLength: Toast.LENGTH_SHORT,

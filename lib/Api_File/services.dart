@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'Url.dart';
 import 'data.dart';
@@ -35,6 +36,8 @@ class Services {
     dio.options.contentType = Headers.jsonContentType;
     try {
       Response response = await dio.post(url, data: body);
+      print(url);
+      print(response.data.toString());
       if (response.statusCode == 200) {
         Data data = new Data();
         final jsonResponse = response.data;
@@ -427,7 +430,6 @@ class Services {
       Response response = await dio.post(url,data: body);
       if (response.statusCode == 200) {
         Data data = new Data();
-
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse["Response"];

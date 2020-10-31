@@ -106,7 +106,6 @@ class _Registration extends State<Registration>{
                       GestureDetector(
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
-                          print("hello");
                         },
                         child: Container(
                           width: size.width * 0.3,

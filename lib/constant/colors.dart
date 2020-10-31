@@ -24,6 +24,7 @@ class MyColors{
   static Color lightgreyColor = Color(0xFFF5F5F5);
   static Color blackText = Color(0xCC000000);
   static Color gray = Color(0xFFdfe7ea);
+  static Color boxbg = Color(0xFFeceff8);
   static Color darkLightpink = Color(0xFFfecfd5);
   static Color lightSky = Color(0xFFe1fffc);
   static Color pinkvariaance = Color(0xFFfa396e);

@@ -8,8 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Intrested extends StatefulWidget {
   List IntrestedMember;
-
-  Intrested({this.IntrestedMember});
+  String ProfileImage;
+  Intrested({this.IntrestedMember,this.ProfileImage});
 
   @override
   _IntrestedState createState() => _IntrestedState();
@@ -17,21 +17,14 @@ class Intrested extends StatefulWidget {
 
 class _IntrestedState extends State<Intrested> {
   SharedPreferences prefs;
-  String profileImage;
   String Caste;
 
   @override
   void initState() {
-    _getcradintional();
     super.initState();
   }
 
-  _getcradintional() async {
-    prefs = await SharedPreferences.getInstance();
-    setState(() {
-      profileImage = prefs.getString('profile_Image');
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +95,7 @@ class _IntrestedState extends State<Intrested> {
                                     shape: BoxShape.rectangle,
                                     image: new DecorationImage(
                                         fit: BoxFit.fill,
-                                        image: NetworkImage(profileImage+widget.IntrestedMember[index]["profile_image"]),
+                                        image: NetworkImage(widget.ProfileImage+widget.IntrestedMember[index]["profile_image"]),
                                     )
                                 )
                             ),

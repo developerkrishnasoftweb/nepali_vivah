@@ -30,6 +30,8 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     _membergetbyId();
+    _showIgnore();
+    _showInterested();
     super.initState();
   }
 
@@ -324,7 +326,7 @@ class _ProfileState extends State<Profile> {
                                     margin: EdgeInsets.only(top: 30, left: 20),
                                     child: RaisedButton(
                                       onPressed: () {
-                                        Userdata[0]["interest"] != "" ? _showInterested() : null;
+                                        Userdata[0]["interest"] != "" ? _ShowIntrestedMember() : null;
                                       },
                                       color: MyColors.pinkvariaance,
                                       child: Icon(
@@ -423,7 +425,7 @@ class _ProfileState extends State<Profile> {
                                     margin: EdgeInsets.only(top: 30, left: 20),
                                     child: RaisedButton(
                                       onPressed: () {
-                                        Userdata[0]["ignored"] != "" ? _showIgnore() : null;
+                                        Userdata[0]["ignored"] != "" ? _ShowIgnoreMember() : null;
                                       },
                                       color: MyColors.grayText,
                                       child: Icon(
@@ -1824,8 +1826,10 @@ class _ProfileState extends State<Profile> {
 
   _showInterested() async {
     pref = await SharedPreferences.getInstance();
-    profileImage = pref.getString('profile_Image');
-    M_id = pref.getString("m_id");
+    setState(() {
+      profileImage = pref.getString('profile_Image');
+      M_id = pref.getString("m_id");
+    });
 
     FormData formData = FormData.fromMap({
       "member_id": M_id,
@@ -1834,18 +1838,24 @@ class _ProfileState extends State<Profile> {
       if (value.response == 1) {
         setState(() {
           Intresteddata = value.data;
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Intrested(IntrestedMember: Intresteddata,),),);
         });
 
       }
     });
   }
 
+  _ShowIntrestedMember() async {
+    pref = await SharedPreferences.getInstance();
+    setState(() {
+      profileImage = pref.getString('profile_Image');
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Intrested(IntrestedMember: Intresteddata,ProfileImage: profileImage,),),);
+  }
+
   _showIgnore()async {
     pref = await SharedPreferences.getInstance();
     profileImage = pref.getString('profile_Image');
     M_id = pref.getString("m_id");
-
     FormData formData = FormData.fromMap({
       "member_id": M_id,
     });
@@ -1853,7 +1863,6 @@ class _ProfileState extends State<Profile> {
       if (value.response == 1) {
         setState(() {
           Ignoredata = value.data;
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Ignore(IgnoreMember: Ignoredata,),),);
         });
       } else {
         Fluttertoast.showToast(
@@ -1863,5 +1872,13 @@ class _ProfileState extends State<Profile> {
             toastLength: Toast.LENGTH_SHORT);
       }
     });
+  }
+
+  _ShowIgnoreMember() async {
+    pref = await SharedPreferences.getInstance();
+    setState(() {
+      profileImage = pref.getString('profile_Image');
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Ignore(IgnoreMember: Ignoredata,ProfileImage: profileImage,),),);
   }
 }
