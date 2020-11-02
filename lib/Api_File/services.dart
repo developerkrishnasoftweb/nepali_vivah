@@ -442,4 +442,24 @@ class Services {
       print(e.toString);
     }
   }
+
+  static Future<Data> searchMember(body) async {
+    String url = Urls.baseUrl + Urls.searchmember;
+    dio.options.contentType = Headers.jsonContentType;
+    try {
+      Response response = await dio.post(url,data: body);
+      if (response.statusCode == 200) {
+        Data data = new Data();
+        final jsonResponse = response.data;
+        data.message = jsonResponse["Message"];
+        data.response = jsonResponse["Response"];
+        data.data = jsonResponse["Data"];
+        return data;
+      } else {
+        throw Exception("Something went Wrong");
+      }
+    } on Exception catch (e) {
+      print(e.toString);
+    }
+  }
 }

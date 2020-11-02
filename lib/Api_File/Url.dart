@@ -17,4 +17,5 @@ class Urls {
   static var match_profile = "api/matched_profile";
   static var intrestedmember = "api/interest_by_id";
   static var ignoremember = "api/ignore_by_id";
+  static var searchmember = "api/advance_search";
 }

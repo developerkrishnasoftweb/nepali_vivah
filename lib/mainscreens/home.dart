@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nepali_vivah/Api_File/services.dart';
 import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/Common/CustomTextField.dart';
@@ -11,6 +12,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
+import 'dart:math';
 import 'dart:convert';
 
 class Home extends StatefulWidget {
@@ -20,13 +22,13 @@ class Home extends StatefulWidget {
   @override
   _Home createState() => _Home();
 }
+
 class _Home extends State<Home> {
+  String selecteditem;
   final List<String> age = List();
   static const lang = ['Odia', 'Telugu', 'Hindi', 'English'];
   static const marriage = ['Single', 'Divoces', 'Widow', 'Widower'];
-  String ageStatus;
-  String ageFrom;
-  String ageTo;
+  String maritalStatus;
   String Language;
   SharedPreferences prefs;
   String interest = "Interest", follow = "Follow", ignore = "Ignore";
@@ -49,7 +51,8 @@ class _Home extends State<Home> {
   TextEditingController _education = TextEditingController();
   TextEditingController _occuption = TextEditingController();
   TextEditingController _location = TextEditingController();
-
+  TextEditingController _ageFrom = TextEditingController();
+  TextEditingController _ageTo = TextEditingController();
 
   @override
   void initState() {
@@ -414,31 +417,134 @@ class _Home extends State<Home> {
                                       Column(
                                         children: [
                                           _CustomText("AgeFrom"),
-                                          CustomDropDownButton(hint: "Age From",list: age, val: ageFrom,),
+                                          _CustomTextfield(
+                                              context, _ageFrom, "Age From")
+                                          //CustomDropDownButton(hint: "Age From",list: age, val: ageFrom,),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Marital Status"),
-                                          CustomDropDownButton(hint: "Marital Status",list: marriage, val: ageStatus,),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                left: 15, right: 5),
+                                            height: 40,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.35,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(1),
+                                              color: MyColors.boxbg,
+                                            ),
+                                            child: DropdownButton(
+                                              hint: Text(
+                                                "marital status",
+                                                style: TextStyle(
+                                                  color: MyColors.blackText,
+                                                ),
+                                              ),
+                                              value: maritalStatus,
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_down,
+                                                color: MyColors.blackText,
+                                              ),
+                                              iconSize: 20,
+                                              elevation: 0,
+                                              style: TextStyle(
+                                                  color:
+                                                      MyColors.blackText),
+                                              dropdownColor:
+                                                  MyColors.whiteColor,
+                                              onChanged: (String value) {
+                                                setState(() {
+                                                  maritalStatus = value;
+                                                });
+                                              },
+                                              underline: Container(
+                                                color: Colors.transparent,
+                                              ),
+                                              isExpanded: true,
+                                              items: marriage.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Min Height"),
-                                          CustomTextField(hint: "Min Height",controller: _minheight,)
+                                          _CustomTextfield(
+                                              context, _minheight, "Min Height")
+                                          // CustomTextField(hint: "Min Height",contextontroller: _minheight,)
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Location"),
-                                          CustomTextField(hint: "Location",controller: _location,)
+                                          _CustomTextfield(
+                                              context, _location, "Location")
+                                          //CustomTextField(hint: "Location",controller: _location,)
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Language"),
-                                          CustomDropDownButton(hint: "Language",list: lang, val: Language,),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                left: 15, right: 5),
+                                            height: 40,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.35,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(1),
+                                              color: MyColors.boxbg,
+                                            ),
+                                            child: DropdownButton(
+                                              hint: Text(
+                                                "Language",
+                                              ),
+                                              value: Language,
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_down,
+                                                color: MyColors.blackText,
+                                              ),
+                                              iconSize: 20,
+                                              elevation: 0,
+                                              style: TextStyle(
+                                                  color:
+                                                  MyColors.blackText),
+                                              dropdownColor:
+                                              MyColors.whiteColor,
+                                              onChanged: (String value) {
+                                                setState(() {
+                                                  Language = value;
+                                                });
+                                              },
+                                              underline: Container(
+                                                color: Colors.transparent,
+                                              ),
+                                              isExpanded: true,
+                                              items: lang.map<
+                                                  DropdownMenuItem<String>>(
+                                                      (String value) {
+                                                    return DropdownMenuItem<String>(
+                                                      value: value,
+                                                      child: Text(value),
+                                                    );
+                                                  }).toList(),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -452,31 +558,40 @@ class _Home extends State<Home> {
                                       Column(
                                         children: [
                                           _CustomText("Age To"),
-                                          CustomDropDownButton(hint: "Age To",list: age, val: ageTo,)
+                                          _CustomTextfield(
+                                              context, _ageTo, "Age To")
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Min Salary"),
-                                          CustomTextField(hint: "Min Salary",controller: _minsalary,)
+                                          _CustomTextfield(
+                                              context, _minsalary, "Min Salary")
+                                          // CustomTextField(hint: "Min Salary",controller: _minsalary,)
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Max Height"),
-                                          CustomTextField(hint: "Max Height",controller: _maxheight,)
+                                          _CustomTextfield(
+                                              context, _maxheight, "Max Height")
+                                          // CustomTextField(hint: "Max Height",controller: _maxheight,)
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Education"),
-                                          CustomTextField(hint: "Education",controller: _education,)
+                                          _CustomTextfield(
+                                              context, _education, "Eduaction")
+                                          //CustomTextField(hint: "Education",controller: _education,)
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           _CustomText("Occupation"),
-                                          CustomTextField(hint: "Occupation",controller: _occuption,)
+                                          _CustomTextfield(
+                                              context, _occuption, "Occupation")
+                                          //CustomTextField(hint: "Occupation",controller: _occuption,)
                                         ],
                                       ),
                                     ],
@@ -488,8 +603,11 @@ class _Home extends State<Home> {
                                 height: 30,
                                 margin: EdgeInsets.only(bottom: 20, top: 30.0),
                                 child: FlatButton(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                                  onPressed: () {},
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  onPressed: () {
+                                    _Searchmember();
+                                  },
                                   color: MyColors.pinkvariaance,
                                   child: Text(
                                     "Submit",
@@ -767,11 +885,163 @@ class _Home extends State<Home> {
       viewVisible = false;
     });
   }
+
+  Container _CustomTextfield(
+      BuildContext context, TextEditingController _controller, String hint) {
+    return Container(
+      height: 40,
+      width: MediaQuery.of(context).size.width * 0.35,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(1),
+        color: MyColors.boxbg,
+      ),
+      child: TextFormField(
+        controller: _controller,
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: hint,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: MyColors.pinkvariaance),
+              borderRadius: BorderRadius.circular(3.0),
+            )),
+      ),
+    );
+  }
+
+  _Searchmember() {
+    if(_ageFrom.text == "" ){
+      Fluttertoast.showToast(
+          msg: "Please enter age From",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+      }else if(int.parse(_ageFrom.text) <= 18){
+      Fluttertoast.showToast(
+          msg: "enter age between 18 to 65",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(_ageTo.text == ""){
+      Fluttertoast.showToast(
+          msg: "Please enter age To",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(int.parse(_ageTo.text) >= 65){
+      Fluttertoast.showToast(
+          msg: "enter age between 18 to 65",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(maritalStatus == null){
+      Fluttertoast.showToast(
+          msg: "plz select maritalStatus",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(_minsalary.text == ""){
+      Fluttertoast.showToast(
+          msg: "plz min enter salary",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(_minheight == ""){
+      Fluttertoast.showToast(
+          msg: "plz enter min height",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(_maxheight == ""){
+      Fluttertoast.showToast(
+          msg: "plz enter min height",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(_location == ""){
+      Fluttertoast.showToast(
+          msg: "plz enter Location",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(_education == ""){
+      Fluttertoast.showToast(
+          msg: "plz enter Education",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(Language== null){
+      Fluttertoast.showToast(
+          msg: "plz enter Location",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }else if(_occuption.text == ""){
+      Fluttertoast.showToast(
+          msg: "plz enter occupation",
+          backgroundColor: Colors.black,
+          gravity: ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT);
+    }
+    else{
+     _searchMember();
+    }
+  }
+
+  _agestatus(String str) {
+    switch (str) {
+      case "Single":
+        return 1;
+        break;
+      case "Divoces":
+        return 2;
+        break;
+      case "Window":
+        return 3;
+        break;
+      case "Widower":
+        return 4;
+        break;
+    }
+  }
+
+  _searchMember() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    FormData formdata = FormData.fromMap({
+      "member_id" : prefs.getString("m_id"),
+      "gender" : prefs.getString("m_gender"),
+      "min_age" : _ageFrom.text,
+      "max_age" : _ageTo.text,
+      "min_height" : _minheight.text,
+      "max_height" : _maxheight.text,
+      "min_salary" : _minsalary.text,
+      "marital_status" : _agestatus(maritalStatus),
+      "location" : _location.text,
+      "highest_education" : _education.text,
+      "language" : Language,
+    });
+
+    Services.searchMember(formdata).then((value) {
+      if(value.response == 1){
+        print(value.message);
+      }else{
+        print("not work");
+      }
+    });
+    
+    
+  }
 }
 
-Container _CustomText(String title){
+Container _CustomText(String title) {
   return Container(
-    padding: const EdgeInsets.only(top:5.0,bottom:5.0),
-    child: Text(title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),),
+    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+    child: Text(
+      title,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+    ),
   );
 }
+
+
