@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_vivah/Common/Bottom_bar.dart';
 import 'package:nepali_vivah/constant/colors.dart';
 import 'package:nepali_vivah/constant/string.dart';
 
@@ -748,6 +749,7 @@ class _ShowMembersState extends State<ShowMembers> {
                   )),
         ),
       ),
+      bottomNavigationBar: Bottom_bar(currentIndex: 2),
     );
   }
 
