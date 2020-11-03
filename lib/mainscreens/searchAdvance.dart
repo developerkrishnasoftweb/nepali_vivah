@@ -394,7 +394,7 @@ class _SearchAdvanceState extends State<SearchAdvance> {
                             physics: BouncingScrollPhysics(),
                             itemCount: Matched_profile.length,
                             itemBuilder: (context, index) {
-                              Caste = Matched_profile[index]["spiritual_and_social_background"] != "" ? jsonDecode(Matched_profile[index]["spiritual_and_social_background"])[0]["Caste"] : "";
+                              Caste = Matched_profile[index]["spiritual_and_social_background"] != "" ? jsonDecode(Matched_profile[index]["spiritual_and_social_background"])[0]["Caste"] : null;
                               Mid = Matched_profile[index]["member_id"].toString();
                               Age = Matched_profile[index]["age"].toString();
                               Location = Matched_profile[index]["location"].toString();
@@ -454,7 +454,7 @@ class _SearchAdvanceState extends State<SearchAdvance> {
                                                         Mid == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(Mid,style: TextStyle(fontSize: 16.0),),
                                                         Age == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(Age,style: TextStyle(fontSize: 16.0),),
                                                         Height == "" ?Text(" 0 cm",style: TextStyle(fontSize: 16.0),) : Text(Height,style: TextStyle(fontSize: 16.0),),
-                                                        Caste == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(Caste,style: TextStyle(fontSize: 16.0),),
+                                                        Caste == null ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(Caste,style: TextStyle(fontSize: 16.0),),
                                                         Location == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(Location,style: TextStyle(fontSize: 16.0),),
 
                                                       ],
@@ -479,74 +479,79 @@ class _SearchAdvanceState extends State<SearchAdvance> {
                             physics: BouncingScrollPhysics(),
                             itemCount: SearchMemberData.length,
                             itemBuilder: (context, index) {
-                              sCaste = SearchMemberData[index]["spiritual_and_social_background"] != "" ? jsonDecode(SearchMemberData[index]["spiritual_and_social_background"])[0]["Caste"] : "";
+                              sCaste = SearchMemberData[index]["spiritual_and_social_background"] != "" ? jsonDecode(SearchMemberData[index]["spiritual_and_social_background"])[0]["Caste"] : null;
                               sMid = SearchMemberData[index]["member_id"].toString();
                               sAge = SearchMemberData[index]["age"].toString();
                               sLocation = SearchMemberData[index]["location"].toString();
                               sHeight = SearchMemberData[index]["height"].toString();
-                              return Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                          width: size.width * 0.30,
-                                          height: 120,
-                                          decoration: new BoxDecoration(
-                                              shape: BoxShape.rectangle,
-                                              image: new DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: NetworkImage(profileImage+SearchMemberData[index]["profile_image"]),
-                                              )
-                                          )
-                                      ),
-                                      Container(
-                                          width: size.width *0.45,
-                                          margin: EdgeInsets.only(left: 16,top: 7),
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 5.0),
-                                                child: Text(
-                                                  SearchMemberData[index]["first_name"]+" "+SearchMemberData[index]["last_name"],
-                                                  style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),
+                              return GestureDetector(
+                                onTap: (){
+                                  _ShowMember(SearchMemberData[index]["member_id"]);
+                                },
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                            width: size.width * 0.30,
+                                            height: 120,
+                                            decoration: new BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                image: new DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: NetworkImage(profileImage+SearchMemberData[index]["profile_image"]),
+                                                )
+                                            )
+                                        ),
+                                        Container(
+                                            width: size.width *0.45,
+                                            margin: EdgeInsets.only(left: 16,top: 7),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                  child: Text(
+                                                    SearchMemberData[index]["first_name"]+" "+SearchMemberData[index]["last_name"],
+                                                    style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),
+                                                  ),
                                                 ),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text("Member_id",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
-                                                      Text("Age",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
-                                                      Text("Height",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
-                                                      Text("Caste",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
-                                                      Text("Location",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      sMid == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(sMid,style: TextStyle(fontSize: 16.0),),
-                                                      sAge == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(sAge,style: TextStyle(fontSize: 16.0),),
-                                                      sHeight == "" ?Text(" 0 cm",style: TextStyle(fontSize: 16.0),) : Text(sHeight,style: TextStyle(fontSize: 16.0),),
-                                                      sCaste == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),):Text(sCaste,style: TextStyle(fontSize: 16.0),),
-                                                      sLocation == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(sLocation,style: TextStyle(fontSize: 16.0),),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          )),
-                                    ],
-                                  ),
-                                  Divider(color: MyColors.pinkvariaance,thickness: 1,)
-                                ],
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text("Member_id",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+                                                        Text("Age",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+                                                        Text("Height",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+                                                        Text("Caste",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+                                                        Text("Location",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        sMid == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(sMid,style: TextStyle(fontSize: 16.0),),
+                                                        sAge == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(sAge,style: TextStyle(fontSize: 16.0),),
+                                                        sHeight == "" ?Text(" 0 cm",style: TextStyle(fontSize: 16.0),) : Text(sHeight,style: TextStyle(fontSize: 16.0),),
+                                                        sCaste == null ?Text("N/A",style: TextStyle(fontSize: 16.0),):Text(sCaste,style: TextStyle(fontSize: 16.0),),
+                                                        sLocation == "" ?Text("N/A",style: TextStyle(fontSize: 16.0),) : Text(sLocation,style: TextStyle(fontSize: 16.0),),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                      ],
+                                    ),
+                                    Divider(color: MyColors.pinkvariaance,thickness: 1,)
+                                  ],
+                                ),
                               );
                             }),
                       ),
@@ -728,7 +733,6 @@ class _SearchAdvanceState extends State<SearchAdvance> {
           SearchMemberData = value.data;
           _hideSerach();
         });
-        print("Work"+ SearchMemberData.toString());
       }else{
         print("not work");
       }
@@ -752,29 +756,6 @@ class _SearchAdvanceState extends State<SearchAdvance> {
         setState(() {
           Matched_profile = value.data;
         });
-      }
-    });
-  }
-
-  _membergetbyId() async {
-    prefs = await SharedPreferences.getInstance();
-    profileImage = prefs.getString('profile_Image');
-    aadharImage = prefs.getString('Aadhar_Image');
-
-    String M_id = prefs.getString("m_id");
-
-    FormData formData = FormData.fromMap({
-      "member_id": M_id,
-    });
-    await Services.memberViewById(formData).then((value) async {
-      if (value.response == 1) {
-        setState(() {
-          // Userdata = value.data;
-          // interestedMembers = value.data[0]["interest"].toString().split(",");
-          // followMembers = value.data[0]["followed"].toString().split(",");
-          // ignoreMembers = value.data[0]["ignored"].toString().split(",");
-        });
-        // _matched_profile();
       }
     });
   }
