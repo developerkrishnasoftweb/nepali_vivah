@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nepali_vivah/mainscreens/chat_home.dart';
 import 'package:nepali_vivah/mainscreens/home.dart';
 import 'package:nepali_vivah/mainscreens/main.dart';
+import 'package:nepali_vivah/mainscreens/searchAdvance.dart';
 import 'package:nepali_vivah/mainscreens/settings.dart';
 
 class Bottom_bar extends StatefulWidget {
@@ -47,7 +48,7 @@ class _Bottom_barState extends State<Bottom_bar> {
             case 2:
               Navigator.pop(context);
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ChatHome()));
+                  context, MaterialPageRoute(builder: (context) => SearchAdvance()));
               break;
             case 3:
               Navigator.pop(context);
@@ -66,11 +67,11 @@ class _Bottom_barState extends State<Bottom_bar> {
           title: Text("Home"),
         ),
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.search),
+          icon: FaIcon(Icons.favorite),
           title: Text("Home"),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.chat_bubble),
+          icon: Icon(FontAwesomeIcons.search),
           title: Text("Home"),
         ),
         BottomNavigationBarItem(
