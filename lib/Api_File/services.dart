@@ -433,7 +433,8 @@ class Services {
         final jsonResponse = response.data;
         data.message = jsonResponse["Message"];
         data.response = jsonResponse["Response"];
-        data.data = jsonResponse["Data"];
+        List list = jsonResponse["Data"];
+        data.data = list;
         return data;
       } else {
         throw Exception("Something went Wrong");

@@ -21,8 +21,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool updated = true;
   String profileString;
-  String tempprofileString="";
   var proImage, adhaImage;
+  String tempprofileString;
   File _profile;
   File _Aadhar;
   String picImage;
@@ -46,6 +46,7 @@ class _ProfileState extends State<Profile> {
   List Ignoredata;
   var _index = 0;
   String M_id;
+  String siM_id;
 
   @override
   Widget build(BuildContext context) {
@@ -116,13 +117,14 @@ class _ProfileState extends State<Profile> {
                                       child: Container(
                                         height: 110,
                                         width: 110,
-                                        child: CircleAvatar(
-                                          backgroundImage:
-                                              tempprofileString != ""
-                                                  ? AssetImage(tempprofileString)
-                                                  : NetworkImage(profileString),
-                                          radius: 50.0,
-                                        ),
+                                        child: ShowProfile(),
+                                        // child: CircleAvatar(
+                                        //   backgroundImage:
+                                        //       tempprofileString != null
+                                        //         ? AssetImage(tempprofileString)
+                                        //         : NetworkImage(profileString),
+                                        //   radius: 50.0,
+                                        // ),
                                       ),
                                     ),
                                     Text(
@@ -1789,6 +1791,10 @@ class _ProfileState extends State<Profile> {
   }
 
   _profilePicUpdate() async {
+    pref = await SharedPreferences.getInstance();
+    pref.remove("tempProfile");
+    await pref.setString(
+        "tempProfile",_profile.path);
     String fileName = _profile.path.split('/').last;
     FormData d = FormData.fromMap({
       "member_id": Userdata[0]["member_id"],
@@ -1796,10 +1802,10 @@ class _ProfileState extends State<Profile> {
           await MultipartFile.fromFile(_profile.path, filename: fileName),
     });
 
-    Services.memberProfileUpdate(d).then((value) {
+   await Services.memberProfileUpdate(d).then((value) async {
       if (value.response == "1") {
          setState(() {
-          tempprofileString = _profile.path;
+          tempprofileString = pref.getString("tempProfile");
         });
 
       }
@@ -1854,15 +1860,19 @@ class _ProfileState extends State<Profile> {
 
   _showIgnore()async {
     pref = await SharedPreferences.getInstance();
-    profileImage = pref.getString('profile_Image');
-    M_id = pref.getString("m_id");
+    setState(() {
+      profileImage = pref.getString('profile_Image');
+      M_id = pref.getString("m_id");
+    });
     FormData formData = FormData.fromMap({
       "member_id": M_id,
     });
     await Services.ignoreMemberView(formData).then((value) async {
       if (value.response == 1) {
         setState(() {
-          Ignoredata = value.data;
+          value.data != null ?
+          Ignoredata = value.data
+              : Ignoredata = null;
         });
       } else {
         Fluttertoast.showToast(
@@ -1880,5 +1890,18 @@ class _ProfileState extends State<Profile> {
       profileImage = pref.getString('profile_Image');
     });
     Navigator.push(context, MaterialPageRoute(builder: (context) => Ignore(IgnoreMember: Ignoredata,ProfileImage: profileImage,),),);
+  }
+
+ CircleAvatar ShowProfile(){
+    _show() async {
+      pref = await SharedPreferences.getInstance();
+    }
+    return CircleAvatar(
+      backgroundImage:
+      pref.getString("tempProfile") != null
+          ? AssetImage(pref.getString("tempProfile"))
+          : NetworkImage(profileString),
+      radius: 50.0,
+    );
   }
 }
